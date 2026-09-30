@@ -1,0 +1,1593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>iPhoneVest | Smart Digital Investment</title>
+  <meta name="description" content="Explore digital investment packages and manage your investment portfolio.">
+  <meta name="theme-color" content="#050505">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #050505;
+      color: #fff;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font: inherit;
+    }
+
+    .container {
+      width: min(1120px, 92%);
+      margin: auto;
+    }
+
+    /* NAVIGATION */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background: rgba(5, 5, 5, 0.82);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .nav-inner {
+      height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+    }
+
+    .logo span {
+      color: #32e875;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      align-items: center;
+      list-style: none;
+      font-size: 14px;
+      color: #c9c9c9;
+    }
+
+    .nav-links a:hover {
+      color: #32e875;
+    }
+
+    .nav-actions {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 0;
+      cursor: pointer;
+      padding: 12px 20px;
+      border-radius: 12px;
+      font-weight: 700;
+      transition: .25s ease;
+    }
+
+    .btn-primary {
+      background: #32e875;
+      color: #041007;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(50,232,117,.18);
+    }
+
+    .btn-outline {
+      border: 1px solid rgba(255,255,255,.15);
+      background: rgba(255,255,255,.04);
+      color: white;
+    }
+
+    .btn-outline:hover {
+      border-color: #32e875;
+    }
+
+    .mobile-menu {
+      display: none;
+      background: transparent;
+      color: white;
+      border: 0;
+      font-size: 25px;
+      cursor: pointer;
+    }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 130px 0 70px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      width: 500px;
+      height: 500px;
+      background: #32e875;
+      opacity: .08;
+      filter: blur(100px);
+      border-radius: 50%;
+      top: 5%;
+      left: -150px;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      width: 450px;
+      height: 450px;
+      background: #2764ff;
+      opacity: .08;
+      filter: blur(110px);
+      border-radius: 50%;
+      right: -150px;
+      bottom: 0;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap: 60px;
+      align-items: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    .badge {
+      display: inline-flex;
+      padding: 7px 12px;
+      border-radius: 50px;
+      border: 1px solid rgba(50,232,117,.2);
+      background: rgba(50,232,117,.07);
+      color: #32e875;
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      font-size: clamp(44px, 7vw, 78px);
+      line-height: .98;
+      letter-spacing: -4px;
+      margin-bottom: 24px;
+    }
+
+    h1 span {
+      color: #32e875;
+    }
+
+    .hero-text {
+      color: #a9a9a9;
+      font-size: 18px;
+      max-width: 620px;
+      margin-bottom: 30px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .hero-note {
+      margin-top: 18px;
+      color: #707070;
+      font-size: 12px;
+    }
+
+    /* PHONE */
+    .phone-stage {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 500px;
+    }
+
+    .phone {
+      width: 270px;
+      height: 535px;
+      border-radius: 42px;
+      padding: 9px;
+      background: linear-gradient(145deg, #353535, #080808);
+      box-shadow:
+        0 30px 80px rgba(0,0,0,.7),
+        inset 0 0 0 1px rgba(255,255,255,.15);
+      transform: rotate(4deg);
+      position: relative;
+    }
+
+    .phone-screen {
+      width: 100%;
+      height: 100%;
+      border-radius: 34px;
+      background:
+        radial-gradient(circle at 70% 15%, rgba(50,232,117,.22), transparent 30%),
+        linear-gradient(160deg, #101914, #050605 65%);
+      padding: 28px 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .dynamic-island {
+      width: 90px;
+      height: 25px;
+      background: #000;
+      border-radius: 30px;
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .phone-small {
+      color: #8f8f8f;
+      font-size: 11px;
+      margin-top: 25px;
+    }
+
+    .phone-balance {
+      margin-top: 25px;
+    }
+
+    .phone-balance small {
+      color: #888;
+    }
+
+    .phone-balance strong {
+      display: block;
+      font-size: 27px;
+      margin-top: 5px;
+    }
+
+    .phone-card {
+      margin-top: 25px;
+      padding: 17px;
+      border-radius: 20px;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.08);
+    }
+
+    .phone-card-top {
+      display: flex;
+      justify-content: space-between;
+      color: #bbb;
+      font-size: 11px;
+    }
+
+    .phone-card h3 {
+      margin: 10px 0;
+    }
+
+    .earning {
+      color: #32e875;
+      font-weight: 700;
+      font-size: 13px;
+    }
+
+    .phone-bar {
+      height: 7px;
+      background: rgba(255,255,255,.08);
+      border-radius: 20px;
+      margin-top: 14px;
+      overflow: hidden;
+    }
+
+    .phone-bar div {
+      width: 68%;
+      height: 100%;
+      background: #32e875;
+    }
+
+    /* STATS */
+    .stats {
+      padding: 25px 0 80px;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 15px;
+    }
+
+    .stat {
+      background: #0c0c0c;
+      border: 1px solid #171717;
+      border-radius: 18px;
+      padding: 25px;
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 26px;
+      margin-bottom: 4px;
+    }
+
+    .stat span {
+      color: #777;
+      font-size: 13px;
+    }
+
+    /* SECTIONS */
+    section {
+      padding: 90px 0;
+    }
+
+    .section-head {
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto 50px;
+    }
+
+    .section-head h2 {
+      font-size: clamp(32px, 5vw, 50px);
+      letter-spacing: -2px;
+      margin-bottom: 14px;
+    }
+
+    .section-head p {
+      color: #888;
+    }
+
+    /* PACKAGES */
+    .packages {
+      background: #080808;
+    }
+
+    .package-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+    }
+
+    .package {
+      background: #0d0d0d;
+      border: 1px solid #1b1b1b;
+      border-radius: 24px;
+      padding: 25px;
+      position: relative;
+      overflow: hidden;
+      transition: .3s ease;
+    }
+
+    .package:hover {
+      transform: translateY(-7px);
+      border-color: rgba(50,232,117,.35);
+    }
+
+    .package.featured {
+      border-color: rgba(50,232,117,.5);
+    }
+
+    .popular {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      font-size: 10px;
+      padding: 5px 9px;
+      border-radius: 20px;
+      background: #32e875;
+      color: #06100a;
+      font-weight: 800;
+    }
+
+    .device {
+      width: 65px;
+      height: 105px;
+      border-radius: 13px;
+      background: linear-gradient(145deg,#252525,#080808);
+      border: 2px solid #303030;
+      margin-bottom: 25px;
+      position: relative;
+      box-shadow: 0 15px 30px rgba(0,0,0,.5);
+    }
+
+    .device::before {
+      content: "";
+      position: absolute;
+      width: 18px;
+      height: 5px;
+      border-radius: 10px;
+      background: #050505;
+      top: 6px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .device::after {
+      content: "";
+      position: absolute;
+      width: 17px;
+      height: 17px;
+      border-radius: 5px;
+      background: #161616;
+      top: 9px;
+      left: 7px;
+      box-shadow: 20px 0 #161616, 0 20px #161616;
+    }
+
+    .package h3 {
+      font-size: 22px;
+      margin-bottom: 5px;
+    }
+
+    .package-description {
+      color: #777;
+      font-size: 12px;
+      min-height: 40px;
+    }
+
+    .price {
+      font-size: 26px;
+      font-weight: 800;
+      margin: 22px 0 4px;
+    }
+
+    .price-label {
+      color: #666;
+      font-size: 11px;
+    }
+
+    .package-details {
+      margin: 20px 0;
+      padding-top: 18px;
+      border-top: 1px solid #1d1d1d;
+    }
+
+    .package-details div {
+      display: flex;
+      justify-content: space-between;
+      margin: 10px 0;
+      font-size: 12px;
+    }
+
+    .package-details span:first-child {
+      color: #777;
+    }
+
+    .package-details span:last-child {
+      font-weight: 700;
+    }
+
+    .package .btn {
+      width: 100%;
+    }
+
+    /* HOW */
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .step {
+      padding: 30px 25px;
+      background: #0c0c0c;
+      border: 1px solid #191919;
+      border-radius: 20px;
+    }
+
+    .step-number {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      background: rgba(50,232,117,.1);
+      color: #32e875;
+      font-weight: 800;
+      margin-bottom: 22px;
+    }
+
+    .step h3 {
+      margin-bottom: 8px;
+    }
+
+    .step p {
+      color: #777;
+      font-size: 13px;
+    }
+
+    /* FEATURES */
+    .features {
+      background: #080808;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .feature {
+      padding: 28px;
+      border-radius: 20px;
+      border: 1px solid #1a1a1a;
+      background: #0d0d0d;
+    }
+
+    .feature-icon {
+      font-size: 27px;
+      margin-bottom: 15px;
+    }
+
+    .feature h3 {
+      margin-bottom: 8px;
+    }
+
+    .feature p {
+      color: #777;
+      font-size: 13px;
+    }
+
+    /* CTA */
+    .cta {
+      padding: 100px 0;
+    }
+
+    .cta-box {
+      padding: 60px 30px;
+      text-align: center;
+      border-radius: 30px;
+      border: 1px solid rgba(50,232,117,.15);
+      background:
+        radial-gradient(circle at center, rgba(50,232,117,.09), transparent 55%),
+        #0b0b0b;
+    }
+
+    .cta-box h2 {
+      font-size: clamp(32px, 5vw, 52px);
+      margin-bottom: 15px;
+    }
+
+    .cta-box p {
+      max-width: 620px;
+      margin: 0 auto 25px;
+      color: #888;
+    }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid #151515;
+      padding: 35px 0;
+      color: #666;
+      font-size: 12px;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 18px;
+    }
+
+    .footer-links a:hover {
+      color: #32e875;
+    }
+
+    /* MODAL */
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 2000;
+      background: rgba(0,0,0,.8);
+      backdrop-filter: blur(10px);
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal.active {
+      display: flex;
+    }
+
+    .modal-box {
+      width: min(450px, 100%);
+      background: #101010;
+      border: 1px solid #242424;
+      border-radius: 25px;
+      padding: 30px;
+      position: relative;
+    }
+
+    .close {
+      position: absolute;
+      top: 15px;
+      right: 18px;
+      background: transparent;
+      border: 0;
+      color: #aaa;
+      font-size: 25px;
+      cursor: pointer;
+    }
+
+    .modal-box h2 {
+      margin-bottom: 8px;
+    }
+
+    .modal-box p {
+      color: #777;
+      font-size: 13px;
+      margin-bottom: 22px;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-group label {
+      display: block;
+      color: #aaa;
+      font-size: 12px;
+      margin-bottom: 7px;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 13px 14px;
+      border-radius: 12px;
+      border: 1px solid #292929;
+      background: #080808;
+      color: white;
+      outline: none;
+    }
+
+    .form-group input:focus {
+      border-color: #32e875;
+    }
+
+    .modal-box .btn {
+      width: 100%;
+      margin-top: 5px;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 950px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      .hero-text {
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .hero-buttons {
+        justify-content: center;
+      }
+
+      .phone-stage {
+        min-height: 430px;
+      }
+
+      .stats-grid,
+      .package-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .steps {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 700px) {
+      .nav-links,
+      .nav-actions {
+        display: none;
+      }
+
+      .mobile-menu {
+        display: block;
+      }
+
+      .nav-links.mobile-open {
+        display: flex;
+        position: absolute;
+        top: 72px;
+        left: 0;
+        right: 0;
+        background: #080808;
+        padding: 20px;
+        flex-direction: column;
+        border-bottom: 1px solid #191919;
+      }
+
+      .stats-grid,
+      .package-grid,
+      .steps,
+      .feature-grid {
+        grid-template-columns: 1fr;
+      }
+
+      h1 {
+        letter-spacing: -2px;
+      }
+
+      .phone {
+        width: 235px;
+        height: 465px;
+      }
+
+      .footer-inner {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAVIGATION -->
+  <nav>
+    <div class="container nav-inner">
+
+      <a href="#" class="logo">
+        iPhone<span>Vest</span>
+      </a>
+
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#packages">Packages</a></li>
+        <li><a href="#how">How It Works</a></li>
+        <li><a href="#features">Features</a></li>
+        <li><a href="#about">About</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <button class="btn btn-outline" onclick="openModal('login')">
+          Login
+        </button>
+
+        <button class="btn btn-primary" onclick="openModal('register')">
+          Create Account
+        </button>
+      </div>
+
+      <button class="mobile-menu" onclick="toggleMenu()">☰</button>
+
+    </div>
+  </nav>
+
+
+  <!-- HERO -->
+  <section class="hero">
+
+    <div class="container hero-grid">
+
+      <div>
+
+        <div class="badge">
+          📱 DIGITAL ASSET PLATFORM
+        </div>
+
+        <h1>
+          Put your money to work with <span>iPhoneVest.</span>
+        </h1>
+
+        <p class="hero-text">
+          Explore digital investment packages represented by iPhone assets,
+          track your portfolio, monitor earnings and manage your funds from
+          one simple dashboard.
+        </p>
+
+        <div class="hero-buttons">
+          <button class="btn btn-primary" onclick="openModal('register')">
+            Get Started
+          </button>
+
+          <a href="#packages" class="btn btn-outline">
+            Explore Packages
+          </a>
+        </div>
+
+        <p class="hero-note">
+          Investment terms, earnings and withdrawal conditions apply.
+        </p>
+
+      </div>
+
+
+      <!-- PHONE PREVIEW -->
+      <div class="phone-stage">
+
+        <div class="phone">
+
+          <div class="phone-screen">
+
+            <div class="dynamic-island"></div>
+
+            <div class="phone-small">
+              iPhoneVest
+            </div>
+
+            <div class="phone-balance">
+              <small>Portfolio Value</small>
+              <strong>UGX 250,000</strong>
+            </div>
+
+            <div class="phone-card">
+
+              <div class="phone-card-top">
+                <span>ACTIVE ASSET</span>
+                <span>ACTIVE</span>
+              </div>
+
+              <h3>iPhone 18 Pro</h3>
+
+              <div class="earning">
+                + UGX X daily
+              </div>
+
+              <div class="phone-bar">
+                <div></div>
+              </div>
+
+              <div class="phone-card-top" style="margin-top:10px;">
+                <span>Investment progress</span>
+                <span>68%</span>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- STATS -->
+  <section class="stats">
+
+    <div class="container stats-grid">
+
+      <div class="stat">
+        <strong>4</strong>
+        <span>Digital Asset Packages</span>
+      </div>
+
+      <div class="stat">
+        <strong>24/7</strong>
+        <span>Portfolio Access</span>
+      </div>
+
+      <div class="stat">
+        <strong>2</strong>
+        <span>Mobile Money Networks</span>
+      </div>
+
+      <div class="stat">
+        <strong>1</strong>
+        <span>Simple Dashboard</span>
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- PACKAGES -->
+  <section class="packages" id="packages">
+
+    <div class="container">
+
+      <div class="section-head">
+
+        <h2>Choose your <span style="color:#32e875;">digital asset</span></h2>
+
+        <p>
+          Select a package according to your budget and review its terms
+          before activation.
+        </p>
+
+      </div>
+
+
+      <div class="package-grid">
+
+        <!-- PACKAGE 1 -->
+        <div class="package">
+
+          <div class="device"></div>
+
+          <h3>iPhone 18</h3>
+
+          <p class="package-description">
+            Entry-level digital asset package.
+          </p>
+
+          <div class="price">
+            UGX 20,000
+          </div>
+
+          <div class="price-label">
+            Starting amount
+          </div>
+
+          <div class="package-details">
+
+            <div>
+              <span>Daily earning</span>
+              <span>UGX X</span>
+            </div>
+
+            <div>
+              <span>Duration</span>
+              <span>X days</span>
+            </div>
+
+            <div>
+              <span>Status</span>
+              <span>Available</span>
+            </div>
+
+          </div>
+
+          <button class="btn btn-outline"
+                  onclick="openPackage('iPhone 18','UGX 20,000')">
+            View Package
+          </button>
+
+        </div>
+
+
+        <!-- PACKAGE 2 -->
+        <div class="package">
+
+          <div class="device"></div>
+
+          <h3>iPhone 18 Plus</h3>
+
+          <p class="package-description">
+            A larger package for growing portfolios.
+          </p>
+
+          <div class="price">
+            UGX 50,000
+          </div>
+
+          <div class="price-label">
+            Starting amount
+          </div>
+
+          <div class="package-details">
+
+            <div>
+              <span>Daily earning</span>
+              <span>UGX X</span>
+            </div>
+
+            <div>
+              <span>Duration</span>
+              <span>X days</span>
+            </div>
+
+            <div>
+              <span>Status</span>
+              <span>Available</span>
+            </div>
+
+          </div>
+
+          <button class="btn btn-outline"
+                  onclick="openPackage('iPhone 18 Plus','UGX 50,000')">
+            View Package
+          </button>
+
+        </div>
+
+
+        <!-- PACKAGE 3 -->
+        <div class="package featured">
+
+          <div class="popular">
+            POPULAR
+          </div>
+
+          <div class="device"></div>
+
+          <h3>iPhone 18 Pro</h3>
+
+          <p class="package-description">
+            Premium digital asset package.
+          </p>
+
+          <div class="price">
+            UGX 100,000
+          </div>
+
+          <div class="price-label">
+            Starting amount
+          </div>
+
+          <div class="package-details">
+
+            <div>
+              <span>Daily earning</span>
+              <span>UGX X</span>
+            </div>
+
+            <div>
+              <span>Duration</span>
+              <span>X days</span>
+            </div>
+
+            <div>
+              <span>Status</span>
+              <span>Available</span>
+            </div>
+
+          </div>
+
+          <button class="btn btn-primary"
+                  onclick="openPackage('iPhone 18 Pro','UGX 100,000')">
+            View Package
+          </button>
+
+        </div>
+
+
+        <!-- PACKAGE 4 -->
+        <div class="package">
+
+          <div class="device"></div>
+
+          <h3>iPhone 18 Pro Max</h3>
+
+          <p class="package-description">
+            Highest-tier digital asset package.
+          </p>
+
+          <div class="price">
+            UGX 250,000
+          </div>
+
+          <div class="price-label">
+            Starting amount
+          </div>
+
+          <div class="package-details">
+
+            <div>
+              <span>Daily earning</span>
+              <span>UGX X</span>
+            </div>
+
+            <div>
+              <span>Duration</span>
+              <span>X days</span>
+            </div>
+
+            <div>
+              <span>Status</span>
+              <span>Available</span>
+            </div>
+
+          </div>
+
+          <button class="btn btn-outline"
+                  onclick="openPackage('iPhone 18 Pro Max','UGX 250,000')">
+            View Package
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- HOW IT WORKS -->
+  <section id="how">
+
+    <div class="container">
+
+      <div class="section-head">
+
+        <h2>How it works</h2>
+
+        <p>
+          A simple process from account creation to portfolio management.
+        </p>
+
+      </div>
+
+
+      <div class="steps">
+
+        <div class="step">
+
+          <div class="step-number">01</div>
+
+          <h3>Create Account</h3>
+
+          <p>
+            Register your account and complete the required verification.
+          </p>
+
+        </div>
+
+
+        <div class="step">
+
+          <div class="step-number">02</div>
+
+          <h3>Fund Wallet</h3>
+
+          <p>
+            Add funds through the supported payment methods.
+          </p>
+
+        </div>
+
+
+        <div class="step">
+
+          <div class="step-number">03</div>
+
+          <h3>Choose Package</h3>
+
+          <p>
+            Review the available digital asset packages and their terms.
+          </p>
+
+        </div>
+
+
+        <div class="step">
+
+          <div class="step-number">04</div>
+
+          <h3>Track Portfolio</h3>
+
+          <p>
+            Monitor your active investment, recorded earnings and transactions.
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- FEATURES -->
+  <section class="features" id="features">
+
+    <div class="container">
+
+      <div class="section-head">
+
+        <h2>Everything in one place</h2>
+
+        <p>
+          The platform is designed around transparency, account control and
+          simple portfolio management.
+        </p>
+
+      </div>
+
+
+      <div class="feature-grid">
+
+        <div class="feature">
+
+          <div class="feature-icon">📊</div>
+
+          <h3>Portfolio Tracking</h3>
+
+          <p>
+            See your active digital assets, investment amounts, duration and
+            recorded earnings.
+          </p>
+
+        </div>
+
+
+        <div class="feature">
+
+          <div class="feature-icon">💰</div>
+
+          <h3>Wallet</h3>
+
+          <p>
+            Keep track of deposits, earnings, withdrawals and wallet activity.
+          </p>
+
+        </div>
+
+
+        <div class="feature">
+
+          <div class="feature-icon">📱</div>
+
+          <h3>Mobile Money</h3>
+
+          <p>
+            The platform can later be connected to supported MTN and Airtel
+            payment infrastructure.
+          </p>
+
+        </div>
+
+
+        <div class="feature">
+
+          <div class="feature-icon">🔐</div>
+
+          <h3>Account Security</h3>
+
+          <p>
+            Authentication and database security will be handled through the
+            platform backend.
+          </p>
+
+        </div>
+
+
+        <div class="feature">
+
+          <div class="feature-icon">🧾</div>
+
+          <h3>Transaction History</h3>
+
+          <p>
+            Keep a record of deposits, investments, earnings and withdrawals.
+          </p>
+
+        </div>
+
+
+        <div class="feature">
+
+          <div class="feature-icon">⚙️</div>
+
+          <h3>Automated Records</h3>
+
+          <p>
+            Once connected to the backend, eligible earnings can be recorded
+            automatically according to the package rules.
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- ABOUT -->
+  <section id="about">
+
+    <div class="container">
+
+      <div class="section-head">
+
+        <h2>Built around your portfolio</h2>
+
+        <p>
+          iPhoneVest is designed as a digital investment platform where
+          package information, portfolio activity and transaction records can
+          be accessed from one account.
+        </p>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- CTA -->
+  <section class="cta">
+
+    <div class="container">
+
+      <div class="cta-box">
+
+        <h2>Start building your portfolio.</h2>
+
+        <p>
+          Create your account and explore the available digital asset packages.
+        </p>
+
+        <button class="btn btn-primary"
+                onclick="openModal('register')">
+          Create Account
+        </button>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- FOOTER -->
+  <footer>
+
+    <div class="container footer-inner">
+
+      <div>
+        © 2026 iPhoneVest. All rights reserved.
+      </div>
+
+      <div class="footer-links">
+        <a href="#">Terms</a>
+        <a href="#">Privacy</a>
+        <a href="#">Support</a>
+      </div>
+
+    </div>
+
+  </footer>
+
+
+  <!-- AUTH MODAL -->
+  <div class="modal" id="authModal">
+
+    <div class="modal-box">
+
+      <button class="close" onclick="closeModal()">×</button>
+
+      <h2 id="modalTitle">Create Account</h2>
+
+      <p id="modalDescription">
+        Create your account to access the platform.
+      </p>
+
+
+      <form onsubmit="demoSubmit(event)">
+
+        <div class="form-group" id="nameField">
+
+          <label>Full Name</label>
+
+          <input
+            type="text"
+            placeholder="Enter your full name"
+            required
+          >
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label>Phone Number</label>
+
+          <input
+            type="tel"
+            placeholder="07XXXXXXXX"
+            required
+          >
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label>Password</label>
+
+          <input
+            type="password"
+            placeholder="Create a password"
+            required
+          >
+
+        </div>
+
+
+        <button class="btn btn-primary" type="submit">
+          Continue
+        </button>
+
+      </form>
+
+    </div>
+
+  </div>
+
+
+  <!-- PACKAGE MODAL -->
+  <div class="modal" id="packageModal">
+
+    <div class="modal-box">
+
+      <button class="close" onclick="closePackage()">×</button>
+
+      <h2 id="packageTitle">
+        iPhone 18
+      </h2>
+
+      <p id="packagePrice">
+        UGX 20,000
+      </p>
+
+      <div class="package-details">
+
+        <div>
+          <span>Package status</span>
+          <span>Available</span>
+        </div>
+
+        <div>
+          <span>Daily earning</span>
+          <span>UGX X</span>
+        </div>
+
+        <div>
+          <span>Duration</span>
+          <span>X days</span>
+        </div>
+
+      </div>
+
+      <p>
+        This is currently a frontend demonstration. Package activation,
+        payment processing and actual earnings will be connected after the
+        Supabase backend is configured.
+      </p>
+
+      <button class="btn btn-primary" onclick="openModal('register'); closePackage();">
+        Create Account
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <script>
+
+    const authModal = document.getElementById("authModal");
+    const packageModal = document.getElementById("packageModal");
+
+    const modalTitle = document.getElementById("modalTitle");
+    const modalDescription = document.getElementById("modalDescription");
+    const nameField = document.getElementById("nameField");
+
+    function openModal(type) {
+
+      if (type === "login") {
+
+        modalTitle.textContent = "Welcome Back";
+
+        modalDescription.textContent =
+          "Log in to access your investment dashboard.";
+
+        nameField.style.display = "none";
+
+      } else {
+
+        modalTitle.textContent = "Create Account";
+
+        modalDescription.textContent =
+          "Create your account to access the platform.";
+
+        nameField.style.display = "block";
+
+      }
+
+      authModal.classList.add("active");
+
+    }
+
+
+    function closeModal() {
+      authModal.classList.remove("active");
+    }
+
+
+    function openPackage(name, price) {
+
+      document.getElementById("packageTitle").textContent = name;
+
+      document.getElementById("packagePrice").textContent =
+        "Starting amount: " + price;
+
+      packageModal.classList.add("active");
+
+    }
+
+
+    function closePackage() {
+      packageModal.classList.remove("active");
+    }
+
+
+    function toggleMenu() {
+
+      document
+        .getElementById("navLinks")
+        .classList.toggle("mobile-open");
+
+    }
+
+
+    function demoSubmit(event) {
+
+      event.preventDefault();
+
+      alert(
+        "Frontend prototype only.\n\n" +
+        "Supabase authentication will be connected in the next stage."
+      );
+
+    }
+
+
+    window.addEventListener("click", function(event) {
+
+      if (event.target === authModal) {
+        closeModal();
+      }
+
+      if (event.target === packageModal) {
+        closePackage();
+      }
+
+    });
+
+  </script>
+
+</body>
+</html>
