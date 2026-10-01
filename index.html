@@ -51,6 +51,7 @@ button{
   display:none!important;
 }
 
+
 /* =========================================================
    FULL PLATFORM IPHONE BACKGROUND
 ========================================================= */
@@ -2032,11 +2033,8 @@ document
 
 
 /* =========================================================
-   ENSURE WELCOME BONUS
-   FIXED:
-   - Uses allowed transaction_type: earning
-   - Checks for existing bonus first
-   - Does not falsely report success
+   SECURE WELCOME BONUS
+   Uses Supabase claim_welcome_bonus()
 ========================================================= */
 
 async function ensureWelcomeBonus(){
@@ -2050,114 +2048,29 @@ async function ensureWelcomeBonus(){
 
   }
 
-  const reference =
-    "IPV-WELCOME-" +
-    currentUser.id;
-
   try{
 
-    /*
-      Check whether this exact welcome bonus
-      has already been recorded.
-    */
+    const {
+      data,
+      error
+    } =
+    await supabaseClient
+    .rpc(
+      "claim_welcome_bonus"
+    );
 
-    const existing =
-      await supabaseClient
-      .from("wallet_transactions")
-      .select("id,amount,reference")
-      .eq("user_id",currentUser.id)
-      .eq("reference",reference)
-      .maybeSingle();
-
-    if(existing.error){
-      throw existing.error;
+    if(error){
+      throw error;
     }
-
-
-    /*
-      Already credited.
-    */
-
-    if(existing.data){
-
-      await loadWallet();
-
-      return {
-        success:true,
-        alreadyExists:true,
-        message:"Welcome bonus already credited."
-      };
-
-    }
-
-
-    /*
-      Credit UGX 7,000.
-      'earning' is an allowed transaction type
-      according to the database CHECK constraint.
-    */
-
-    const result =
-      await supabaseClient.rpc(
-        "create_wallet_credit",
-        {
-          p_user_id:
-            currentUser.id,
-
-          p_amount:
-            WELCOME_BONUS,
-
-          p_reference:
-            reference,
-
-          p_type:
-            "earning",
-
-          p_description:
-            "iPhoneVest welcome bonus"
-        }
-      );
-
-
-    if(result.error){
-      throw result.error;
-    }
-
-
-    /*
-      Reload wallet after credit.
-    */
 
     await loadWallet();
 
-    const newBalance =
-      getWalletBalance(currentWallet);
-
-
-    /*
-      The RPC has returned successfully.
-      We now verify that the wallet has
-      actually received at least UGX 7,000.
-    */
-
-    if(newBalance < WELCOME_BONUS){
-
-      return {
-        success:false,
-        message:
-          "Welcome bonus transaction completed, but the wallet balance was not updated."
-      };
-
-    }
-
-
     return {
       success:true,
-      alreadyExists:false,
+      transactionId:data,
       message:
         "UGX 7,000 welcome bonus credited successfully."
     };
-
 
   }catch(error){
 
@@ -2264,10 +2177,6 @@ async function(e){
       data.user;
 
 
-    /*
-      Keep profile information synchronized.
-    */
-
     const profileResult =
       await supabaseClient
       .from("profiles")
@@ -2288,11 +2197,6 @@ async function(e){
     }
 
 
-    /*
-      A session means the account can immediately
-      use the wallet RPC.
-    */
-
     if(data.session){
 
       await loadProfile();
@@ -2306,9 +2210,7 @@ async function(e){
       if(bonusResult.success){
 
         showToast(
-          bonusResult.alreadyExists
-            ? "Welcome bonus already credited."
-            : "Account created. UGX 7,000 welcome bonus credited.",
+          "Account created. UGX 7,000 welcome bonus credited.",
           "success"
         );
 
@@ -3056,18 +2958,10 @@ function updateCheckin(){
 
 async function performCheckin(){
 
-  const key =
-    "iphonevest_checkin_" +
-    currentUser.id;
-
-
-  if(
-    localStorage.getItem(key) ===
-    todayKey()
-  ){
+  if(!currentUser){
 
     showToast(
-      "Daily check-in already claimed.",
+      "Please sign in first.",
       "error"
     );
 
@@ -3075,56 +2969,30 @@ async function performCheckin(){
 
   }
 
-
   try{
 
-    const reference =
-      "IPV-CHECKIN-" +
-      todayKey().replace(/-/g,"") +
-      "-" +
-      currentUser.id.substring(0,8);
-
-
     const {
+      data,
       error
     } =
     await supabaseClient
     .rpc(
-      "create_wallet_credit",
-      {
-        p_user_id:
-          currentUser.id,
-
-        p_amount:
-          DAILY_CHECKIN,
-
-        p_reference:
-          reference,
-
-        /*
-          FIX:
-          'daily_checkin' was rejected by the
-          wallet_transactions CHECK constraint.
-
-          'earning' is an allowed transaction type.
-        */
-
-        p_type:
-          "earning",
-
-        p_description:
-          "Daily check-in bonus"
-      }
+      "claim_daily_checkin"
     );
-
 
     if(error){
       throw error;
     }
 
 
+    /*
+      localStorage is only used for the UI.
+      The Supabase RPC controls the actual credit.
+    */
+
     localStorage.setItem(
-      key,
+      "iphonevest_checkin_" +
+      currentUser.id,
       todayKey()
     );
 
