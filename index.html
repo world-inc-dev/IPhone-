@@ -726,8 +726,9 @@ section{
   padding:20px;
 }
 
-.admin-request.pending{
-  border-color:rgba(255,209,102,.25);
+.admin-request.pending,
+.admin-request.pending_review{
+  border-color:rgba(255,209,102,.35);
 }
 
 .admin-request.approved{
@@ -764,7 +765,8 @@ section{
   text-transform:uppercase;
 }
 
-.admin-status.pending{
+.admin-status.pending,
+.admin-status.pending_review{
   color:#ffd166;
   background:rgba(255,209,102,.08);
 }
@@ -805,15 +807,46 @@ section{
   word-break:break-word;
 }
 
+/* =========================================================
+   ADMIN ACTION BUTTONS
+========================================================= */
+
 .admin-request-actions{
   display:flex;
-  gap:10px;
+  gap:12px;
   flex-wrap:wrap;
-  margin-top:15px;
+  margin-top:18px;
+  padding-top:18px;
+  border-top:1px solid #292929;
 }
 
 .admin-request-actions .btn{
-  min-width:120px;
+  min-width:160px;
+  min-height:46px;
+  font-size:13px;
+  font-weight:900;
+}
+
+.admin-approve-btn{
+  background:var(--lime) !important;
+  color:#050505 !important;
+  border-color:var(--lime) !important;
+}
+
+.admin-approve-btn:hover{
+  background:#d1ff55 !important;
+  border-color:#d1ff55 !important;
+}
+
+.admin-reject-btn{
+  color:#ff8585 !important;
+  border-color:rgba(255,95,95,.45) !important;
+  background:rgba(255,95,95,.05) !important;
+}
+
+.admin-reject-btn:hover{
+  border-color:#ff8585 !important;
+  background:rgba(255,95,95,.10) !important;
 }
 
 .admin-note-input{
@@ -1156,6 +1189,7 @@ footer{
   .admin-request-grid{
     grid-template-columns:1fr 1fr;
   }
+
 }
 
 @media(max-width:700px){
@@ -1199,6 +1233,15 @@ footer{
   .admin-request-grid{
     grid-template-columns:1fr;
   }
+
+  .admin-request-actions{
+    flex-direction:column;
+  }
+
+  .admin-request-actions .btn{
+    width:100%;
+  }
+
 }
 
 @media(max-width:450px){
@@ -1231,6 +1274,7 @@ footer{
   .account-panel{
     padding:20px;
   }
+
 }
 
 </style>
@@ -1257,15 +1301,23 @@ iPhone<span>Vest</span>
 
 <div class="nav-actions">
 
-<button class="btn" id="loginNavBtn">
+<button
+type="button"
+class="btn"
+id="loginNavBtn">
 Login
 </button>
 
-<button class="btn btn-primary" id="signupNavBtn">
+<button
+type="button"
+class="btn btn-primary"
+id="signupNavBtn">
 Create Account
 </button>
 
-<button class="btn btn-danger"
+<button
+type="button"
+class="btn btn-danger"
 id="logoutNavBtn"
 style="display:none;">
 Logout
@@ -1307,7 +1359,9 @@ and manage your digital package activity from one platform.
 
 <div class="hero-buttons">
 
-<button class="btn btn-primary"
+<button
+type="button"
+class="btn btn-primary"
 id="heroSignupBtn">
 Create Account
 </button>
@@ -1340,8 +1394,7 @@ loading="eager"
      CUSTOMER ACCOUNT
 ====================================================== -->
 
-<section id="accountSection"
-class="container">
+<section id="accountSection" class="container">
 
 <div class="account-panel">
 
@@ -1353,14 +1406,17 @@ class="container">
 My iPhoneVest Account
 </h2>
 
-<div class="account-email"
+<div
+class="account-email"
 id="accountEmail">
 Loading...
 </div>
 
 </div>
 
-<button class="btn btn-primary"
+<button
+type="button"
+class="btn btn-primary"
 onclick="scrollToPackages()">
 View Packages
 </button>
@@ -1375,7 +1431,8 @@ View Packages
 Available Balance
 </small>
 
-<strong class="green"
+<strong
+class="green"
 id="walletBalance">
 UGX 0
 </strong>
@@ -1400,7 +1457,8 @@ Active Packages
 Total Earned
 </small>
 
-<strong class="green"
+<strong
+class="green"
 id="totalEarned">
 UGX 0
 </strong>
@@ -1480,7 +1538,9 @@ placeholder="Enter amount"
 
 <div class="withdraw-actions">
 
-<button class="btn btn-primary"
+<button
+type="button"
+class="btn btn-primary"
 id="withdrawBtn">
 Request Withdrawal
 </button>
@@ -1492,7 +1552,8 @@ payout system once the payment provider is connected.
 
 </div>
 
-<div id="withdrawStatus"
+<div
+id="withdrawStatus"
 class="status-message">
 </div>
 
@@ -1502,10 +1563,12 @@ class="status-message">
 Withdrawal History
 </h3>
 
-<div class="history-list"
+<div
+class="history-list"
 id="withdrawalHistory">
 
-<div class="history-item"
+<div
+class="history-item"
 style="color:#888;">
 No withdrawal requests yet.
 </div>
@@ -1525,7 +1588,8 @@ No withdrawal requests yet.
      ADMIN DASHBOARD
 ====================================================== -->
 
-<section id="adminSection"
+<section
+id="adminSection"
 class="container">
 
 <div class="admin-panel">
@@ -1545,6 +1609,7 @@ Review customer payment requests and activate approved packages.
 </div>
 
 <button
+type="button"
 class="btn btn-primary"
 id="refreshAdminBtn">
 Refresh Requests
@@ -1553,9 +1618,13 @@ Refresh Requests
 </div>
 
 <div class="admin-security">
+
 <strong>Admin area.</strong>
-Only the authorized administrator can approve or reject payment requests.
-Approval creates the customer's investment in the database.
+
+Only the authorized administrator can approve or reject
+payment requests. Approval creates the customer's investment
+in the database.
+
 </div>
 
 
@@ -1581,8 +1650,7 @@ id="adminPendingCount">
 Approved
 </small>
 
-<strong
-id="adminApprovedCount">
+<strong id="adminApprovedCount">
 0
 </strong>
 
@@ -1594,8 +1662,7 @@ id="adminApprovedCount">
 Rejected
 </small>
 
-<strong
-id="adminRejectedCount">
+<strong id="adminRejectedCount">
 0
 </strong>
 
@@ -1607,8 +1674,7 @@ id="adminRejectedCount">
 Total Requests
 </small>
 
-<strong
-id="adminTotalCount">
+<strong id="adminTotalCount">
 0
 </strong>
 
@@ -1717,7 +1783,8 @@ Highest amount
 
 </div>
 
-<div class="packages-grid"
+<div
+class="packages-grid"
 id="packagesGrid">
 
 <div class="loading">
@@ -1959,7 +2026,8 @@ of financial returns.
      AUTH MODAL
 ====================================================== -->
 
-<div class="modal-overlay"
+<div
+class="modal-overlay"
 id="authModal">
 
 <div class="modal">
@@ -1970,7 +2038,9 @@ id="authModal">
 Create Account
 </h2>
 
-<button class="close"
+<button
+type="button"
+class="close"
 id="closeAuthModal">
 ×
 </button>
@@ -2041,13 +2111,15 @@ required
 
 </div>
 
-<button class="btn btn-primary"
+<button
+class="btn btn-primary"
 type="submit"
 id="signupSubmit">
 Create Account
 </button>
 
-<div class="status-message"
+<div
+class="status-message"
 id="signupStatus">
 </div>
 
@@ -2055,7 +2127,8 @@ id="signupStatus">
 
 Already have an account?
 
-<button type="button"
+<button
+type="button"
 id="switchToLogin">
 Login
 </button>
@@ -2065,7 +2138,8 @@ Login
 </form>
 
 
-<form id="loginForm"
+<form
+id="loginForm"
 style="display:none;">
 
 <div class="form-group">
@@ -2098,13 +2172,15 @@ required
 
 </div>
 
-<button class="btn btn-primary"
+<button
+class="btn btn-primary"
 type="submit"
 id="loginSubmit">
 Login
 </button>
 
-<div class="status-message"
+<div
+class="status-message"
 id="loginStatus">
 </div>
 
@@ -2112,7 +2188,8 @@ id="loginStatus">
 
 Don't have an account?
 
-<button type="button"
+<button
+type="button"
 id="switchToSignup">
 Create Account
 </button>
@@ -2130,7 +2207,8 @@ Create Account
      MANUAL PAYMENT MODAL
 ====================================================== -->
 
-<div class="modal-overlay"
+<div
+class="modal-overlay"
 id="packageModal">
 
 <div class="modal">
@@ -2141,14 +2219,17 @@ id="packageModal">
 Pay & Submit
 </h2>
 
-<button class="close"
+<button
+type="button"
+class="close"
 id="closePackageModal">
 ×
 </button>
 
 </div>
 
-<div class="selected-package"
+<div
+class="selected-package"
 id="selectedPackage">
 </div>
 
@@ -2267,12 +2348,15 @@ is submitted. The payment must be verified and approved.
 </div>
 
 
-<div id="paymentStatus"
+<div
+id="paymentStatus"
 class="status-message">
 </div>
 
 
-<button class="btn btn-primary"
+<button
+type="button"
+class="btn btn-primary"
 style="width:100%;"
 id="submitPaymentBtn">
 
@@ -2285,7 +2369,8 @@ I HAVE PAID — SUBMIT FOR VERIFICATION
 </div>
 
 
-<div class="toast"
+<div
+class="toast"
 id="toast">
 </div>
 
@@ -2736,6 +2821,7 @@ UGX ${formatUGX(pkg.daily_amount)} daily figure
 </div>
 
 <button
+type="button"
 class="btn btn-primary"
 onclick="selectPackage('${pkg.id}')">
 
@@ -3400,7 +3486,8 @@ return `
 UGX ${formatUGX(item.amount)}
 </div>
 
-<div class="history-status"
+<div
+class="history-status"
 style="color:${statusColor};">
 
 ${escapeHtml(status)}
@@ -3753,7 +3840,9 @@ button.textContent=
 setTimeout(
 ()=>{
 packageModal.classList.remove("active");
+
 button.disabled=false;
+
 button.textContent=
 "I HAVE PAID — SUBMIT FOR VERIFICATION";
 
@@ -3941,6 +4030,7 @@ item.user_id
 
 /* =========================================================
    ADMIN RENDER
+   FIXED FOR DATABASE STATUS = "pending"
 ========================================================= */
 
 function renderAdminRequests(){
@@ -3965,21 +4055,51 @@ document.getElementById(
 let filtered =
 [...adminRequests];
 
+
+/*
+  IMPORTANT:
+
+  Your actual database status is:
+
+      pending
+
+  The original website was checking only:
+
+      pending_review
+
+  This section now accepts BOTH.
+*/
+
 if(filter !== "all"){
 
 filtered =
-filtered.filter(
-item =>
-item.status === filter
+filtered.filter(item=>{
+
+const status =
+String(item.status || "")
+.trim()
+.toLowerCase();
+
+if(filter === "pending_review"){
+
+return (
+status === "pending" ||
+status === "pending_review"
 );
 
 }
 
+return status === filter;
+
+});
+
+}
+
+
 if(search){
 
 filtered =
-filtered.filter(
-item =>
+filtered.filter(item =>
 
 String(
 item.transaction_reference || ""
@@ -4010,42 +4130,69 @@ item.profile?.full_name || ""
 )
 .toLowerCase()
 .includes(search)
+
 );
 
 }
 
 
-/* COUNTS */
+/* =========================================================
+   COUNTS
+========================================================= */
 
 const pending =
-adminRequests.filter(
-item=>item.status==="pending_review"
-).length;
+adminRequests.filter(item=>{
+
+const status =
+String(item.status || "")
+.trim()
+.toLowerCase();
+
+return (
+status === "pending" ||
+status === "pending_review"
+);
+
+}).length;
+
 
 const approved =
-adminRequests.filter(
-item=>item.status==="approved"
+adminRequests.filter(item=>
+String(item.status || "")
+.trim()
+.toLowerCase()
+===
+"approved"
 ).length;
 
+
 const rejected =
-adminRequests.filter(
-item=>item.status==="rejected"
+adminRequests.filter(item=>
+String(item.status || "")
+.trim()
+.toLowerCase()
+===
+"rejected"
 ).length;
+
 
 document.getElementById(
 "adminPendingCount"
 ).textContent =
 pending;
 
+
 document.getElementById(
 "adminApprovedCount"
 ).textContent =
 approved;
 
+
 document.getElementById(
 "adminRejectedCount"
 ).textContent =
 rejected;
+
 
 document.getElementById(
 "adminTotalCount"
@@ -4056,11 +4203,13 @@ adminRequests.length;
 if(!filtered.length){
 
 container.innerHTML=`
+
 <div class="admin-empty">
 
 No payment requests found.
 
 </div>
+
 `;
 
 return;
@@ -4068,9 +4217,12 @@ return;
 }
 
 
+/* =========================================================
+   RENDER REQUESTS
+========================================================= */
+
 container.innerHTML =
-filtered.map(
-item=>{
+filtered.map(item=>{
 
 const pkg =
 item.investment_packages || {};
@@ -4078,44 +4230,105 @@ item.investment_packages || {};
 const profile =
 item.profile || {};
 
-const status =
-item.status || "pending_review";
 
-const statusLabel =
-status === "pending_review"
-? "Pending Review"
-: status;
+/*
+  Normalize database status.
+*/
+
+const rawStatus =
+String(item.status || "")
+.trim()
+.toLowerCase();
+
+
+/*
+  BOTH "pending" AND "pending_review"
+  are considered pending.
+*/
+
+const isPending =
+rawStatus === "pending" ||
+rawStatus === "pending_review";
+
+
+let displayStatus =
+rawStatus || "pending";
+
+
+if(isPending){
+
+displayStatus =
+"pending";
+
+}
+
+
+let statusLabel =
+displayStatus;
+
+
+if(isPending){
+
+statusLabel =
+"Pending Review";
+
+}else if(displayStatus==="approved"){
+
+statusLabel =
+"Approved";
+
+}else if(displayStatus==="rejected"){
+
+statusLabel =
+"Rejected";
+
+}else{
+
+statusLabel =
+displayStatus || "Unknown";
+
+}
 
 
 return `
 
-<div class="admin-request ${escapeHtml(status)}">
+<div class="admin-request ${escapeHtml(displayStatus)}">
+
 
 <div class="admin-request-top">
+
 
 <div>
 
 <h3>
+
 ${escapeHtml(
 profile.full_name ||
 "Customer"
 )}
+
 </h3>
+
 
 <div class="admin-request-email">
 
 User ID:
-${escapeHtml(item.user_id)}
+${escapeHtml(
+item.user_id || ""
+)}
 
 </div>
 
 </div>
 
-<div class="admin-status ${escapeHtml(status)}">
+
+<div
+class="admin-status ${escapeHtml(displayStatus)}">
 
 ${escapeHtml(statusLabel)}
 
 </div>
+
 
 </div>
 
@@ -4130,9 +4343,11 @@ Package
 </small>
 
 <strong>
+
 ${escapeHtml(
 pkg.name || "Package"
 )}
+
 </strong>
 
 </div>
@@ -4145,7 +4360,13 @@ Amount
 </small>
 
 <strong>
-UGX ${formatUGX(item.amount)}
+
+${escapeHtml(
+item.currency || "UGX"
+)}
+
+${formatUGX(item.amount)}
+
 </strong>
 
 </div>
@@ -4158,10 +4379,12 @@ Provider
 </small>
 
 <strong>
+
 ${escapeHtml(
 String(item.provider || "")
 .toUpperCase()
 )}
+
 </strong>
 
 </div>
@@ -4174,9 +4397,11 @@ Sender Number
 </small>
 
 <strong>
+
 ${escapeHtml(
 item.sender_phone || ""
 )}
+
 </strong>
 
 </div>
@@ -4189,9 +4414,11 @@ Transaction Reference
 </small>
 
 <strong>
+
 ${escapeHtml(
 item.transaction_reference || ""
 )}
+
 </strong>
 
 </div>
@@ -4204,9 +4431,15 @@ Daily Figure
 </small>
 
 <strong>
-UGX ${formatUGX(
+
+${escapeHtml(
+item.currency || "UGX"
+)}
+
+${formatUGX(
 pkg.daily_amount
 )}
+
 </strong>
 
 </div>
@@ -4219,10 +4452,13 @@ Duration
 </small>
 
 <strong>
+
 ${escapeHtml(
 pkg.duration_days || ""
 )}
- days
+
+days
+
 </strong>
 
 </div>
@@ -4235,18 +4471,22 @@ Submitted
 </small>
 
 <strong>
+
 ${escapeHtml(
 formatDate(item.created_at)
 )}
+
 </strong>
 
 </div>
+
 
 </div>
 
 
 ${
-status === "pending_review"
+isPending
+
 ?
 
 `
@@ -4257,23 +4497,29 @@ id="adminNote-${item.id}"
 placeholder="Optional admin note..."
 ></textarea>
 
+
 <div class="admin-request-actions">
 
+
 <button
-class="btn btn-primary"
+type="button"
+class="btn admin-approve-btn"
 onclick="reviewPayment('${item.id}','approve')">
 
 ✓ APPROVE & ACTIVATE
 
 </button>
 
+
 <button
-class="btn btn-danger"
+type="button"
+class="btn admin-reject-btn"
 onclick="reviewPayment('${item.id}','reject')">
 
-✕ REJECT
+✕ REJECT PAYMENT
 
 </button>
+
 
 </div>
 
@@ -4283,7 +4529,8 @@ onclick="reviewPayment('${item.id}','reject')">
 
 `
 
-<div style="
+<div
+style="
 color:#777;
 font-size:12px;
 margin-top:10px;
@@ -4291,13 +4538,16 @@ margin-top:10px;
 
 ${
 item.investment_id
+
 ?
 
-`Investment created: ${escapeHtml(item.investment_id)}`
+`Investment created:
+${escapeHtml(item.investment_id)}`
 
 :
 
-`Admin note: ${escapeHtml(item.admin_note || "None")}`
+`Admin note:
+${escapeHtml(item.admin_note || "None")}`
 
 }
 
@@ -4307,12 +4557,12 @@ item.investment_id
 
 }
 
+
 </div>
 
 `;
 
-}
-).join("");
+}).join("");
 
 }
 
@@ -4329,7 +4579,9 @@ const date =
 new Date(value);
 
 if(Number.isNaN(date.getTime())){
+
 return String(value);
+
 }
 
 return date.toLocaleString(
@@ -4362,10 +4614,12 @@ return;
 
 }
 
+
 const request =
 adminRequests.find(
 item=>item.id===requestId
 );
+
 
 if(!request){
 
@@ -4378,16 +4632,44 @@ return;
 }
 
 
+/*
+  Prevent trying to review an already processed request.
+*/
+
+const currentStatus =
+String(request.status || "")
+.trim()
+.toLowerCase();
+
+
+if(
+currentStatus !== "pending" &&
+currentStatus !== "pending_review"
+){
+
+showToast(
+"This payment request has already been reviewed."
+);
+
+return;
+
+}
+
+
 let note = "";
+
 
 const noteInput =
 document.getElementById(
 "adminNote-" + requestId
 );
 
+
 if(noteInput){
+
 note =
 noteInput.value.trim();
+
 }
 
 
@@ -4399,7 +4681,9 @@ window.confirm(
 );
 
 if(!confirmed){
+
 return;
+
 }
 
 }else{
@@ -4410,7 +4694,9 @@ window.confirm(
 );
 
 if(!confirmed){
+
 return;
+
 }
 
 }
@@ -4481,9 +4767,12 @@ showToast(
 await loadAdminRequests();
 
 
-/* Refresh the customer account too. */
+/*
+  Refresh customer account.
+*/
 
 await loadWallet();
+
 await loadAccountStats();
 
 
@@ -4589,10 +4878,12 @@ loginNavBtn.addEventListener(
 ()=>openAuth("login")
 );
 
+
 signupNavBtn.addEventListener(
 "click",
 ()=>openAuth("signup")
 );
+
 
 document.getElementById(
 "heroSignupBtn"
@@ -4601,6 +4892,7 @@ document.getElementById(
 ()=>openAuth("signup")
 );
 
+
 document.getElementById(
 "closeAuthModal"
 ).addEventListener(
@@ -4608,11 +4900,13 @@ document.getElementById(
 closeAuth
 );
 
+
 document.getElementById(
 "closePackageModal"
 ).addEventListener(
 "click",
 ()=>{
+
 packageModal.classList.remove(
 "active"
 );
@@ -4622,12 +4916,14 @@ clearStatus(paymentStatus);
 }
 );
 
+
 document.getElementById(
 "switchToLogin"
 ).addEventListener(
 "click",
 showLoginForm
 );
+
 
 document.getElementById(
 "switchToSignup"
@@ -4648,6 +4944,7 @@ document.getElementById(
 renderPackages
 );
 
+
 document.getElementById(
 "packageSort"
 ).addEventListener(
@@ -4665,11 +4962,14 @@ authModal.addEventListener(
 function(event){
 
 if(event.target===authModal){
+
 closeAuth();
+
 }
 
 }
 );
+
 
 packageModal.addEventListener(
 "click",
