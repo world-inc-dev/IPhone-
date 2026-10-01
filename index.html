@@ -4,761 +4,889 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>iPhoneVest | Smart Digital Investment</title>
-  <meta name="description" content="Explore digital investment packages and manage your investment portfolio.">
+  <title>iPhoneVest | Digital Package Platform</title>
+  <meta name="description" content="iPhoneVest digital package platform prototype with iPhone 18 Pro inspired package visuals.">
   <meta name="theme-color" content="#050505">
 
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+    :root{
+      --bg:#050505;
+      --bg2:#0a0a0a;
+      --card:#101010;
+      --card2:#151515;
+      --line:rgba(255,255,255,.09);
+      --text:#f5f5f5;
+      --muted:#9b9b9b;
+      --lime:#b7ff2a;
+      --lime2:#8fd600;
+      --danger:#ff5b67;
+      --shadow:0 20px 70px rgba(0,0,0,.45);
+      --radius:24px;
     }
 
-    html {
-      scroll-behavior: smooth;
+    *{
+      box-sizing:border-box;
+      margin:0;
+      padding:0;
     }
 
-    body {
-      font-family: Arial, Helvetica, sans-serif;
-      background: #050505;
-      color: #fff;
-      line-height: 1.6;
-      overflow-x: hidden;
+    html{
+      scroll-behavior:smooth;
     }
 
-    a {
-      color: inherit;
-      text-decoration: none;
+    body{
+      font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      background:
+        radial-gradient(circle at 80% 5%,rgba(183,255,42,.10),transparent 28%),
+        radial-gradient(circle at 10% 25%,rgba(255,255,255,.04),transparent 25%),
+        var(--bg);
+      color:var(--text);
+      line-height:1.6;
+      overflow-x:hidden;
     }
 
-    button {
-      font: inherit;
+    a{
+      color:inherit;
+      text-decoration:none;
     }
 
-    .container {
-      width: min(1120px, 92%);
-      margin: auto;
+    button,
+    input{
+      font:inherit;
+    }
+
+    button{
+      cursor:pointer;
+    }
+
+    img{
+      max-width:100%;
+      display:block;
+    }
+
+    .container{
+      width:min(1180px,92%);
+      margin:auto;
     }
 
     /* NAVIGATION */
-    nav {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 1000;
-      background: rgba(5, 5, 5, 0.82);
-      backdrop-filter: blur(18px);
-      border-bottom: 1px solid rgba(255,255,255,0.08);
+
+    nav{
+      position:fixed;
+      top:0;
+      left:0;
+      right:0;
+      z-index:1000;
+      background:rgba(5,5,5,.82);
+      backdrop-filter:blur(18px);
+      border-bottom:1px solid var(--line);
     }
 
-    .nav-inner {
-      height: 72px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+    .nav-inner{
+      min-height:74px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:20px;
     }
 
-    .logo {
-      font-size: 22px;
-      font-weight: 800;
-      letter-spacing: -0.5px;
+    .logo{
+      font-size:1.35rem;
+      font-weight:900;
+      letter-spacing:-.7px;
     }
 
-    .logo span {
-      color: #32e875;
+    .logo span{
+      color:var(--lime);
     }
 
-    .nav-links {
-      display: flex;
-      gap: 28px;
-      align-items: center;
-      list-style: none;
-      font-size: 14px;
-      color: #c9c9c9;
+    .nav-links{
+      display:flex;
+      align-items:center;
+      gap:26px;
     }
 
-    .nav-links a:hover {
-      color: #32e875;
+    .nav-links a{
+      color:#bdbdbd;
+      font-size:.92rem;
+      transition:.2s;
     }
 
-    .nav-actions {
-      display: flex;
-      gap: 10px;
-      align-items: center;
+    .nav-links a:hover{
+      color:#fff;
     }
 
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      border: 0;
-      cursor: pointer;
-      padding: 12px 20px;
-      border-radius: 12px;
-      font-weight: 700;
-      transition: .25s ease;
+    .nav-actions{
+      display:flex;
+      align-items:center;
+      gap:10px;
     }
 
-    .btn-primary {
-      background: #32e875;
-      color: #041007;
+    .btn{
+      border:1px solid var(--line);
+      background:#111;
+      color:#fff;
+      padding:11px 17px;
+      border-radius:12px;
+      font-weight:800;
+      transition:.2s;
     }
 
-    .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 30px rgba(50,232,117,.18);
+    .btn:hover{
+      transform:translateY(-1px);
+      border-color:rgba(183,255,42,.5);
     }
 
-    .btn-outline {
-      border: 1px solid rgba(255,255,255,.15);
-      background: rgba(255,255,255,.04);
-      color: white;
+    .btn-primary{
+      background:var(--lime);
+      color:#050505;
+      border-color:var(--lime);
     }
 
-    .btn-outline:hover {
-      border-color: #32e875;
+    .btn-primary:hover{
+      background:#c8ff59;
     }
 
-    .mobile-menu {
-      display: none;
-      background: transparent;
-      color: white;
-      border: 0;
-      font-size: 25px;
-      cursor: pointer;
+    .menu-btn{
+      display:none;
+      background:#111;
+      color:#fff;
+      border:1px solid var(--line);
+      border-radius:10px;
+      padding:9px 12px;
     }
 
     /* HERO */
-    .hero {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      padding: 130px 0 70px;
-      position: relative;
-      overflow: hidden;
+
+    .hero{
+      padding:145px 0 90px;
+      min-height:760px;
+      position:relative;
+      overflow:hidden;
     }
 
-    .hero::before {
-      content: "";
-      position: absolute;
-      width: 500px;
-      height: 500px;
-      background: #32e875;
-      opacity: .08;
-      filter: blur(100px);
-      border-radius: 50%;
-      top: 5%;
-      left: -150px;
+    .hero-grid{
+      display:grid;
+      grid-template-columns:1.05fr .95fr;
+      align-items:center;
+      gap:60px;
     }
 
-    .hero::after {
-      content: "";
-      position: absolute;
-      width: 450px;
-      height: 450px;
-      background: #2764ff;
-      opacity: .08;
-      filter: blur(110px);
-      border-radius: 50%;
-      right: -150px;
-      bottom: 0;
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      border:1px solid rgba(183,255,42,.25);
+      background:rgba(183,255,42,.06);
+      color:var(--lime);
+      border-radius:999px;
+      padding:8px 13px;
+      font-size:.78rem;
+      font-weight:800;
+      margin-bottom:22px;
     }
 
-    .hero-grid {
-      display: grid;
-      grid-template-columns: 1.05fr .95fr;
-      gap: 60px;
-      align-items: center;
-      position: relative;
-      z-index: 2;
+    .dot{
+      width:7px;
+      height:7px;
+      background:var(--lime);
+      border-radius:50%;
+      box-shadow:0 0 12px var(--lime);
     }
 
-    .badge {
-      display: inline-flex;
-      padding: 7px 12px;
-      border-radius: 50px;
-      border: 1px solid rgba(50,232,117,.2);
-      background: rgba(50,232,117,.07);
-      color: #32e875;
-      font-size: 12px;
-      font-weight: 700;
-      margin-bottom: 20px;
+    h1{
+      font-size:clamp(3rem,6vw,5.9rem);
+      line-height:.95;
+      letter-spacing:-5px;
+      max-width:760px;
     }
 
-    h1 {
-      font-size: clamp(44px, 7vw, 78px);
-      line-height: .98;
-      letter-spacing: -4px;
-      margin-bottom: 24px;
+    h1 span{
+      color:var(--lime);
     }
 
-    h1 span {
-      color: #32e875;
+    .hero-copy{
+      margin-top:25px;
+      color:#aaa;
+      font-size:1.08rem;
+      max-width:620px;
     }
 
-    .hero-text {
-      color: #a9a9a9;
-      font-size: 18px;
-      max-width: 620px;
-      margin-bottom: 30px;
+    .hero-buttons{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-top:30px;
     }
 
-    .hero-buttons {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
+    .hero-note{
+      margin-top:18px;
+      color:#6f6f6f;
+      font-size:.78rem;
+      max-width:560px;
     }
 
-    .hero-note {
-      margin-top: 18px;
-      color: #707070;
-      font-size: 12px;
+    .hero-device{
+      min-height:500px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      position:relative;
     }
 
-    /* PHONE */
-    .phone-stage {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 500px;
+    .glow{
+      position:absolute;
+      width:360px;
+      height:360px;
+      border-radius:50%;
+      background:rgba(183,255,42,.11);
+      filter:blur(70px);
     }
 
-    .phone {
-      width: 270px;
-      height: 535px;
-      border-radius: 42px;
-      padding: 9px;
-      background: linear-gradient(145deg, #353535, #080808);
-      box-shadow:
-        0 30px 80px rgba(0,0,0,.7),
-        inset 0 0 0 1px rgba(255,255,255,.15);
-      transform: rotate(4deg);
-      position: relative;
+    .iphone{
+      position:relative;
+      width:min(360px,75vw);
+      transform:rotate(5deg);
+      filter:drop-shadow(0 35px 45px rgba(0,0,0,.65));
+      z-index:2;
     }
 
-    .phone-screen {
-      width: 100%;
-      height: 100%;
-      border-radius: 34px;
-      background:
-        radial-gradient(circle at 70% 15%, rgba(50,232,117,.22), transparent 30%),
-        linear-gradient(160deg, #101914, #050605 65%);
-      padding: 28px 20px;
-      position: relative;
-      overflow: hidden;
+    .iphone img{
+      width:100%;
+      border-radius:34px;
+      object-fit:contain;
     }
 
-    .dynamic-island {
-      width: 90px;
-      height: 25px;
-      background: #000;
-      border-radius: 30px;
-      position: absolute;
-      top: 10px;
-      left: 50%;
-      transform: translateX(-50%);
+    .floating-card{
+      position:absolute;
+      z-index:5;
+      background:rgba(15,15,15,.9);
+      border:1px solid var(--line);
+      border-radius:18px;
+      padding:16px;
+      box-shadow:var(--shadow);
+      backdrop-filter:blur(15px);
     }
 
-    .phone-small {
-      color: #8f8f8f;
-      font-size: 11px;
-      margin-top: 25px;
+    .floating-card.one{
+      left:2%;
+      bottom:12%;
     }
 
-    .phone-balance {
-      margin-top: 25px;
+    .floating-card.two{
+      right:0;
+      top:16%;
     }
 
-    .phone-balance small {
-      color: #888;
+    .floating-label{
+      color:#777;
+      font-size:.72rem;
     }
 
-    .phone-balance strong {
-      display: block;
-      font-size: 27px;
-      margin-top: 5px;
-    }
-
-    .phone-card {
-      margin-top: 25px;
-      padding: 17px;
-      border-radius: 20px;
-      background: rgba(255,255,255,.06);
-      border: 1px solid rgba(255,255,255,.08);
-    }
-
-    .phone-card-top {
-      display: flex;
-      justify-content: space-between;
-      color: #bbb;
-      font-size: 11px;
-    }
-
-    .phone-card h3 {
-      margin: 10px 0;
-    }
-
-    .earning {
-      color: #32e875;
-      font-weight: 700;
-      font-size: 13px;
-    }
-
-    .phone-bar {
-      height: 7px;
-      background: rgba(255,255,255,.08);
-      border-radius: 20px;
-      margin-top: 14px;
-      overflow: hidden;
-    }
-
-    .phone-bar div {
-      width: 68%;
-      height: 100%;
-      background: #32e875;
+    .floating-value{
+      margin-top:3px;
+      font-weight:900;
+      color:var(--lime);
     }
 
     /* STATS */
-    .stats {
-      padding: 25px 0 80px;
+
+    .stats{
+      border-top:1px solid var(--line);
+      border-bottom:1px solid var(--line);
+      background:rgba(255,255,255,.015);
     }
 
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 15px;
+    .stats-grid{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
     }
 
-    .stat {
-      background: #0c0c0c;
-      border: 1px solid #171717;
-      border-radius: 18px;
-      padding: 25px;
+    .stat{
+      padding:27px 20px;
+      border-right:1px solid var(--line);
     }
 
-    .stat strong {
-      display: block;
-      font-size: 26px;
-      margin-bottom: 4px;
+    .stat:last-child{
+      border-right:0;
     }
 
-    .stat span {
-      color: #777;
-      font-size: 13px;
+    .stat strong{
+      display:block;
+      font-size:1.5rem;
+    }
+
+    .stat span{
+      color:#777;
+      font-size:.8rem;
     }
 
     /* SECTIONS */
-    section {
-      padding: 90px 0;
+
+    section{
+      padding:100px 0;
     }
 
-    .section-head {
-      text-align: center;
-      max-width: 700px;
-      margin: 0 auto 50px;
+    .section-head{
+      display:flex;
+      justify-content:space-between;
+      align-items:end;
+      gap:30px;
+      margin-bottom:38px;
     }
 
-    .section-head h2 {
-      font-size: clamp(32px, 5vw, 50px);
-      letter-spacing: -2px;
-      margin-bottom: 14px;
+    .eyebrow{
+      color:var(--lime);
+      text-transform:uppercase;
+      letter-spacing:2px;
+      font-size:.7rem;
+      font-weight:900;
+      margin-bottom:10px;
     }
 
-    .section-head p {
-      color: #888;
+    h2{
+      font-size:clamp(2rem,4vw,3.5rem);
+      letter-spacing:-2px;
+      line-height:1;
+    }
+
+    .section-description{
+      color:#858585;
+      max-width:550px;
     }
 
     /* PACKAGES */
-    .packages {
-      background: #080808;
+
+    .package-tools{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-bottom:28px;
     }
 
-    .package-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 18px;
+    .search{
+      flex:1;
+      min-width:230px;
+      position:relative;
     }
 
-    .package {
-      background: #0d0d0d;
-      border: 1px solid #1b1b1b;
-      border-radius: 24px;
-      padding: 25px;
-      position: relative;
-      overflow: hidden;
-      transition: .3s ease;
+    .search input{
+      width:100%;
+      background:#0d0d0d;
+      border:1px solid var(--line);
+      color:#fff;
+      border-radius:14px;
+      padding:14px 16px;
+      outline:none;
     }
 
-    .package:hover {
-      transform: translateY(-7px);
-      border-color: rgba(50,232,117,.35);
+    .search input:focus{
+      border-color:rgba(183,255,42,.55);
     }
 
-    .package.featured {
-      border-color: rgba(50,232,117,.5);
+    .filter{
+      background:#0d0d0d;
+      color:#aaa;
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding:0 15px;
+      min-height:48px;
     }
 
-    .popular {
-      position: absolute;
-      top: 15px;
-      right: 15px;
-      font-size: 10px;
-      padding: 5px 9px;
-      border-radius: 20px;
-      background: #32e875;
-      color: #06100a;
-      font-weight: 800;
+    .packages-grid{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:18px;
     }
 
-    .device {
-      width: 65px;
-      height: 105px;
-      border-radius: 13px;
-      background: linear-gradient(145deg,#252525,#080808);
-      border: 2px solid #303030;
-      margin-bottom: 25px;
-      position: relative;
-      box-shadow: 0 15px 30px rgba(0,0,0,.5);
+    .package-card{
+      background:
+        linear-gradient(145deg,rgba(255,255,255,.045),rgba(255,255,255,.012)),
+        var(--card);
+      border:1px solid var(--line);
+      border-radius:22px;
+      overflow:hidden;
+      transition:.25s;
+      position:relative;
     }
 
-    .device::before {
-      content: "";
-      position: absolute;
-      width: 18px;
-      height: 5px;
-      border-radius: 10px;
-      background: #050505;
-      top: 6px;
-      left: 50%;
-      transform: translateX(-50%);
+    .package-card:hover{
+      transform:translateY(-6px);
+      border-color:rgba(183,255,42,.35);
+      box-shadow:0 25px 70px rgba(0,0,0,.4);
     }
 
-    .device::after {
-      content: "";
-      position: absolute;
-      width: 17px;
-      height: 17px;
-      border-radius: 5px;
-      background: #161616;
-      top: 9px;
-      left: 7px;
-      box-shadow: 20px 0 #161616, 0 20px #161616;
+    .package-image{
+      height:190px;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      overflow:hidden;
+      background:
+        radial-gradient(circle at 50% 55%,rgba(183,255,42,.10),transparent 50%),
+        #080808;
+      border-bottom:1px solid var(--line);
+      padding:15px;
     }
 
-    .package h3 {
-      font-size: 22px;
-      margin-bottom: 5px;
+    .package-image img{
+      height:175px;
+      width:100%;
+      object-fit:contain;
+      object-position:center;
+      transition:.3s;
+      filter:drop-shadow(0 20px 20px rgba(0,0,0,.65));
     }
 
-    .package-description {
-      color: #777;
-      font-size: 12px;
-      min-height: 40px;
+    .package-card:hover .package-image img{
+      transform:scale(1.06);
     }
 
-    .price {
-      font-size: 26px;
-      font-weight: 800;
-      margin: 22px 0 4px;
+    .package-content{
+      padding:20px;
     }
 
-    .price-label {
-      color: #666;
-      font-size: 11px;
+    .package-number{
+      color:#696969;
+      font-size:.72rem;
+      font-weight:800;
+      margin-bottom:5px;
     }
 
-    .package-details {
-      margin: 20px 0;
-      padding-top: 18px;
-      border-top: 1px solid #1d1d1d;
+    .package-name{
+      font-size:1.05rem;
+      font-weight:900;
+      margin-bottom:15px;
     }
 
-    .package-details div {
-      display: flex;
-      justify-content: space-between;
-      margin: 10px 0;
-      font-size: 12px;
+    .amount{
+      font-size:1.55rem;
+      font-weight:950;
+      letter-spacing:-1px;
     }
 
-    .package-details span:first-child {
-      color: #777;
+    .amount small{
+      color:#777;
+      font-size:.7rem;
+      letter-spacing:0;
+      font-weight:700;
     }
 
-    .package-details span:last-child {
-      font-weight: 700;
+    .daily{
+      margin-top:8px;
+      padding:11px;
+      background:rgba(183,255,42,.06);
+      border:1px solid rgba(183,255,42,.12);
+      border-radius:12px;
     }
 
-    .package .btn {
-      width: 100%;
+    .daily-label{
+      color:#777;
+      font-size:.68rem;
+      text-transform:uppercase;
+      letter-spacing:1px;
     }
 
-    /* HOW */
-    .steps {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 20px;
+    .daily-value{
+      color:var(--lime);
+      font-weight:950;
+      font-size:1.1rem;
+      margin-top:2px;
     }
 
-    .step {
-      padding: 30px 25px;
-      background: #0c0c0c;
-      border: 1px solid #191919;
-      border-radius: 20px;
+    .choose{
+      width:100%;
+      margin-top:15px;
     }
 
-    .step-number {
-      width: 40px;
-      height: 40px;
-      border-radius: 12px;
-      display: grid;
-      place-items: center;
-      background: rgba(50,232,117,.1);
-      color: #32e875;
-      font-weight: 800;
-      margin-bottom: 22px;
+    /* HOW IT WORKS */
+
+    .steps{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:18px;
     }
 
-    .step h3 {
-      margin-bottom: 8px;
+    .step{
+      border:1px solid var(--line);
+      background:#0c0c0c;
+      border-radius:20px;
+      padding:25px;
     }
 
-    .step p {
-      color: #777;
-      font-size: 13px;
+    .step-number{
+      width:38px;
+      height:38px;
+      display:grid;
+      place-items:center;
+      border-radius:12px;
+      background:var(--lime);
+      color:#050505;
+      font-weight:950;
+      margin-bottom:25px;
+    }
+
+    .step h3{
+      margin-bottom:8px;
+    }
+
+    .step p{
+      color:#777;
+      font-size:.88rem;
     }
 
     /* FEATURES */
-    .features {
-      background: #080808;
+
+    .feature-grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:18px;
     }
 
-    .feature-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
+    .feature{
+      background:#0c0c0c;
+      border:1px solid var(--line);
+      border-radius:20px;
+      padding:28px;
     }
 
-    .feature {
-      padding: 28px;
-      border-radius: 20px;
-      border: 1px solid #1a1a1a;
-      background: #0d0d0d;
+    .feature-icon{
+      width:48px;
+      height:48px;
+      border-radius:14px;
+      background:rgba(183,255,42,.08);
+      color:var(--lime);
+      display:grid;
+      place-items:center;
+      font-size:1.25rem;
+      margin-bottom:20px;
     }
 
-    .feature-icon {
-      font-size: 27px;
-      margin-bottom: 15px;
-    }
-
-    .feature h3 {
-      margin-bottom: 8px;
-    }
-
-    .feature p {
-      color: #777;
-      font-size: 13px;
+    .feature p{
+      color:#777;
+      font-size:.88rem;
+      margin-top:8px;
     }
 
     /* CTA */
-    .cta {
-      padding: 100px 0;
+
+    .cta{
+      padding:70px 0;
     }
 
-    .cta-box {
-      padding: 60px 30px;
-      text-align: center;
-      border-radius: 30px;
-      border: 1px solid rgba(50,232,117,.15);
+    .cta-box{
+      position:relative;
+      overflow:hidden;
       background:
-        radial-gradient(circle at center, rgba(50,232,117,.09), transparent 55%),
-        #0b0b0b;
+        radial-gradient(circle at 90% 20%,rgba(183,255,42,.20),transparent 30%),
+        #101010;
+      border:1px solid var(--line);
+      border-radius:30px;
+      padding:60px;
     }
 
-    .cta-box h2 {
-      font-size: clamp(32px, 5vw, 52px);
-      margin-bottom: 15px;
+    .cta-box p{
+      color:#888;
+      max-width:620px;
+      margin-top:15px;
     }
 
-    .cta-box p {
-      max-width: 620px;
-      margin: 0 auto 25px;
-      color: #888;
+    /* DISCLAIMER */
+
+    .notice{
+      border:1px solid rgba(255,193,7,.16);
+      background:rgba(255,193,7,.045);
+      color:#aaa;
+      border-radius:16px;
+      padding:18px;
+      font-size:.8rem;
+      margin-top:35px;
+    }
+
+    .notice strong{
+      color:#ddd;
     }
 
     /* FOOTER */
-    footer {
-      border-top: 1px solid #151515;
-      padding: 35px 0;
-      color: #666;
-      font-size: 12px;
+
+    footer{
+      border-top:1px solid var(--line);
+      padding:45px 0;
+      color:#666;
+      font-size:.82rem;
     }
 
-    .footer-inner {
-      display: flex;
-      justify-content: space-between;
-      gap: 20px;
-      align-items: center;
+    .footer-grid{
+      display:flex;
+      justify-content:space-between;
+      gap:25px;
+      flex-wrap:wrap;
     }
 
-    .footer-links {
-      display: flex;
-      gap: 18px;
+    .footer-links{
+      display:flex;
+      gap:20px;
     }
 
-    .footer-links a:hover {
-      color: #32e875;
+    /* MODALS */
+
+    .modal{
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,.75);
+      backdrop-filter:blur(10px);
+      z-index:2000;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding:20px;
     }
 
-    /* MODAL */
-    .modal {
-      display: none;
-      position: fixed;
-      inset: 0;
-      z-index: 2000;
-      background: rgba(0,0,0,.8);
-      backdrop-filter: blur(10px);
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
+    .modal.show{
+      display:flex;
     }
 
-    .modal.active {
-      display: flex;
+    .modal-box{
+      width:min(510px,100%);
+      background:#111;
+      border:1px solid var(--line);
+      border-radius:24px;
+      padding:28px;
+      box-shadow:0 30px 100px rgba(0,0,0,.65);
+      position:relative;
+      max-height:90vh;
+      overflow:auto;
     }
 
-    .modal-box {
-      width: min(450px, 100%);
-      background: #101010;
-      border: 1px solid #242424;
-      border-radius: 25px;
-      padding: 30px;
-      position: relative;
+    .modal-close{
+      position:absolute;
+      right:17px;
+      top:15px;
+      border:0;
+      background:#1a1a1a;
+      color:#aaa;
+      width:35px;
+      height:35px;
+      border-radius:10px;
     }
 
-    .close {
-      position: absolute;
-      top: 15px;
-      right: 18px;
-      background: transparent;
-      border: 0;
-      color: #aaa;
-      font-size: 25px;
-      cursor: pointer;
+    .modal-box h3{
+      font-size:1.6rem;
+      margin-bottom:5px;
     }
 
-    .modal-box h2 {
-      margin-bottom: 8px;
+    .modal-sub{
+      color:#777;
+      font-size:.85rem;
+      margin-bottom:22px;
     }
 
-    .modal-box p {
-      color: #777;
-      font-size: 13px;
-      margin-bottom: 22px;
+    .form-group{
+      margin-bottom:15px;
     }
 
-    .form-group {
-      margin-bottom: 15px;
+    .form-group label{
+      display:block;
+      font-size:.78rem;
+      color:#999;
+      margin-bottom:7px;
     }
 
-    .form-group label {
-      display: block;
-      color: #aaa;
-      font-size: 12px;
-      margin-bottom: 7px;
+    .form-group input{
+      width:100%;
+      background:#090909;
+      border:1px solid var(--line);
+      color:#fff;
+      padding:13px;
+      border-radius:12px;
+      outline:none;
     }
 
-    .form-group input {
-      width: 100%;
-      padding: 13px 14px;
-      border-radius: 12px;
-      border: 1px solid #292929;
-      background: #080808;
-      color: white;
-      outline: none;
+    .form-group input:focus{
+      border-color:rgba(183,255,42,.5);
     }
 
-    .form-group input:focus {
-      border-color: #32e875;
+    .modal-btn{
+      width:100%;
+      margin-top:5px;
     }
 
-    .modal-box .btn {
-      width: 100%;
-      margin-top: 5px;
+    .selected-package{
+      display:grid;
+      grid-template-columns:120px 1fr;
+      gap:18px;
+      align-items:center;
+      padding:15px;
+      background:#0a0a0a;
+      border:1px solid var(--line);
+      border-radius:16px;
+      margin:18px 0;
     }
 
-    /* RESPONSIVE */
-    @media (max-width: 950px) {
-      .hero-grid {
-        grid-template-columns: 1fr;
-        text-align: center;
+    .selected-package img{
+      width:100%;
+      height:110px;
+      object-fit:contain;
+    }
+
+    .selected-package strong{
+      font-size:1.25rem;
+    }
+
+    .selected-package p{
+      color:#777;
+      font-size:.8rem;
+    }
+
+    /* MOBILE */
+
+    @media(max-width:1050px){
+      .packages-grid{
+        grid-template-columns:repeat(3,1fr);
       }
 
-      .hero-text {
-        margin-left: auto;
-        margin-right: auto;
-      }
-
-      .hero-buttons {
-        justify-content: center;
-      }
-
-      .phone-stage {
-        min-height: 430px;
-      }
-
-      .stats-grid,
-      .package-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .steps {
-        grid-template-columns: repeat(2, 1fr);
+      .hero-grid{
+        gap:35px;
       }
     }
 
-    @media (max-width: 700px) {
+    @media(max-width:850px){
       .nav-links,
-      .nav-actions {
-        display: none;
+      .nav-actions{
+        display:none;
       }
 
-      .mobile-menu {
-        display: block;
+      .menu-btn{
+        display:block;
       }
 
-      .nav-links.mobile-open {
-        display: flex;
-        position: absolute;
-        top: 72px;
-        left: 0;
-        right: 0;
-        background: #080808;
-        padding: 20px;
-        flex-direction: column;
-        border-bottom: 1px solid #191919;
+      .mobile-menu{
+        display:none;
+        padding:15px 0 20px;
+        border-top:1px solid var(--line);
       }
 
-      .stats-grid,
-      .package-grid,
+      .mobile-menu.show{
+        display:block;
+      }
+
+      .mobile-menu a{
+        display:block;
+        padding:12px 0;
+        color:#aaa;
+      }
+
+      .hero-grid{
+        grid-template-columns:1fr;
+        text-align:center;
+      }
+
+      .hero-copy{
+        margin-left:auto;
+        margin-right:auto;
+      }
+
+      .hero-buttons{
+        justify-content:center;
+      }
+
+      .hero-note{
+        margin-left:auto;
+        margin-right:auto;
+      }
+
+      .hero-device{
+        min-height:450px;
+      }
+
+      .stats-grid{
+        grid-template-columns:repeat(2,1fr);
+      }
+
+      .stat:nth-child(2){
+        border-right:0;
+      }
+
+      .stat:nth-child(3),
+      .stat:nth-child(4){
+        border-top:1px solid var(--line);
+      }
+
+      .packages-grid{
+        grid-template-columns:repeat(2,1fr);
+      }
+
+      .steps{
+        grid-template-columns:repeat(2,1fr);
+      }
+
+      .feature-grid{
+        grid-template-columns:repeat(2,1fr);
+      }
+
+      .section-head{
+        align-items:start;
+        flex-direction:column;
+      }
+    }
+
+    @media(max-width:560px){
+      h1{
+        letter-spacing:-3px;
+        font-size:3.25rem;
+      }
+
+      section{
+        padding:75px 0;
+      }
+
+      .hero{
+        padding-top:125px;
+      }
+
+      .hero-device{
+        min-height:390px;
+      }
+
+      .iphone{
+        width:280px;
+      }
+
+      .floating-card{
+        padding:12px;
+      }
+
+      .floating-card.one{
+        left:0;
+      }
+
+      .floating-card.two{
+        right:0;
+      }
+
+      .stats-grid{
+        grid-template-columns:1fr 1fr;
+      }
+
+      .packages-grid{
+        grid-template-columns:1fr;
+      }
+
       .steps,
-      .feature-grid {
-        grid-template-columns: 1fr;
+      .feature-grid{
+        grid-template-columns:1fr;
       }
 
-      h1 {
-        letter-spacing: -2px;
+      .cta-box{
+        padding:35px 24px;
       }
 
-      .phone {
-        width: 235px;
-        height: 465px;
+      .package-image{
+        height:220px;
       }
 
-      .footer-inner {
-        flex-direction: column;
-        text-align: center;
+      .package-image img{
+        height:205px;
       }
     }
   </style>
@@ -774,360 +902,527 @@
         iPhone<span>Vest</span>
       </a>
 
-      <ul class="nav-links" id="navLinks">
-        <li><a href="#packages">Packages</a></li>
-        <li><a href="#how">How It Works</a></li>
-        <li><a href="#features">Features</a></li>
-        <li><a href="#about">About</a></li>
-      </ul>
+      <div class="nav-links">
+        <a href="#packages">Packages</a>
+        <a href="#how">How It Works</a>
+        <a href="#features">Features</a>
+        <a href="#about">About</a>
+      </div>
 
       <div class="nav-actions">
-        <button class="btn btn-outline" onclick="openModal('login')">
-          Login
-        </button>
-
-        <button class="btn btn-primary" onclick="openModal('register')">
+        <button class="btn" onclick="openModal('loginModal')">Login</button>
+        <button class="btn btn-primary" onclick="openModal('registerModal')">
           Create Account
         </button>
       </div>
 
-      <button class="mobile-menu" onclick="toggleMenu()">☰</button>
+      <button class="menu-btn" onclick="toggleMenu()">☰</button>
+    </div>
 
+    <div class="container mobile-menu" id="mobileMenu">
+      <a href="#packages" onclick="toggleMenu()">Packages</a>
+      <a href="#how" onclick="toggleMenu()">How It Works</a>
+      <a href="#features" onclick="toggleMenu()">Features</a>
+      <a href="#about" onclick="toggleMenu()">About</a>
+      <a href="#" onclick="openModal('loginModal');toggleMenu()">Login</a>
+      <a href="#" onclick="openModal('registerModal');toggleMenu()">Create Account</a>
     </div>
   </nav>
 
 
   <!-- HERO -->
-  <section class="hero">
-
+  <header class="hero">
     <div class="container hero-grid">
 
       <div>
-
         <div class="badge">
-          📱 DIGITAL ASSET PLATFORM
+          <span class="dot"></span>
+          DIGITAL PACKAGE PLATFORM
         </div>
 
         <h1>
-          Put your money to work with <span>iPhoneVest.</span>
+          Put your money to work with
+          <span>iPhoneVest.</span>
         </h1>
 
-        <p class="hero-text">
-          Explore digital investment packages represented by iPhone assets,
-          track your portfolio, monitor earnings and manage your funds from
-          one simple dashboard.
+        <p class="hero-copy">
+          Explore digital package tiers represented through the premium
+          iPhone 18 Pro experience. Choose a package, follow your portfolio,
+          and manage your account from one simple dashboard.
         </p>
 
         <div class="hero-buttons">
-          <button class="btn btn-primary" onclick="openModal('register')">
-            Get Started
-          </button>
-
-          <a href="#packages" class="btn btn-outline">
+          <a href="#packages" class="btn btn-primary">
             Explore Packages
           </a>
+
+          <button class="btn" onclick="openModal('registerModal')">
+            Create Account
+          </button>
         </div>
 
         <p class="hero-note">
-          Investment terms, earnings and withdrawal conditions apply.
+          Prototype interface: account authentication, payment processing,
+          package activation and earnings are not connected yet.
         </p>
-
       </div>
 
+      <div class="hero-device">
 
-      <!-- PHONE PREVIEW -->
-      <div class="phone-stage">
+        <div class="glow"></div>
 
-        <div class="phone">
+        <div class="iphone">
+          <!-- Official Apple iPhone 18 Pro Burgundy product image -->
+          <img
+            src="https://www.apple.com/v/iphone-18-pro/b/images/overview/aio/hero__elo7tt0mnqy6_large.jpg"
+            alt="iPhone 18 Pro in Burgundy"
+          >
+        </div>
 
-          <div class="phone-screen">
+        <div class="floating-card one">
+          <div class="floating-label">Active package</div>
+          <div class="floating-value">iPhone 18 Pro</div>
+        </div>
 
-            <div class="dynamic-island"></div>
-
-            <div class="phone-small">
-              iPhoneVest
-            </div>
-
-            <div class="phone-balance">
-              <small>Portfolio Value</small>
-              <strong>UGX 250,000</strong>
-            </div>
-
-            <div class="phone-card">
-
-              <div class="phone-card-top">
-                <span>ACTIVE ASSET</span>
-                <span>ACTIVE</span>
-              </div>
-
-              <h3>iPhone 18 Pro</h3>
-
-              <div class="earning">
-                + UGX X daily
-              </div>
-
-              <div class="phone-bar">
-                <div></div>
-              </div>
-
-              <div class="phone-card-top" style="margin-top:10px;">
-                <span>Investment progress</span>
-                <span>68%</span>
-              </div>
-
-            </div>
-
-          </div>
-
+        <div class="floating-card two">
+          <div class="floating-label">Portfolio access</div>
+          <div class="floating-value">24 / 7</div>
         </div>
 
       </div>
 
     </div>
-
-  </section>
+  </header>
 
 
   <!-- STATS -->
-  <section class="stats">
-
+  <div class="stats">
     <div class="container stats-grid">
 
       <div class="stat">
-        <strong>4</strong>
-        <span>Digital Asset Packages</span>
+        <strong>20</strong>
+        <span>Package tiers</span>
       </div>
 
       <div class="stat">
         <strong>24/7</strong>
-        <span>Portfolio Access</span>
+        <span>Portfolio access</span>
       </div>
 
       <div class="stat">
-        <strong>2</strong>
-        <span>Mobile Money Networks</span>
+        <strong>UGX</strong>
+        <span>Primary currency</span>
       </div>
 
       <div class="stat">
         <strong>1</strong>
-        <span>Simple Dashboard</span>
+        <span>Simple dashboard</span>
       </div>
 
     </div>
-
-  </section>
+  </div>
 
 
   <!-- PACKAGES -->
-  <section class="packages" id="packages">
+  <section id="packages">
 
     <div class="container">
 
       <div class="section-head">
 
-        <h2>Choose your <span style="color:#32e875;">digital asset</span></h2>
+        <div>
+          <div class="eyebrow">Package marketplace</div>
+          <h2>Choose your package.</h2>
+        </div>
 
-        <p>
-          Select a package according to your budget and review its terms
-          before activation.
+        <p class="section-description">
+          Browse the available package tiers and view the package amount
+          and corresponding daily figure supplied for this prototype.
         </p>
 
       </div>
 
 
-      <div class="package-grid">
+      <div class="package-tools">
 
-        <!-- PACKAGE 1 -->
-        <div class="package">
-
-          <div class="device"></div>
-
-          <h3>iPhone 18</h3>
-
-          <p class="package-description">
-            Entry-level digital asset package.
-          </p>
-
-          <div class="price">
-            UGX 20,000
-          </div>
-
-          <div class="price-label">
-            Starting amount
-          </div>
-
-          <div class="package-details">
-
-            <div>
-              <span>Daily earning</span>
-              <span>UGX X</span>
-            </div>
-
-            <div>
-              <span>Duration</span>
-              <span>X days</span>
-            </div>
-
-            <div>
-              <span>Status</span>
-              <span>Available</span>
-            </div>
-
-          </div>
-
-          <button class="btn btn-outline"
-                  onclick="openPackage('iPhone 18','UGX 20,000')">
-            View Package
-          </button>
-
+        <div class="search">
+          <input
+            type="search"
+            id="packageSearch"
+            placeholder="Search packages..."
+            oninput="filterPackages()"
+          >
         </div>
 
-
-        <!-- PACKAGE 2 -->
-        <div class="package">
-
-          <div class="device"></div>
-
-          <h3>iPhone 18 Plus</h3>
-
-          <p class="package-description">
-            A larger package for growing portfolios.
-          </p>
-
-          <div class="price">
-            UGX 50,000
-          </div>
-
-          <div class="price-label">
-            Starting amount
-          </div>
-
-          <div class="package-details">
-
-            <div>
-              <span>Daily earning</span>
-              <span>UGX X</span>
-            </div>
-
-            <div>
-              <span>Duration</span>
-              <span>X days</span>
-            </div>
-
-            <div>
-              <span>Status</span>
-              <span>Available</span>
-            </div>
-
-          </div>
-
-          <button class="btn btn-outline"
-                  onclick="openPackage('iPhone 18 Plus','UGX 50,000')">
-            View Package
-          </button>
-
-        </div>
-
-
-        <!-- PACKAGE 3 -->
-        <div class="package featured">
-
-          <div class="popular">
-            POPULAR
-          </div>
-
-          <div class="device"></div>
-
-          <h3>iPhone 18 Pro</h3>
-
-          <p class="package-description">
-            Premium digital asset package.
-          </p>
-
-          <div class="price">
-            UGX 100,000
-          </div>
-
-          <div class="price-label">
-            Starting amount
-          </div>
-
-          <div class="package-details">
-
-            <div>
-              <span>Daily earning</span>
-              <span>UGX X</span>
-            </div>
-
-            <div>
-              <span>Duration</span>
-              <span>X days</span>
-            </div>
-
-            <div>
-              <span>Status</span>
-              <span>Available</span>
-            </div>
-
-          </div>
-
-          <button class="btn btn-primary"
-                  onclick="openPackage('iPhone 18 Pro','UGX 100,000')">
-            View Package
-          </button>
-
-        </div>
-
-
-        <!-- PACKAGE 4 -->
-        <div class="package">
-
-          <div class="device"></div>
-
-          <h3>iPhone 18 Pro Max</h3>
-
-          <p class="package-description">
-            Highest-tier digital asset package.
-          </p>
-
-          <div class="price">
-            UGX 250,000
-          </div>
-
-          <div class="price-label">
-            Starting amount
-          </div>
-
-          <div class="package-details">
-
-            <div>
-              <span>Daily earning</span>
-              <span>UGX X</span>
-            </div>
-
-            <div>
-              <span>Duration</span>
-              <span>X days</span>
-            </div>
-
-            <div>
-              <span>Status</span>
-              <span>Available</span>
-            </div>
-
-          </div>
-
-          <button class="btn btn-outline"
-                  onclick="openPackage('iPhone 18 Pro Max','UGX 250,000')">
-            View Package
-          </button>
-
-        </div>
+        <select class="filter" id="packageFilter" onchange="filterPackages()">
+          <option value="all">All packages</option>
+          <option value="under100">Under UGX 100K</option>
+          <option value="100to500">UGX 100K – 500K</option>
+          <option value="500to1m">UGX 500K – 1M</option>
+          <option value="over1m">Above UGX 1M</option>
+        </select>
 
       </div>
 
-    </div>
 
+      <div class="packages-grid" id="packagesGrid">
+
+        <!-- 01 -->
+        <article class="package-card" data-amount="20000">
+          <div class="package-image">
+            <img src="https://www.apple.com/v/iphone-18-pro/b/images/overview/aio/hero__elo7tt0mnqy6_large.jpg" alt="iPhone 18 Pro">
+          </div>
+          <div class="package-content">
+            <div class="package-number">PACKAGE 01</div>
+            <div class="package-name">iPhone 18 Starter</div>
+            <div class="amount">UGX 20,000</div>
+            <div class="daily">
+              <div class="daily-label">Daily package amount</div>
+              <div class="daily-value">UGX 4,000</div>
+            </div>
+            <button class="btn btn-primary choose" onclick="openPackage(1,'iPhone 18 Starter','UGX 20,000','UGX 4,000')">Choose Package</button>
+          </div>
+        </article>
+
+        <!-- 02 -->
+        <article class="package-card" data-amount="30000">
+          <div class="package-image">
+            <img src="https://www.apple.com/v/iphone-18-pro/b/images/overview/aio/hero__elo7tt0mnqy6_large.jpg" alt="iPhone 18 Pro">
+          </div>
+          <div class="package-content">
+            <div class="package-number">PACKAGE 02</div>
+            <div class="package-name">iPhone 18 Starter Plus</div>
+            <div class="amount">UGX 30,000</div>
+            <div class="daily">
+              <div class="daily-label">Daily package amount</div>
+              <div class="daily-value">UGX 6,000</div>
+            </div>
+            <button class="btn btn-primary choose" onclick="openPackage(2,'iPhone 18 Starter Plus','UGX 30,000','UGX 6,000')">Choose Package</button>
+          </div>
+        </article>
+
+        <!-- 03 -->
+        <article class="package-card" data-amount="50000">
+          <div class="package-image">
+            <img src="https://www.apple.com/v/iphone-18-pro/b/images/overview/aio/hero__elo7tt0mnqy6_large.jpg" alt="iPhone 18 Pro">
+          </div>
+          <div class="package-content">
+            <div class="package-number">PACKAGE 03</div>
+            <div class="package-name">iPhone 18 Growth</div>
+            <div class="amount">UGX 50,000</div>
+            <div class="daily">
+              <div class="daily-label">Daily package amount</div>
+              <div class="daily-value">UGX 12,000</div>
+            </div>
+            <button class="btn btn-primary choose" onclick="openPackage(3,'iPhone 18 Growth','UGX 50,000','UGX 12,000')">Choose Package</button>
+          </div>
+        </article>
+
+        <!-- 04 -->
+        <article class="package-card" data-amount="80000">
+          <div class="package-image">
+            <img src="https://www.apple.com/v/iphone-18-pro/b/images/overview/aio/hero__elo7tt0mnqy6_large.jpg" alt="iPhone 18 Pro">
+          </div>
+          <div class="package-content">
+            <div class="package-number">PACKAGE 04</div>
+            <div class="package-name">iPhone 18 Growth Plus</div>
+            <div class="amount">UGX 80,000</div>
+            <div class="daily">
+              <div class="daily-label">Daily package amount</div>
+              <div class="daily-value">UGX 18,000</div>
+            </div>
+            <button class="btn btn-primary choose" onclick="openPackage(4,'iPhone 18 Growth Plus','UGX 80,000','UGX 18,000')">Choose Package</button>
+          </div>
+        </article>
+
+        <!-- 05 -->
+        <article class="package-card" data-amount="120000">
+          <div class="package-image">
+            <img src="https://www.apple.com/v/iphone-18-pro/b/images/overview/aio/hero__elo7tt0mnqy6_large.jpg" alt="iPhone 18 Pro">
+          </div>
+          <div class="package-content">
+            <div class="package-number">PACKAGE 05</div>
+            <div class="package-name">iPhone 18 Advance</div>
+            <div class="amount">UGX 120,000</div>
+            <div class="daily">
+              <div class="daily-label">Daily package amount</div>
+              <div class="daily-value">UGX 25,000</div>
+            </div>
+            <button class="btn btn-primary choose" onclick="openPackage(5,'iPhone 18 Advance','UGX 120,000','UGX 25,000')">Choose Package</button>
+          </div>
+        </article>
+
+        <!-- 06 -->
+        <article class="package-card" data-amount="150000">
+          <div class="package-image">
+            <img src="https://www.apple.com/v/iphone-18-pro/b/images/overview/aio/hero__elo7tt0mnqy6_large.jpg" alt="iPhone 18 Pro">
+          </div>
+          <div class="package-content">
+            <div class="package-number">PACKAGE 06</div>
+            <div class="package-name">iPhone 18 Advance Plus</div>
+            <div class="amount">UGX 150,000</div>
+            <div class="daily">
+              <div class="daily-label">Daily package amount</div>
+              <div class="daily-value">UGX 30,000</div>
+            </div>
+            <button class="btn btn-primary choose" onclick="openPackage(6,'iPhone 18 Advance Plus','UGX 150,000','UGX 30,000')">Choose Package</button>
+          </div>
+        </article>
+
+        <!-- 07 -->
+        <article class="package-card" data-amount="200000">
+          <div class="package-image">
+            <img src="https://www.apple.com/v/iphone-18-pro/b/images/overview/aio/hero__elo7tt0mnqy6_large.jpg" alt="iPhone 18 Pro">
+          </div>
+          <div class="package-content">
+            <div class="package-number">PACKAGE 07</div>
+            <div class="package-name">iPhone 18 Pro</div>
+            <div class="amount">UGX 200,000</div>
+            <div class="daily">
+              <div class="daily-label">Daily package amount</div>
+              <div class="daily-value">UGX 40,000</div>
+            </div>
+            <button class="btn btn-primary choose" onclick="openPackage(7,'iPhone 18 Pro','UGX 200,000','UGX 40,000')">Choose Package</button>
+          </div>
+        </article>
+
+        <!-- 08 -->
+        <article class="package-card" data-amount="250000">
+          <div class="package-image">
+            <img src="https://www.apple.com/v/iphone-18-pro/b/images/overview/aio/hero__elo7tt0mnqy6_large.jpg" alt="iPhone 18 Pro">
+          </div>
+          <div class="package-content">
+            <div class="package-number">PACKAGE 08</div>
+            <div class="package-name">iPhone 18 Pro Plus</div>
+            <div class="amount">UGX 250,000</div>
+            <div class="daily">
+              <div class="daily-label">Daily package amount</div>
+              <div class="daily-value">UGX 55,000</div>
+            </div>
+            <button class="btn btn-primary choose" onclick="openPackage(8,'iPhone 18 Pro Plus','UGX 250,000','UGX 55,000')">Choose Package</button>
+          </div>
+        </article>
+
+        <!-- 09 -->
+        <article class="package-card" data-amount="300000">
+          <div class="package-image">
+            <img src="https://www.apple.com/v/iphone-18-pro/b/images/overview/aio/hero__elo7tt0mnqy6_large.jpg" alt="iPhone 18 Pro">
+          </div>
+          <div class="package-content">
+            <div class="package-number">PACKAGE 09</div>
+            <div class="package-name">iPhone 18 Pro Growth</div>
+            <div class="amount">UGX 300,000</div>
+            <div class="daily">
+              <div class="daily-label">Daily package amount</div>
+              <div class="daily-value">UGX 70,000</div>
+            </div>
+            <button class="btn btn-primary choose" onclick="openPackage(9,'iPhone 18 Pro Growth','UGX 300,000','UGX 70,000')">Choose Package</button>
+          </div>
+        </article>
+
+        <!-- 10 -->
+        <article class="package-card" data-amount="400000">
+          <div class="package-image">
+            <img src="https://www.apple.com/v/iphone-18-pro/b/images/overview/aio/hero__elo7tt0mnqy6_large.jpg" alt="iPhone 18 Pro">
+          </div>
+          <div class="package-content">
+            <div class="package-number">PACKAGE 10</div>
+            <div class="package-name">iPhone 18 Pro Advance</div>
+            <div class="amount">UGX 400,000</div>
+            <div class="daily">
+              <div class="daily-label">Daily package amount</div>
+              <div class="daily-value">UGX 109,000</div>
+            </div>
+            <button class="btn btn-primary choose" onclick="openPackage(10,'iPhone 18 Pro Advance','UGX 400,000','UGX 109,000')">Choose Package</button>
+          </div>
+        </article>
+
+        <!-- 11 -->
+        <article class="package-card" data-amount="500000">
+          <div class="package-image">
+            <img src="https://www.apple.com/v/iphone-18-pro/b/images/overview/aio/hero__elo7tt0mnqy6_large.jpg" alt="iPhone 18 Pro">
+          </div>
+          <div class="package-content">
+            <div class="package-number">PACKAGE 11</div>
+            <div class="package-name">iPhone 18 Pro Max</div>
+            <div class="amount">UGX 500,000</div>
+            <div class="daily">
+              <div class="daily-label">Daily package amount</div>
+              <div class="daily-value">UGX 135,000</div>
+            </div>
+            <button class="btn btn-primary choose" onclick="openPackage(11,'iPhone 18 Pro Max','UGX 500,000','UGX 135,000')">Choose Package</button>
+          </div>
+        </article>
+
+        <!-- 12 -->
+        <article class="package-card" data-amount="600000">
+          <div class="package-image">
+            <img src="https://www.apple.com/v/iphone-18-pro/b/images/overview/aio/hero__elo7tt0mnqy6_large.jpg" alt="iPhone 18 Pro">
+          </div>
+          <div class="package-content">
+            <div class="package-number">PACKAGE 12</div>
+            <div class="package-name">iPhone 18 Pro Max Plus</div>
+            <div class="amount">UGX 600,000</div>
+            <div class="daily">
+              <div class="daily-label">Daily package amount</div>
+              <div class="daily-value">UGX 175,000</div>
+            </div>
+            <button class="btn btn-primary choose" onclick="openPackage(12,'iPhone 18 Pro Max Plus','UGX 600,000','UGX 175,000')">Choose Package</button>
+          </div>
+        </article>
+
+        <!-- 13 -->
+        <article class="package-card" data-amount="700000">
+          <div class="package-image">
+            <img src="https://www.apple.com/v/iphone-18-pro/b/images/overview/aio/hero__elo7tt0mnqy6_large.jpg" alt="iPhone 18 Pro">
+          </div>
+          <div class="package-content">
+            <div class="package-number">PACKAGE 13</div>
+            <div class="package-name">iPhone 18 Pro Max Elite</div>
+            <div class="amount">UGX 700,000</div>
+            <div class="daily">
+              <div class="daily-label">Daily package amount</div>
+              <div class="daily-value">UGX 200,000</div>
+            </div>
+            <button class="btn btn-primary choose" onclick="openPackage(13,'iPhone 18 Pro Max Elite','UGX 700,000','UGX 200,000')">Choose Package</button>
+          </div>
+        </article>
+
+        <!-- 14 -->
+        <article class="package-card" data-amount="800000">
+          <div class="package-image">
+            <img src="https://www.apple.com/v/iphone-18-pro/b/images/overview/aio/hero__elo7tt0mnqy6_large.jpg" alt="iPhone 18 Pro">
+          </div>
+          <div class="package-content">
+            <div class="package-number">PACKAGE 14</div>
+            <div class="package-name">iPhone 18 Pro Max Premium</div>
+            <div class="amount">UGX 800,000</div>
+            <div class="daily">
+              <div class="daily-label">Daily package amount</div>
+              <div class="daily-value">UGX 250,000</div>
+            </div>
+            <button class="btn btn-primary choose" onclick="openPackage(14,'iPhone 18 Pro Max Premium','UGX 800,000','UGX 250,000')">Choose Package</button>
+          </div>
+        </article>
+
+        <!-- 15 -->
+        <article class="package-card" data-amount="900000">
+          <div class="package-image">
+            <img src="https://www.apple.com/v/iphone-18-pro/b/images/overview/aio/hero__elo7tt0mnqy6_large.jpg" alt="iPhone 18 Pro">
+          </div>
+          <div class="package-content">
+            <div class="package-number">PACKAGE 15</div>
+            <div class="package-name">iPhone 18 Pro Max Ultra</div>
+            <div class="amount">UGX 900,000</div>
+            <div class="daily">
+              <div class="daily-label">Daily package amount</div>
+              <div class="daily-value">UGX 300,000</div>
+            </div>
+            <button class="btn btn-primary choose" onclick="openPackage(15,'iPhone 18 Pro Max Ultra','UGX 900,000','UGX 300,000')">Choose Package</button>
+          </div>
+        </article>
+
+        <!-- 16 -->
+        <article class="package-card" data-amount="1000000">
+          <div class="package-image">
+            <img src="https://www.apple.com/v/iphone-18-pro/b/images/overview/aio/hero__elo7tt0mnqy6_large.jpg" alt="iPhone 18 Pro">
+          </div>
+          <div class="package-content">
+            <div class="package-number">PACKAGE 16</div>
+            <div class="package-name">iPhone 18 Pro Max Diamond</div>
+            <div class="amount">UGX 1,000,000</div>
+            <div class="daily">
+              <div class="daily-label">Daily package amount</div>
+              <div class="daily-value">UGX 350,000</div>
+            </div>
+            <button class="btn btn-primary choose" onclick="openPackage(16,'iPhone 18 Pro Max Diamond','UGX 1,000,000','UGX 350,000')">Choose Package</button>
+          </div>
+        </article>
+
+        <!-- 17 -->
+        <article class="package-card" data-amount="1500000">
+          <div class="package-image">
+            <img src="https://www.apple.com/v/iphone-18-pro/b/images/overview/aio/hero__elo7tt0mnqy6_large.jpg" alt="iPhone 18 Pro">
+          </div>
+          <div class="package-content">
+            <div class="package-number">PACKAGE 17</div>
+            <div class="package-name">iPhone 18 Pro Max Platinum</div>
+            <div class="amount">UGX 1,500,000</div>
+            <div class="daily">
+              <div class="daily-label">Daily package amount</div>
+              <div class="daily-value">UGX 400,000</div>
+            </div>
+            <button class="btn btn-primary choose" onclick="openPackage(17,'iPhone 18 Pro Max Platinum','UGX 1,500,000','UGX 400,000')">Choose Package</button>
+          </div>
+        </article>
+
+        <!-- 18 -->
+        <article class="package-card" data-amount="2000000">
+          <div class="package-image">
+            <img src="https://www.apple.com/v/iphone-18-pro/b/images/overview/aio/hero__elo7tt0mnqy6_large.jpg" alt="iPhone 18 Pro">
+          </div>
+          <div class="package-content">
+            <div class="package-number">PACKAGE 18</div>
+            <div class="package-name">iPhone 18 Pro Max Titanium</div>
+            <div class="amount">UGX 2,000,000</div>
+            <div class="daily">
+              <div class="daily-label">Daily package amount</div>
+              <div class="daily-value">UGX 450,000</div>
+            </div>
+            <button class="btn btn-primary choose" onclick="openPackage(18,'iPhone 18 Pro Max Titanium','UGX 2,000,000','UGX 450,000')">Choose Package</button>
+          </div>
+        </article>
+
+        <!-- 19 -->
+        <article class="package-card" data-amount="2500000">
+          <div class="package-image">
+            <img src="https://www.apple.com/v/iphone-18-pro/b/images/overview/aio/hero__elo7tt0mnqy6_large.jpg" alt="iPhone 18 Pro">
+          </div>
+          <div class="package-content">
+            <div class="package-number">PACKAGE 19</div>
+            <div class="package-name">iPhone 18 Pro Max Black Titanium</div>
+            <div class="amount">UGX 2,500,000</div>
+            <div class="daily">
+              <div class="daily-label">Daily package amount</div>
+              <div class="daily-value">UGX 500,000</div>
+            </div>
+            <button class="btn btn-primary choose" onclick="openPackage(19,'iPhone 18 Pro Max Black Titanium','UGX 2,500,000','UGX 500,000')">Choose Package</button>
+          </div>
+        </article>
+
+        <!-- 20 -->
+        <article class="package-card" data-amount="3000000">
+          <div class="package-image">
+            <img src="https://www.apple.com/v/iphone-18-pro/b/images/overview/aio/hero__elo7tt0mnqy6_large.jpg" alt="iPhone 18 Pro">
+          </div>
+          <div class="package-content">
+            <div class="package-number">PACKAGE 20</div>
+            <div class="package-name">iPhone 18 Pro Max Ultra Elite</div>
+            <div class="amount">UGX 3,000,000</div>
+            <div class="daily">
+              <div class="daily-label">Daily package amount</div>
+              <div class="daily-value">UGX 600,000</div>
+            </div>
+            <button class="btn btn-primary choose" onclick="openPackage(20,'iPhone 18 Pro Max Ultra Elite','UGX 3,000,000','UGX 600,000')">Choose Package</button>
+          </div>
+        </article>
+
+      </div>
+
+      <div id="noResults" style="display:none;text-align:center;padding:45px;color:#777;">
+        No package matches your search.
+      </div>
+
+      <div class="notice">
+        <strong>Prototype disclosure:</strong>
+        The daily figures displayed above are package figures supplied for
+        this prototype. They are not a guarantee of profit or investment
+        performance. Before operating as a live financial product, the
+        underlying business model, risks, fees, withdrawal rules and applicable
+        legal/regulatory requirements should be established and disclosed.
+      </div>
+
+    </div>
   </section>
 
 
@@ -1137,180 +1432,126 @@
     <div class="container">
 
       <div class="section-head">
+        <div>
+          <div class="eyebrow">Simple process</div>
+          <h2>How it works.</h2>
+        </div>
 
-        <h2>How it works</h2>
-
-        <p>
-          A simple process from account creation to portfolio management.
+        <p class="section-description">
+          The prototype is designed around a straightforward account and
+          package-management flow.
         </p>
-
       </div>
-
 
       <div class="steps">
 
         <div class="step">
-
           <div class="step-number">01</div>
-
           <h3>Create Account</h3>
-
           <p>
-            Register your account and complete the required verification.
+            Register your account and create your personal profile.
           </p>
-
         </div>
 
-
         <div class="step">
-
           <div class="step-number">02</div>
-
           <h3>Fund Wallet</h3>
-
           <p>
-            Add funds through the supported payment methods.
+            Connect your preferred supported payment method when the backend
+            is enabled.
           </p>
-
         </div>
 
-
         <div class="step">
-
           <div class="step-number">03</div>
-
           <h3>Choose Package</h3>
-
           <p>
-            Review the available digital asset packages and their terms.
+            Select the package tier that matches the amount you want to use.
           </p>
-
         </div>
 
-
         <div class="step">
-
           <div class="step-number">04</div>
-
           <h3>Track Portfolio</h3>
-
           <p>
-            Monitor your active investment, recorded earnings and transactions.
+            View package activity, records and account information from your
+            dashboard.
           </p>
-
         </div>
 
       </div>
 
     </div>
-
   </section>
 
 
   <!-- FEATURES -->
-  <section class="features" id="features">
+  <section id="features">
 
     <div class="container">
 
       <div class="section-head">
-
-        <h2>Everything in one place</h2>
-
-        <p>
-          The platform is designed around transparency, account control and
-          simple portfolio management.
-        </p>
-
+        <div>
+          <div class="eyebrow">Platform features</div>
+          <h2>Everything in one place.</h2>
+        </div>
       </div>
-
 
       <div class="feature-grid">
 
         <div class="feature">
-
-          <div class="feature-icon">📊</div>
-
+          <div class="feature-icon">◈</div>
           <h3>Portfolio Tracking</h3>
-
           <p>
-            See your active digital assets, investment amounts, duration and
-            recorded earnings.
+            A central place to view your active packages and account activity.
           </p>
-
         </div>
 
-
         <div class="feature">
-
-          <div class="feature-icon">💰</div>
-
+          <div class="feature-icon">₿</div>
           <h3>Wallet</h3>
-
           <p>
-            Keep track of deposits, earnings, withdrawals and wallet activity.
+            Designed for wallet balances, deposits and future withdrawals.
           </p>
-
         </div>
 
-
         <div class="feature">
-
-          <div class="feature-icon">📱</div>
-
+          <div class="feature-icon">↗</div>
           <h3>Mobile Money</h3>
-
           <p>
-            The platform can later be connected to supported MTN and Airtel
-            payment infrastructure.
+            Prepared for future mobile-money payment integration.
           </p>
-
         </div>
 
-
         <div class="feature">
-
-          <div class="feature-icon">🔐</div>
-
+          <div class="feature-icon">✓</div>
           <h3>Account Security</h3>
-
           <p>
-            Authentication and database security will be handled through the
-            platform backend.
+            The planned backend will use authenticated accounts and controlled
+            financial operations.
           </p>
-
         </div>
 
-
         <div class="feature">
-
-          <div class="feature-icon">🧾</div>
-
+          <div class="feature-icon">▣</div>
           <h3>Transaction History</h3>
-
           <p>
-            Keep a record of deposits, investments, earnings and withdrawals.
+            Keep a structured record of deposits, package activity and
+            withdrawals.
           </p>
-
         </div>
 
-
         <div class="feature">
-
-          <div class="feature-icon">⚙️</div>
-
+          <div class="feature-icon">◷</div>
           <h3>Automated Records</h3>
-
           <p>
-            Once connected to the backend, eligible earnings can be recorded
-            automatically according to the package rules.
+            Future backend automation can maintain package and account records.
           </p>
-
         </div>
 
       </div>
 
     </div>
-
   </section>
 
 
@@ -1320,19 +1561,18 @@
     <div class="container">
 
       <div class="section-head">
+        <div>
+          <div class="eyebrow">About iPhoneVest</div>
+          <h2>Built for a simple digital experience.</h2>
+        </div>
 
-        <h2>Built around your portfolio</h2>
-
-        <p>
-          iPhoneVest is designed as a digital investment platform where
-          package information, portfolio activity and transaction records can
-          be accessed from one account.
+        <p class="section-description">
+          iPhoneVest is currently being developed as a web-platform prototype.
+          The visual concept uses the iPhone 18 Pro as the package identity.
         </p>
-
       </div>
 
     </div>
-
   </section>
 
 
@@ -1343,246 +1583,375 @@
 
       <div class="cta-box">
 
-        <h2>Start building your portfolio.</h2>
+        <div class="eyebrow">Get started</div>
+
+        <h2>
+          Explore the packages.
+        </h2>
 
         <p>
-          Create your account and explore the available digital asset packages.
+          Create a prototype account and explore the package interface.
+          Real authentication, payment processing, wallet accounting and
+          withdrawals will require the backend implementation.
         </p>
 
-        <button class="btn btn-primary"
-                onclick="openModal('register')">
-          Create Account
-        </button>
+        <div class="hero-buttons">
+          <button class="btn btn-primary" onclick="openModal('registerModal')">
+            Create Account
+          </button>
+
+          <a href="#packages" class="btn">
+            View Packages
+          </a>
+        </div>
 
       </div>
 
     </div>
-
   </section>
 
 
   <!-- FOOTER -->
   <footer>
 
-    <div class="container footer-inner">
+    <div class="container footer-grid">
 
       <div>
-        © 2026 iPhoneVest. All rights reserved.
+        <strong style="color:#fff;">iPhone<span style="color:#b7ff2a;">Vest</span></strong>
+        <div style="margin-top:7px;">
+          Digital package platform prototype.
+        </div>
       </div>
 
       <div class="footer-links">
-        <a href="#">Terms</a>
-        <a href="#">Privacy</a>
-        <a href="#">Support</a>
+        <a href="#packages">Packages</a>
+        <a href="#how">How It Works</a>
+        <a href="#features">Features</a>
       </div>
 
+    </div>
+
+    <div class="container" style="margin-top:25px;">
+      © 2026 iPhoneVest. Prototype interface.
     </div>
 
   </footer>
 
 
-  <!-- AUTH MODAL -->
-  <div class="modal" id="authModal">
+  <!-- LOGIN MODAL -->
+  <div class="modal" id="loginModal" onclick="outsideClose(event,'loginModal')">
 
     <div class="modal-box">
 
-      <button class="close" onclick="closeModal()">×</button>
+      <button class="modal-close" onclick="closeModal('loginModal')">
+        ×
+      </button>
 
-      <h2 id="modalTitle">Create Account</h2>
+      <h3>Welcome back</h3>
 
-      <p id="modalDescription">
-        Create your account to access the platform.
+      <p class="modal-sub">
+        Login interface for the iPhoneVest prototype.
       </p>
 
+      <form onsubmit="demoSubmit(event,'Login')">
 
-      <form onsubmit="demoSubmit(event)">
-
-        <div class="form-group" id="nameField">
-
-          <label>Full Name</label>
-
+        <div class="form-group">
+          <label>Email or phone</label>
           <input
             type="text"
-            placeholder="Enter your full name"
+            placeholder="Enter email or phone"
             required
           >
-
         </div>
 
-
         <div class="form-group">
-
-          <label>Phone Number</label>
-
-          <input
-            type="tel"
-            placeholder="07XXXXXXXX"
-            required
-          >
-
-        </div>
-
-
-        <div class="form-group">
-
           <label>Password</label>
-
           <input
             type="password"
-            placeholder="Create a password"
+            placeholder="Enter password"
             required
           >
-
         </div>
 
-
-        <button class="btn btn-primary" type="submit">
-          Continue
+        <button class="btn btn-primary modal-btn">
+          Login
         </button>
 
       </form>
 
     </div>
+  </div>
 
+
+  <!-- REGISTER MODAL -->
+  <div class="modal" id="registerModal" onclick="outsideClose(event,'registerModal')">
+
+    <div class="modal-box">
+
+      <button class="modal-close" onclick="closeModal('registerModal')">
+        ×
+      </button>
+
+      <h3>Create your account</h3>
+
+      <p class="modal-sub">
+        Registration interface for the iPhoneVest prototype.
+      </p>
+
+      <form onsubmit="demoSubmit(event,'Registration')">
+
+        <div class="form-group">
+          <label>Full name</label>
+          <input
+            type="text"
+            placeholder="Your full name"
+            required
+          >
+        </div>
+
+        <div class="form-group">
+          <label>Phone number</label>
+          <input
+            type="tel"
+            placeholder="+256..."
+            required
+          >
+        </div>
+
+        <div class="form-group">
+          <label>Email address</label>
+          <input
+            type="email"
+            placeholder="you@example.com"
+            required
+          >
+        </div>
+
+        <div class="form-group">
+          <label>Password</label>
+          <input
+            type="password"
+            placeholder="Create a password"
+            required
+          >
+        </div>
+
+        <button class="btn btn-primary modal-btn">
+          Create Account
+        </button>
+
+      </form>
+
+    </div>
   </div>
 
 
   <!-- PACKAGE MODAL -->
-  <div class="modal" id="packageModal">
+  <div class="modal" id="packageModal" onclick="outsideClose(event,'packageModal')">
 
     <div class="modal-box">
 
-      <button class="close" onclick="closePackage()">×</button>
+      <button class="modal-close" onclick="closeModal('packageModal')">
+        ×
+      </button>
 
-      <h2 id="packageTitle">
-        iPhone 18
-      </h2>
+      <h3 id="modalPackageName">Package</h3>
 
-      <p id="packagePrice">
-        UGX 20,000
+      <p class="modal-sub">
+        Review the selected package.
       </p>
 
-      <div class="package-details">
+      <div class="selected-package">
+
+        <img
+          id="modalPackageImage"
+          src="https://www.apple.com/v/iphone-18-pro/b/images/overview/aio/hero__elo7tt0mnqy6_large.jpg"
+          alt="iPhone 18 Pro"
+        >
 
         <div>
-          <span>Package status</span>
-          <span>Available</span>
-        </div>
+          <div style="color:#777;font-size:.72rem;">
+            PACKAGE AMOUNT
+          </div>
 
-        <div>
-          <span>Daily earning</span>
-          <span>UGX X</span>
-        </div>
+          <strong id="modalPackageAmount">
+            UGX 0
+          </strong>
 
-        <div>
-          <span>Duration</span>
-          <span>X days</span>
+          <p>
+            Daily package amount:
+            <span
+              id="modalPackageDaily"
+              style="color:#b7ff2a;font-weight:900;"
+            >
+              UGX 0
+            </span>
+          </p>
+
         </div>
 
       </div>
 
-      <p>
-        This is currently a frontend demonstration. Package activation,
-        payment processing and actual earnings will be connected after the
-        Supabase backend is configured.
-      </p>
-
-      <button class="btn btn-primary" onclick="openModal('register'); closePackage();">
-        Create Account
+      <button
+        class="btn btn-primary modal-btn"
+        onclick="openModal('registerModal');closeModal('packageModal')"
+      >
+        Create Account to Continue
       </button>
 
-    </div>
+      <p style="margin-top:14px;color:#666;font-size:.72rem;text-align:center;">
+        Prototype only. Package activation is not connected to a payment
+        provider yet.
+      </p>
 
+    </div>
   </div>
 
 
   <script>
 
-    const authModal = document.getElementById("authModal");
-    const packageModal = document.getElementById("packageModal");
+    const appleIphoneImage =
+      "https://www.apple.com/v/iphone-18-pro/b/images/overview/aio/hero__elo7tt0mnqy6_large.jpg";
 
-    const modalTitle = document.getElementById("modalTitle");
-    const modalDescription = document.getElementById("modalDescription");
-    const nameField = document.getElementById("nameField");
 
-    function openModal(type) {
+    function openModal(id){
+      document.getElementById(id).classList.add("show");
+      document.body.style.overflow = "hidden";
+    }
 
-      if (type === "login") {
 
-        modalTitle.textContent = "Welcome Back";
+    function closeModal(id){
+      document.getElementById(id).classList.remove("show");
 
-        modalDescription.textContent =
-          "Log in to access your investment dashboard.";
+      const openModals =
+        document.querySelectorAll(".modal.show");
 
-        nameField.style.display = "none";
-
-      } else {
-
-        modalTitle.textContent = "Create Account";
-
-        modalDescription.textContent =
-          "Create your account to access the platform.";
-
-        nameField.style.display = "block";
-
+      if(openModals.length === 0){
+        document.body.style.overflow = "";
       }
-
-      authModal.classList.add("active");
-
     }
 
 
-    function closeModal() {
-      authModal.classList.remove("active");
+    function outsideClose(event,id){
+      if(event.target.id === id){
+        closeModal(id);
+      }
     }
 
 
-    function openPackage(name, price) {
-
-      document.getElementById("packageTitle").textContent = name;
-
-      document.getElementById("packagePrice").textContent =
-        "Starting amount: " + price;
-
-      packageModal.classList.add("active");
-
+    function toggleMenu(){
+      document.getElementById("mobileMenu")
+        .classList.toggle("show");
     }
 
 
-    function closePackage() {
-      packageModal.classList.remove("active");
+    function openPackage(number,name,amount,daily){
+
+      document.getElementById("modalPackageName").textContent =
+        name;
+
+      document.getElementById("modalPackageAmount").textContent =
+        amount;
+
+      document.getElementById("modalPackageDaily").textContent =
+        daily;
+
+      document.getElementById("modalPackageImage").src =
+        appleIphoneImage;
+
+      document.getElementById("modalPackageImage").alt =
+        name;
+
+      openModal("packageModal");
     }
 
 
-    function toggleMenu() {
-
-      document
-        .getElementById("navLinks")
-        .classList.toggle("mobile-open");
-
-    }
-
-
-    function demoSubmit(event) {
+    function demoSubmit(event,type){
 
       event.preventDefault();
 
       alert(
-        "Frontend prototype only.\n\n" +
-        "Supabase authentication will be connected in the next stage."
+        type +
+        " submitted in demo mode.\n\n" +
+        "The backend is not connected yet."
       );
 
     }
 
 
-    window.addEventListener("click", function(event) {
+    function filterPackages(){
 
-      if (event.target === authModal) {
-        closeModal();
-      }
+      const search =
+        document.getElementById("packageSearch")
+          .value
+          .toLowerCase()
+          .trim();
 
-      if (event.target === packageModal) {
-        closePackage();
+      const filter =
+        document.getElementById("packageFilter")
+          .value;
+
+      const cards =
+        document.querySelectorAll(".package-card");
+
+      let visible = 0;
+
+      cards.forEach(card => {
+
+        const amount =
+          Number(card.dataset.amount);
+
+        const text =
+          card.innerText.toLowerCase();
+
+        let matchesSearch =
+          text.includes(search);
+
+        let matchesFilter = true;
+
+        if(filter === "under100"){
+          matchesFilter = amount < 100000;
+        }
+
+        if(filter === "100to500"){
+          matchesFilter =
+            amount >= 100000 &&
+            amount <= 500000;
+        }
+
+        if(filter === "500to1m"){
+          matchesFilter =
+            amount > 500000 &&
+            amount <= 1000000;
+        }
+
+        if(filter === "over1m"){
+          matchesFilter = amount > 1000000;
+        }
+
+        if(matchesSearch && matchesFilter){
+          card.style.display = "";
+          visible++;
+        }else{
+          card.style.display = "none";
+        }
+
+      });
+
+      document.getElementById("noResults").style.display =
+        visible === 0 ? "block" : "none";
+    }
+
+
+    document.addEventListener("keydown",function(event){
+
+      if(event.key === "Escape"){
+
+        document.querySelectorAll(".modal.show")
+          .forEach(modal => {
+            closeModal(modal.id);
+          });
+
       }
 
     });
