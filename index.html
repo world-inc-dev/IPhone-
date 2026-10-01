@@ -7,7 +7,7 @@
 <title>iPhoneVest | Digital Package Platform</title>
 
 <meta name="description"
-      content="iPhoneVest digital package platform.">
+content="iPhoneVest digital package platform.">
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -146,7 +146,7 @@ nav{
 /* HERO */
 
 .hero{
-  padding:90px 0 65px;
+  padding:80px 0 65px;
   min-height:650px;
   display:grid;
   grid-template-columns:1.05fr .95fr;
@@ -210,65 +210,22 @@ nav{
 
 .device-glow{
   position:absolute;
-  width:300px;
-  height:300px;
+  width:330px;
+  height:330px;
   border-radius:50%;
-  background:rgba(183,255,0,.11);
+  background:rgba(183,255,0,.12);
   filter:blur(70px);
 }
 
-.iphone{
+.hero-iphone{
   position:relative;
-  width:220px;
-  height:430px;
-  border:5px solid #282828;
-  border-radius:38px;
-  background:linear-gradient(145deg,#202020,#080808);
-  box-shadow:
-    0 0 0 1px #000,
-    0 30px 80px rgba(0,0,0,.8),
-    0 0 50px rgba(183,255,0,.08);
-  transform:rotate(5deg);
-  overflow:hidden;
-}
-
-.iphone:before{
-  content:"";
-  position:absolute;
-  top:11px;
-  left:50%;
-  transform:translateX(-50%);
-  width:75px;
-  height:20px;
-  border-radius:20px;
-  background:#000;
-  z-index:3;
-}
-
-.iphone-screen{
-  position:absolute;
-  inset:6px;
-  border-radius:32px;
-  overflow:hidden;
-  background:
-    radial-gradient(circle at 70% 20%,rgba(183,255,0,.3),transparent 20%),
-    linear-gradient(150deg,#101010,#050505);
-  display:flex;
-  flex-direction:column;
-  justify-content:flex-end;
-  padding:25px;
-}
-
-.screen-logo{
-  color:var(--lime);
-  font-weight:900;
-  font-size:20px;
-}
-
-.screen-text{
-  color:white;
-  font-size:11px;
-  opacity:.7;
+  width:min(440px,100%);
+  max-height:480px;
+  object-fit:contain;
+  z-index:2;
+  filter:
+    drop-shadow(0 30px 50px rgba(0,0,0,.8))
+    drop-shadow(0 0 30px rgba(183,255,0,.1));
 }
 
 /* SECTIONS */
@@ -529,32 +486,18 @@ section{
 }
 
 .package-device{
-  height:110px;
+  height:180px;
   display:flex;
   justify-content:center;
   align-items:center;
 }
 
-.mini-phone{
-  width:58px;
-  height:95px;
-  border-radius:12px;
-  border:3px solid #333;
-  background:linear-gradient(145deg,#222,#070707);
-  box-shadow:0 8px 25px rgba(0,0,0,.6);
-  position:relative;
-}
-
-.mini-phone:before{
-  content:"";
-  position:absolute;
-  top:4px;
-  left:50%;
-  transform:translateX(-50%);
-  width:20px;
-  height:6px;
-  background:#000;
-  border-radius:10px;
+.package-device img{
+  width:100%;
+  height:175px;
+  object-fit:contain;
+  filter:
+    drop-shadow(0 15px 20px rgba(0,0,0,.7));
 }
 
 .package-card h3{
@@ -679,7 +622,9 @@ section{
 }
 
 .modal{
-  width:min(440px,100%);
+  width:min(480px,100%);
+  max-height:92vh;
+  overflow-y:auto;
   background:#0c0c0c;
   border:1px solid var(--border);
   border-radius:20px;
@@ -799,11 +744,66 @@ section{
   font-weight:800;
 }
 
+.payment-accounts{
+  display:grid;
+  gap:10px;
+  margin:15px 0;
+}
+
+.payment-account{
+  background:#070707;
+  border:1px solid #262626;
+  border-radius:13px;
+  padding:15px;
+}
+
+.payment-account.airtel{
+  border-color:rgba(255,255,255,.15);
+}
+
+.payment-account.mtn{
+  border-color:rgba(183,255,0,.22);
+}
+
+.payment-network{
+  color:var(--lime);
+  font-size:11px;
+  font-weight:900;
+  text-transform:uppercase;
+  margin-bottom:3px;
+}
+
+.payment-name{
+  font-size:13px;
+  color:#aaa;
+  margin-bottom:4px;
+}
+
+.payment-number{
+  font-size:20px;
+  font-weight:900;
+  letter-spacing:.3px;
+}
+
 .payment-note{
   color:#888;
   font-size:12px;
   margin-top:10px;
   line-height:1.6;
+}
+
+.reference-box{
+  background:rgba(183,255,0,.04);
+  border:1px solid rgba(183,255,0,.12);
+  border-radius:12px;
+  padding:13px;
+  margin:15px 0;
+  color:#aaa;
+  font-size:12px;
+}
+
+.reference-box strong{
+  color:#fff;
 }
 
 /* TOAST */
@@ -880,6 +880,10 @@ footer{
   .withdraw-grid{
     grid-template-columns:1fr 1fr;
   }
+
+  .hero-iphone{
+    max-width:390px;
+  }
 }
 
 @media(max-width:700px){
@@ -912,9 +916,8 @@ footer{
     grid-template-columns:1fr;
   }
 
-  .iphone{
-    width:190px;
-    height:370px;
+  .hero-iphone{
+    max-width:330px;
   }
 }
 
@@ -938,6 +941,10 @@ footer{
 
   .search-box{
     margin-bottom:10px;
+  }
+
+  .payment-number{
+    font-size:18px;
   }
 }
 </style>
@@ -973,8 +980,8 @@ Create Account
 </button>
 
 <button class="btn btn-danger"
-        id="logoutNavBtn"
-        style="display:none;">
+id="logoutNavBtn"
+style="display:none;">
 Logout
 </button>
 
@@ -1011,7 +1018,7 @@ and manage your digital package activity from one platform.
 <div class="hero-buttons">
 
 <button class="btn btn-primary"
-        id="heroSignupBtn">
+id="heroSignupBtn">
 Create Account
 </button>
 
@@ -1028,21 +1035,12 @@ Explore Packages
 
 <div class="device-glow"></div>
 
-<div class="iphone">
-
-<div class="iphone-screen">
-
-<div class="screen-logo">
-iPhoneVest
-</div>
-
-<div class="screen-text">
-Digital package platform
-</div>
-
-</div>
-
-</div>
+<img
+class="hero-iphone"
+src="https://images.apple.com/v/iphone-18-pro/b/images/overview/product-viewer/3d_viewer__hgotqf9hvvee_large.jpg"
+alt="iPhone 18 Pro front and back"
+loading="eager"
+>
 
 </div>
 
@@ -1050,7 +1048,7 @@ Digital package platform
 
 
 <section id="accountSection"
-         class="container">
+class="container">
 
 <div class="account-panel">
 
@@ -1063,14 +1061,14 @@ My iPhoneVest Account
 </h2>
 
 <div class="account-email"
-     id="accountEmail">
+id="accountEmail">
 Loading...
 </div>
 
 </div>
 
 <button class="btn btn-primary"
-        onclick="scrollToPackages()">
+onclick="scrollToPackages()">
 View Packages
 </button>
 
@@ -1086,7 +1084,7 @@ Available Balance
 </small>
 
 <strong class="green"
-        id="walletBalance">
+id="walletBalance">
 UGX 0
 </strong>
 
@@ -1113,7 +1111,7 @@ Total Earned
 </small>
 
 <strong class="green"
-        id="totalEarned">
+id="totalEarned">
 UGX 0
 </strong>
 
@@ -1197,7 +1195,7 @@ placeholder="Enter amount"
 <div class="withdraw-actions">
 
 <button class="btn btn-primary"
-        id="withdrawBtn">
+id="withdrawBtn">
 Request Withdrawal
 </button>
 
@@ -1210,7 +1208,7 @@ payout system once the payment provider is connected.
 
 
 <div id="withdrawStatus"
-     class="status-message">
+class="status-message">
 </div>
 
 
@@ -1221,10 +1219,10 @@ Withdrawal History
 </h3>
 
 <div class="history-list"
-     id="withdrawalHistory">
+id="withdrawalHistory">
 
 <div class="history-item"
-     style="color:#888;">
+style="color:#888;">
 No withdrawal requests yet.
 </div>
 
@@ -1293,7 +1291,7 @@ Highest amount
 
 
 <div class="packages-grid"
-     id="packagesGrid">
+id="packagesGrid">
 
 <div class="loading">
 Loading iPhoneVest packages...
@@ -1356,11 +1354,11 @@ Register your iPhoneVest account.
 </div>
 
 <h3>
-Explore Packages
+Choose Package
 </h3>
 
 <p>
-Review the available package tiers.
+Select the iPhoneVest package you want.
 </p>
 
 </div>
@@ -1373,11 +1371,11 @@ Review the available package tiers.
 </div>
 
 <h3>
-Activate
+Make Payment
 </h3>
 
 <p>
-Choose a package and complete the mobile-money payment.
+Send the exact package amount to the displayed mobile-money number.
 </p>
 
 </div>
@@ -1390,11 +1388,11 @@ Choose a package and complete the mobile-money payment.
 </div>
 
 <h3>
-Manage
+Submit Reference
 </h3>
 
 <p>
-Track package activity and account information.
+Enter your mobile-money transaction reference for verification.
 </p>
 
 </div>
@@ -1468,12 +1466,12 @@ the platform database.
 </div>
 
 <h3>
-Transaction Records
+Payment Verification
 </h3>
 
 <p>
-Deposits, withdrawals, earnings and wallet movements
-are designed to be recorded in the platform ledger.
+Submitted mobile-money payments remain pending until
+they are reviewed and approved.
 </p>
 
 </div>
@@ -1531,7 +1529,7 @@ of financial returns.
 <!-- AUTH MODAL -->
 
 <div class="modal-overlay"
-     id="authModal">
+id="authModal">
 
 <div class="modal">
 
@@ -1542,7 +1540,7 @@ Create Account
 </h2>
 
 <button class="close"
-        id="closeAuthModal">
+id="closeAuthModal">
 ×
 </button>
 
@@ -1617,14 +1615,14 @@ required
 
 
 <button class="btn btn-primary"
-        type="submit"
-        id="signupSubmit">
+type="submit"
+id="signupSubmit">
 Create Account
 </button>
 
 
 <div class="status-message"
-     id="signupStatus">
+id="signupStatus">
 </div>
 
 
@@ -1633,7 +1631,7 @@ Create Account
 Already have an account?
 
 <button type="button"
-        id="switchToLogin">
+id="switchToLogin">
 Login
 </button>
 
@@ -1643,7 +1641,7 @@ Login
 
 
 <form id="loginForm"
-      style="display:none;">
+style="display:none;">
 
 <div class="form-group">
 
@@ -1678,14 +1676,14 @@ required
 
 
 <button class="btn btn-primary"
-        type="submit"
-        id="loginSubmit">
+type="submit"
+id="loginSubmit">
 Login
 </button>
 
 
 <div class="status-message"
-     id="loginStatus">
+id="loginStatus">
 </div>
 
 
@@ -1694,7 +1692,7 @@ Login
 Don't have an account?
 
 <button type="button"
-        id="switchToSignup">
+id="switchToSignup">
 Create Account
 </button>
 
@@ -1707,21 +1705,21 @@ Create Account
 </div>
 
 
-<!-- PACKAGE / PAYMENT MODAL -->
+<!-- MANUAL PAYMENT MODAL -->
 
 <div class="modal-overlay"
-     id="packageModal">
+id="packageModal">
 
 <div class="modal">
 
 <div class="modal-header">
 
 <h2>
-Activate Package
+Pay & Submit
 </h2>
 
 <button class="close"
-        id="closePackageModal">
+id="closePackageModal">
 ×
 </button>
 
@@ -1729,24 +1727,74 @@ Activate Package
 
 
 <div class="selected-package"
-     id="selectedPackage">
+id="selectedPackage">
 </div>
+
+
+<div class="payment-accounts">
+
+<div class="payment-account airtel">
+
+<div class="payment-network">
+AIRTEL MONEY
+</div>
+
+<div class="payment-name">
+BRIAN
+</div>
+
+<div class="payment-number">
++256 746 673971
+</div>
+
+</div>
+
+
+<div class="payment-account mtn">
+
+<div class="payment-network">
+MTN MOBILE MONEY
+</div>
+
+<div class="payment-name">
+ELLY
+</div>
+
+<div class="payment-number">
++256 788 271972
+</div>
+
+</div>
+
+</div>
+
+
+<p class="payment-note">
+Send the exact package amount to one of the mobile-money
+numbers above.
+</p>
+
+<p class="payment-note">
+After completing the payment, select the network you used
+and enter the transaction reference shown on your
+mobile-money confirmation.
+</p>
 
 
 <div class="form-group">
 
 <label>
-Payment Provider
+Payment Network
 </label>
 
 <select id="paymentProvider">
 
-<option value="mtn">
-MTN Mobile Money
-</option>
-
 <option value="airtel">
 Airtel Money
+</option>
+
+<option value="mtn">
+MTN Mobile Money
 </option>
 
 </select>
@@ -1757,7 +1805,7 @@ Airtel Money
 <div class="form-group">
 
 <label>
-Mobile Money Number
+Your Mobile Money Number
 </label>
 
 <input
@@ -1770,27 +1818,38 @@ autocomplete="tel"
 </div>
 
 
-<p class="payment-note">
-The package amount is retrieved securely from the
-iPhoneVest database. You do not enter the amount manually.
-</p>
+<div class="form-group">
 
-<p class="payment-note">
-After you continue, a payment request will be sent to
-your selected mobile-money number. Approve the request
-on your phone to complete the payment.
-</p>
+<label>
+Mobile Money Transaction Reference
+</label>
+
+<input
+type="text"
+id="paymentReference"
+placeholder="Enter transaction ID/reference"
+autocomplete="off"
+>
+
+</div>
+
+
+<div class="reference-box">
+You are submitting a <strong>pending payment request</strong>.
+Your package will not be activated simply because this form
+is submitted. The payment must be verified and approved.
+</div>
 
 
 <div id="paymentStatus"
-     class="status-message">
+class="status-message">
 </div>
 
 
 <button class="btn btn-primary"
-        style="width:100%;"
-        id="activatePackageBtn">
-Activate & Pay
+style="width:100%;"
+id="submitPaymentBtn">
+I HAVE PAID — SUBMIT FOR VERIFICATION
 </button>
 
 </div>
@@ -1799,7 +1858,7 @@ Activate & Pay
 
 
 <div class="toast"
-     id="toast">
+id="toast">
 </div>
 
 
@@ -1816,22 +1875,23 @@ const SUPABASE_ANON_KEY =
 "sb_publishable_Coxsew-mxjY7cG1V2OeeIA_7i0zUZVb";
 
 const {
-  createClient
+createClient
 } = window.supabase;
 
 const supabaseClient =
 createClient(
-  SUPABASE_URL,
-  SUPABASE_ANON_KEY
+SUPABASE_URL,
+SUPABASE_ANON_KEY
 );
 
 
 /* =========================================================
-   EDGE FUNCTION
+   REAL IPHONE IMAGE
+   Official Apple product image
    ========================================================= */
 
-const INITIATE_PAYMENT_FUNCTION =
-"initiate-pesajet-payment";
+const IPHONE_IMAGE =
+"https://images.apple.com/v/iphone-18-pro/b/images/overview/product-viewer/3d_viewer__hgotqf9hvvee_large.jpg";
 
 
 /* =========================================================
@@ -1839,9 +1899,7 @@ const INITIATE_PAYMENT_FUNCTION =
    ========================================================= */
 
 let currentUser = null;
-
 let packages = [];
-
 let selectedPackage = null;
 
 
@@ -1919,8 +1977,7 @@ function showToast(message){
 const toast =
 document.getElementById("toast");
 
-toast.textContent =
-message;
+toast.textContent = message;
 
 toast.classList.add("show");
 
@@ -1940,8 +1997,7 @@ message,
 type
 ){
 
-element.textContent =
-message;
+element.textContent = message;
 
 let className =
 "status-success";
@@ -1994,14 +2050,13 @@ normalized;
 
 }
 
-
 return normalized;
 
 }
 
 
 /* =========================================================
-   AUTH MODALS
+   AUTH
    ========================================================= */
 
 function openAuth(mode="signup"){
@@ -2022,7 +2077,6 @@ function closeAuth(){
 authModal.classList.remove("active");
 
 clearStatus(signupStatus);
-
 clearStatus(loginStatus);
 
 }
@@ -2072,7 +2126,7 @@ behavior:"smooth"
 
 
 /* =========================================================
-   LOAD PACKAGES
+   PACKAGES
    ========================================================= */
 
 async function loadPackages(){
@@ -2082,7 +2136,6 @@ packagesGrid.innerHTML=`
 Loading iPhoneVest packages...
 </div>
 `;
-
 
 const {
 data,
@@ -2098,7 +2151,6 @@ await supabaseClient
 ascending:true
 }
 );
-
 
 if(error){
 
@@ -2117,7 +2169,6 @@ return;
 
 }
 
-
 packages =
 data || [];
 
@@ -2125,10 +2176,6 @@ renderPackages();
 
 }
 
-
-/* =========================================================
-   RENDER PACKAGES
-   ========================================================= */
 
 function renderPackages(){
 
@@ -2147,7 +2194,6 @@ document
 let filtered =
 [...packages];
 
-
 if(search){
 
 filtered =
@@ -2165,10 +2211,15 @@ String(pkg.principal_amount)
 
 String(pkg.daily_amount)
 .includes(search)
+
+||
+
+String(pkg.asset_model)
+.toLowerCase()
+.includes(search)
 );
 
 }
-
 
 if(sort==="low"){
 
@@ -2180,7 +2231,6 @@ Number(b.principal_amount)
 
 }
 
-
 if(sort==="high"){
 
 filtered.sort(
@@ -2190,7 +2240,6 @@ Number(a.principal_amount)
 );
 
 }
-
 
 if(!filtered.length){
 
@@ -2204,7 +2253,6 @@ return;
 
 }
 
-
 packagesGrid.innerHTML =
 filtered.map(pkg=>`
 
@@ -2216,7 +2264,11 @@ ${escapeHtml(pkg.name)}
 
 <div class="package-device">
 
-<div class="mini-phone"></div>
+<img
+src="${IPHONE_IMAGE}"
+alt="iPhone 18 Pro"
+loading="lazy"
+>
 
 </div>
 
@@ -2257,7 +2309,6 @@ packages.find(
 pkg=>pkg.id===packageId
 );
 
-
 if(!selectedPackage){
 
 showToast(
@@ -2268,10 +2319,30 @@ return;
 
 }
 
-
 document.getElementById(
 "selectedPackage"
 ).innerHTML=`
+
+<div style="
+display:flex;
+gap:15px;
+align-items:center;
+margin-bottom:14px;
+">
+
+<img
+src="${IPHONE_IMAGE}"
+alt="iPhone 18 Pro"
+style="
+width:100px;
+height:100px;
+object-fit:contain;
+border-radius:12px;
+background:#050505;
+"
+>
+
+<div>
 
 <div style="
 color:#b7ff00;
@@ -2293,6 +2364,10 @@ margin-bottom:8px;
 ${escapeHtml(
 selectedPackage.asset_model
 )}
+</div>
+
+</div>
+
 </div>
 
 <div class="amount">
@@ -2317,8 +2392,12 @@ document.getElementById(
 ).value="";
 
 document.getElementById(
+"paymentReference"
+).value="";
+
+document.getElementById(
 "paymentProvider"
-).value="mtn";
+).value="airtel";
 
 packageModal.classList.add(
 "active"
@@ -2338,7 +2417,6 @@ async function(event){
 event.preventDefault();
 
 clearStatus(signupStatus);
-
 
 const fullName =
 document
@@ -2360,17 +2438,14 @@ document
 .getElementById("signupPassword")
 .value;
 
-
 const submit =
 document.getElementById(
 "signupSubmit"
 );
 
 submit.disabled=true;
-
 submit.textContent=
 "Creating account...";
-
 
 const {
 data,
@@ -2391,12 +2466,9 @@ phone:phone
 
 });
 
-
 submit.disabled=false;
-
 submit.textContent=
 "Create Account";
-
 
 if(error){
 
@@ -2409,7 +2481,6 @@ error.message,
 return;
 
 }
-
 
 if(data.session){
 
@@ -2455,7 +2526,6 @@ event.preventDefault();
 
 clearStatus(loginStatus);
 
-
 const email =
 document
 .getElementById("loginEmail")
@@ -2466,17 +2536,14 @@ document
 .getElementById("loginPassword")
 .value;
 
-
 const submit =
 document.getElementById(
 "loginSubmit"
 );
 
 submit.disabled=true;
-
 submit.textContent=
 "Logging in...";
-
 
 const {
 data,
@@ -2488,12 +2555,9 @@ email,
 password
 });
 
-
 submit.disabled=false;
-
 submit.textContent=
 "Login";
-
 
 if(error){
 
@@ -2506,7 +2570,6 @@ error.message,
 return;
 
 }
-
 
 currentUser =
 data.user;
@@ -2536,21 +2599,17 @@ error
 await supabaseClient.auth
 .getSession();
 
-
 if(error){
 
 console.error(error);
-
 return;
 
 }
-
 
 currentUser =
 data.session
 ? data.session.user
 : null;
-
 
 await updateAccountUI();
 
@@ -2595,7 +2654,6 @@ return;
 
 }
 
-
 accountSection.style.display =
 "block";
 
@@ -2608,12 +2666,10 @@ signupNavBtn.style.display =
 logoutNavBtn.style.display =
 "inline-block";
 
-
 document.getElementById(
 "accountEmail"
 ).textContent =
 currentUser.email || "";
-
 
 await loadWallet();
 
@@ -2632,7 +2688,6 @@ async function loadWallet(){
 
 if(!currentUser) return;
 
-
 const {
 data,
 error
@@ -2650,21 +2705,17 @@ currentUser.id
 )
 .maybeSingle();
 
-
 if(error){
 
 console.error(error);
-
 return;
 
 }
-
 
 const balance =
 data
 ? data.available_balance
 : 0;
-
 
 document.getElementById(
 "walletBalance"
@@ -2683,7 +2734,6 @@ async function loadAccountStats(){
 
 if(!currentUser) return;
 
-
 const {
 data,
 error
@@ -2698,22 +2748,18 @@ await supabaseClient
 currentUser.id
 );
 
-
 if(error){
 
 console.error(error);
-
 return;
 
 }
-
 
 const active =
 (data||[])
 .filter(
 item=>item.status==="active"
 ).length;
-
 
 const earned =
 (data||[]).reduce(
@@ -2725,12 +2771,10 @@ item.total_earned || 0
 0
 );
 
-
 document.getElementById(
 "activePackages"
 ).textContent =
 active;
-
 
 document.getElementById(
 "totalEarned"
@@ -2749,20 +2793,17 @@ async function loadWithdrawalHistory(){
 
 if(!currentUser) return;
 
-
 const history =
 document.getElementById(
 "withdrawalHistory"
 );
 
-
 history.innerHTML=`
 <div class="history-item"
-     style="color:#888;">
+style="color:#888;">
 Loading withdrawal history...
 </div>
 `;
-
 
 const {
 data,
@@ -2793,7 +2834,6 @@ ascending:false
 }
 );
 
-
 if(error){
 
 console.error(
@@ -2803,7 +2843,7 @@ error
 
 history.innerHTML=`
 <div class="history-item"
-     style="color:#ff8585;">
+style="color:#ff8585;">
 Unable to load withdrawal history.
 </div>
 `;
@@ -2812,12 +2852,11 @@ return;
 
 }
 
-
 if(!data || data.length===0){
 
 history.innerHTML=`
 <div class="history-item"
-     style="color:#888;">
+style="color:#888;">
 No withdrawal requests yet.
 </div>
 `;
@@ -2826,7 +2865,6 @@ return;
 
 }
 
-
 history.innerHTML =
 data.map(item=>{
 
@@ -2834,14 +2872,11 @@ const status =
 String(item.status||"")
 .toLowerCase();
 
-
 let statusColor="#aaa";
-
 
 if(status==="completed"){
 statusColor="#b7ff00";
 }
-
 
 if(
 status==="failed" ||
@@ -2850,14 +2885,12 @@ status==="cancelled"
 statusColor="#ff8585";
 }
 
-
 if(
 status==="pending" ||
 status==="processing"
 ){
 statusColor="#ffd166";
 }
-
 
 return `
 
@@ -2877,25 +2910,19 @@ ${escapeHtml(status)}
 </div>
 
 <div class="history-details">
-
 ${escapeHtml(
 item.provider || "Mobile Money"
 )}
-
 ·
-
 ${escapeHtml(
 item.phone_number || ""
 )}
-
 </div>
 
 <div class="history-ref">
-
 ${escapeHtml(
 item.reference || ""
 )}
-
 </div>
 
 </div>
@@ -2908,7 +2935,7 @@ item.reference || ""
 
 
 /* =========================================================
-   WITHDRAW REQUEST
+   WITHDRAWAL
    ========================================================= */
 
 document.getElementById(
@@ -2920,23 +2947,19 @@ async function(){
 if(!currentUser){
 
 openAuth("login");
-
 return;
 
 }
-
 
 const provider =
 document.getElementById(
 "withdrawProvider"
 ).value;
 
-
 const phone =
 document.getElementById(
 "withdrawPhone"
 ).value.trim();
-
 
 const amount =
 Number(
@@ -2945,15 +2968,12 @@ document.getElementById(
 ).value
 );
 
-
 const statusBox =
 document.getElementById(
 "withdrawStatus"
 );
 
-
 clearStatus(statusBox);
-
 
 if(!phone){
 
@@ -2967,7 +2987,6 @@ return;
 
 }
 
-
 if(!amount || amount<=0){
 
 showStatus(
@@ -2979,7 +2998,6 @@ statusBox,
 return;
 
 }
-
 
 const {
 data:wallet,
@@ -2998,7 +3016,6 @@ currentUser.id
 )
 .maybeSingle();
 
-
 if(walletError){
 
 showStatus(
@@ -3011,12 +3028,10 @@ return;
 
 }
 
-
 const balance =
 Number(
 wallet?.available_balance || 0
 );
-
 
 if(amount>balance){
 
@@ -3030,27 +3045,6 @@ return;
 
 }
 
-
-/*
-IMPORTANT:
-
-The actual withdrawal request is intentionally not
-inserted directly from the browser.
-
-A secure Supabase RPC/backend function must perform:
-
-1. Balance locking
-2. Balance validation
-3. Withdrawal creation
-4. Wallet transaction creation
-5. Idempotency protection
-6. Payout-provider processing
-
-This prevents users from manipulating their balance
-through browser JavaScript.
-*/
-
-
 showStatus(
 statusBox,
 "Withdrawal details accepted. Secure payout processing will be connected next.",
@@ -3062,11 +3056,11 @@ statusBox,
 
 
 /* =========================================================
-   PESAJET PAYMENT
+   MANUAL PAYMENT SUBMISSION
    ========================================================= */
 
 document.getElementById(
-"activatePackageBtn"
+"submitPaymentBtn"
 ).addEventListener(
 "click",
 async function(){
@@ -3083,7 +3077,6 @@ return;
 
 }
 
-
 if(!currentUser){
 
 packageModal.classList.remove("active");
@@ -3094,25 +3087,28 @@ return;
 
 }
 
-
 const provider =
 document.getElementById(
 "paymentProvider"
 ).value;
-
 
 const phoneInput =
 document.getElementById(
 "paymentPhone"
 );
 
+const referenceInput =
+document.getElementById(
+"paymentReference"
+);
 
 const phone =
 phoneInput.value.trim();
 
+const reference =
+referenceInput.value.trim();
 
 clearStatus(paymentStatus);
-
 
 if(!["mtn","airtel"].includes(provider)){
 
@@ -3126,59 +3122,76 @@ return;
 
 }
 
-
 if(!phone){
 
 showStatus(
 paymentStatus,
-"Enter the mobile-money number that will make the payment.",
+"Enter the mobile-money number you used to make the payment.",
 "error"
 );
 
 phoneInput.focus();
-
 return;
 
 }
 
-
 const normalizedPhone =
 normalizeUgandaPhone(phone);
-
 
 if(!/^\+256[37]\d{8}$/.test(normalizedPhone)){
 
 showStatus(
 paymentStatus,
-"Enter a valid Ugandan mobile-money number, for example 077XXXXXXX.",
+"Enter a valid Ugandan mobile-money number.",
 "error"
 );
 
 phoneInput.focus();
-
 return;
 
 }
 
+if(!reference){
+
+showStatus(
+paymentStatus,
+"Enter the mobile-money transaction reference.",
+"error"
+);
+
+referenceInput.focus();
+return;
+
+}
+
+if(reference.length<4){
+
+showStatus(
+paymentStatus,
+"Enter a valid transaction reference.",
+"error"
+);
+
+referenceInput.focus();
+return;
+
+}
 
 const button =
 document.getElementById(
-"activatePackageBtn"
+"submitPaymentBtn"
 );
-
 
 button.disabled=true;
 
 button.textContent=
-"Sending Payment Request...";
-
+"Submitting Payment...";
 
 showStatus(
 paymentStatus,
-"Connecting securely to PesaJet...",
+"Submitting your payment for verification...",
 "warning"
 );
-
 
 try{
 
@@ -3186,254 +3199,84 @@ const {
 data,
 error
 } =
-await supabaseClient.functions.invoke(
-INITIATE_PAYMENT_FUNCTION,
+await supabaseClient.rpc(
+"submit_manual_payment_request",
 {
-body:{
-package_id:selectedPackage.id,
-provider:provider,
-phone_number:normalizedPhone
-}
+p_package_id:selectedPackage.id,
+p_provider:provider,
+p_sender_phone:normalizedPhone,
+p_transaction_reference:reference
 }
 );
-
 
 if(error){
 
 console.error(
-"PesaJet function error:",
+"Manual payment error:",
 error
 );
 
 throw new Error(
 error.message ||
-"Unable to start the payment."
+"Unable to submit payment."
 );
 
 }
-
 
 if(!data || !data.success){
 
 throw new Error(
-data?.error ||
-"Payment request could not be started."
+"Payment request could not be submitted."
 );
 
 }
 
-
 showStatus(
 paymentStatus,
-"Payment request sent. Check your phone and approve the mobile-money prompt.",
+"Payment submitted successfully. Your payment is now PENDING verification.",
 "success"
 );
 
 showToast(
-"Payment request sent to your phone."
+"Payment submitted for verification."
 );
-
-
-if(data.payment_id){
-
-await monitorPayment(
-data.payment_id
-);
-
-}else{
-
-button.disabled=false;
 
 button.textContent=
-"Activate & Pay";
+"PAYMENT PENDING";
 
-}
+setTimeout(
+()=>{
+packageModal.classList.remove("active");
+button.disabled=false;
+button.textContent=
+"I HAVE PAID — SUBMIT FOR VERIFICATION";
+},
+2200
+);
 
 }catch(error){
 
 console.error(
-"Payment initiation error:",
+"Payment submission error:",
 error
 );
 
 showStatus(
 paymentStatus,
 error.message ||
-"Unable to start payment.",
+"Unable to submit payment.",
 "error"
 );
 
 button.disabled=false;
 
 button.textContent=
-"Activate & Pay";
+"I HAVE PAID — SUBMIT FOR VERIFICATION";
 
 }
 
 }
 );
-
-
-/* =========================================================
-   PAYMENT STATUS MONITOR
-   ========================================================= */
-
-async function monitorPayment(paymentId){
-
-const button =
-document.getElementById(
-"activatePackageBtn"
-);
-
-
-let attempts=0;
-
-const maxAttempts=30;
-
-showStatus(
-paymentStatus,
-"Waiting for payment confirmation...",
-"warning"
-);
-
-
-while(attempts<maxAttempts){
-
-attempts++;
-
-
-await new Promise(
-resolve =>
-setTimeout(resolve,3000)
-);
-
-
-if(!currentUser){
-
-break;
-
-}
-
-
-const {
-data,
-error
-} =
-await supabaseClient
-.from("payment_transactions")
-.select(`
-id,
-status,
-investment_id,
-provider_reference,
-amount,
-currency
-`)
-.eq(
-"id",
-paymentId
-)
-.eq(
-"user_id",
-currentUser.id
-)
-.maybeSingle();
-
-
-if(error){
-
-console.error(
-"Payment status error:",
-error
-);
-
-continue;
-
-}
-
-
-if(!data){
-
-continue;
-
-}
-
-
-const status =
-String(data.status || "")
-.toLowerCase();
-
-
-if(status==="completed"){
-
-showStatus(
-paymentStatus,
-"Payment confirmed. Your package has been activated.",
-"success"
-);
-
-showToast(
-"Payment confirmed successfully."
-);
-
-
-await updateAccountUI();
-
-
-setTimeout(
-()=>{
-packageModal.classList.remove("active");
-},
-1800
-);
-
-
-button.disabled=false;
-
-button.textContent=
-"Activated";
-
-
-return;
-
-}
-
-
-if(
-status==="failed" ||
-status==="expired"
-){
-
-showStatus(
-paymentStatus,
-"Payment was not completed. You can try again.",
-"error"
-);
-
-button.disabled=false;
-
-button.textContent=
-"Try Again";
-
-return;
-
-}
-
-}
-
-
-showStatus(
-paymentStatus,
-"Payment is still being processed. Please check your account shortly.",
-"warning"
-);
-
-button.disabled=false;
-
-button.textContent=
-"Check Payment Again";
-
-}
 
 
 /* =========================================================
@@ -3450,7 +3293,6 @@ error
 await supabaseClient.auth
 .signOut();
 
-
 if(error){
 
 showToast(
@@ -3460,7 +3302,6 @@ error.message
 return;
 
 }
-
 
 currentUser=null;
 
@@ -3483,12 +3324,10 @@ loginNavBtn.addEventListener(
 ()=>openAuth("login")
 );
 
-
 signupNavBtn.addEventListener(
 "click",
 ()=>openAuth("signup")
 );
-
 
 document.getElementById(
 "heroSignupBtn"
@@ -3497,14 +3336,12 @@ document.getElementById(
 ()=>openAuth("signup")
 );
 
-
 document.getElementById(
 "closeAuthModal"
 ).addEventListener(
 "click",
 closeAuth
 );
-
 
 document.getElementById(
 "closePackageModal"
@@ -3520,14 +3357,12 @@ clearStatus(paymentStatus);
 }
 );
 
-
 document.getElementById(
 "switchToLogin"
 ).addEventListener(
 "click",
 showLoginForm
 );
-
 
 document.getElementById(
 "switchToSignup"
@@ -3547,7 +3382,6 @@ document.getElementById(
 "input",
 renderPackages
 );
-
 
 document.getElementById(
 "packageSort"
@@ -3571,7 +3405,6 @@ closeAuth();
 
 }
 );
-
 
 packageModal.addEventListener(
 "click",
@@ -3612,7 +3445,6 @@ await loadPackages();
 await checkSession();
 
 }
-
 
 initializeApp();
 
