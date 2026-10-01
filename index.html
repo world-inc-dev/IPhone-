@@ -94,10 +94,6 @@ button{
   transform:scale(1.03);
 }
 
-/*
-  Strong glass layer over the entire iPhone.
-  The iPhone remains visible underneath.
-*/
 .background-glass{
   position:absolute;
   inset:0;
@@ -114,9 +110,6 @@ button{
   backdrop-filter:blur(3px);
 }
 
-/*
-  Glowing green light behind the platform.
-*/
 .platform-glow{
   position:absolute;
   width:700px;
@@ -1109,25 +1102,12 @@ button{
 
 <body>
 
-
-<!-- =====================================================
-     FULL GLOWING IPHONE BACKGROUND
-====================================================== -->
-
 <div class="platform-background">
-
   <div class="iphone-screen"></div>
-
   <div class="platform-glow"></div>
-
   <div class="background-glass"></div>
-
 </div>
 
-
-<!-- =====================================================
-     AUTH SCREEN
-====================================================== -->
 
 <section id="authScreen">
 
@@ -1140,7 +1120,6 @@ button{
     <div class="auth-subtitle">
       Create your account and access the iPhoneVest digital package platform.
     </div>
-
 
     <div class="auth-switch">
 
@@ -1161,57 +1140,40 @@ button{
 
     </div>
 
-
-    <!-- CREATE ACCOUNT -->
-
     <form id="signupForm">
 
       <div class="field">
-
         <label>Full Name</label>
-
         <input
           id="signupName"
           type="text"
           placeholder="Enter your full name"
           required
         >
-
       </div>
 
-
       <div class="field">
-
         <label>Phone Number</label>
-
         <input
           id="signupPhone"
           type="tel"
           placeholder="07XXXXXXXX"
           required
         >
-
       </div>
 
-
       <div class="field">
-
         <label>Email Address</label>
-
         <input
           id="signupEmail"
           type="email"
           placeholder="you@example.com"
           required
         >
-
       </div>
 
-
       <div class="field">
-
         <label>Password</label>
-
         <input
           id="signupPassword"
           type="password"
@@ -1219,9 +1181,7 @@ button{
           placeholder="Create a password"
           required
         >
-
       </div>
-
 
       <button
         id="signupButton"
@@ -1231,7 +1191,6 @@ button{
         Create Account
       </button>
 
-
       <div class="auth-note">
         A UGX 7,000 welcome bonus is credited to eligible new accounts.
       </div>
@@ -1239,15 +1198,12 @@ button{
     </form>
 
 
-    <!-- SIGN IN -->
-
     <form
       id="loginForm"
       class="hidden"
     >
 
       <div class="field">
-
         <label>Email Address</label>
 
         <input
@@ -1256,12 +1212,9 @@ button{
           placeholder="you@example.com"
           required
         >
-
       </div>
 
-
       <div class="field">
-
         <label>Password</label>
 
         <input
@@ -1270,9 +1223,7 @@ button{
           placeholder="Your password"
           required
         >
-
       </div>
-
 
       <button
         id="loginButton"
@@ -1289,19 +1240,12 @@ button{
 </section>
 
 
-<!-- =====================================================
-     APPLICATION
-====================================================== -->
-
 <main
   id="app"
   class="hidden"
 >
 
   <div class="app-content">
-
-
-    <!-- TOP BAR -->
 
     <header class="topbar">
 
@@ -1331,10 +1275,7 @@ button{
     </header>
 
 
-    <!-- SUMMARY -->
-
     <section class="summary-grid">
-
 
       <div class="summary-card highlight">
 
@@ -1422,8 +1363,6 @@ button{
     </section>
 
 
-    <!-- QUICK ACTIONS -->
-
     <section class="quick-actions">
 
       <button
@@ -1452,8 +1391,6 @@ button{
 
     </section>
 
-
-    <!-- TABS -->
 
     <nav class="tabs">
 
@@ -1493,15 +1430,12 @@ button{
     </nav>
 
 
-    <!-- DASHBOARD -->
-
     <section
       id="dashboardPanel"
       class="panel active"
     >
 
       <div class="dashboard-grid">
-
 
         <div class="card">
 
@@ -1547,13 +1481,10 @@ button{
 
         </div>
 
-
       </div>
 
     </section>
 
-
-    <!-- PACKAGES -->
 
     <section
       id="packagesPanel"
@@ -1568,15 +1499,12 @@ button{
     </section>
 
 
-    <!-- HISTORY -->
-
     <section
       id="historyPanel"
       class="panel"
     >
 
       <div class="history-grid">
-
 
         <div class="card">
 
@@ -1605,13 +1533,10 @@ button{
 
         </div>
 
-
       </div>
 
     </section>
 
-
-    <!-- ADMIN -->
 
     <section
       id="adminPanel"
@@ -1635,15 +1560,10 @@ button{
 
     </section>
 
-
   </div>
 
 </main>
 
-
-<!-- =====================================================
-     PAYMENT MODAL
-====================================================== -->
 
 <div
   id="paymentModal"
@@ -1765,10 +1685,6 @@ button{
 
 </div>
 
-
-<!-- =====================================================
-     WITHDRAWAL MODAL
-====================================================== -->
 
 <div
   id="withdrawModal"
@@ -2117,24 +2033,69 @@ document
 
 /* =========================================================
    ENSURE WELCOME BONUS
+   FIXED:
+   - Uses allowed transaction_type: earning
+   - Checks for existing bonus first
+   - Does not falsely report success
 ========================================================= */
 
 async function ensureWelcomeBonus(){
 
   if(!currentUser){
-    return false;
-  }
 
-  /*
-    The unique reference prevents the same account
-    from receiving the welcome bonus repeatedly.
-  */
+    return {
+      success:false,
+      message:"No authenticated user."
+    };
+
+  }
 
   const reference =
     "IPV-WELCOME-" +
     currentUser.id;
 
   try{
+
+    /*
+      Check whether this exact welcome bonus
+      has already been recorded.
+    */
+
+    const existing =
+      await supabaseClient
+      .from("wallet_transactions")
+      .select("id,amount,reference")
+      .eq("user_id",currentUser.id)
+      .eq("reference",reference)
+      .maybeSingle();
+
+    if(existing.error){
+      throw existing.error;
+    }
+
+
+    /*
+      Already credited.
+    */
+
+    if(existing.data){
+
+      await loadWallet();
+
+      return {
+        success:true,
+        alreadyExists:true,
+        message:"Welcome bonus already credited."
+      };
+
+    }
+
+
+    /*
+      Credit UGX 7,000.
+      'earning' is an allowed transaction type
+      according to the database CHECK constraint.
+    */
 
     const result =
       await supabaseClient.rpc(
@@ -2150,53 +2111,69 @@ async function ensureWelcomeBonus(){
             reference,
 
           p_type:
-            "welcome_bonus",
+            "earning",
 
           p_description:
             "iPhoneVest welcome bonus"
         }
       );
 
-    /*
-      A duplicate reference means the bonus has
-      already been credited. That is fine.
-    */
 
     if(result.error){
-
-      const message =
-        result.error.message
-        .toLowerCase();
-
-      if(
-        !message.includes("duplicate") &&
-        !message.includes("already exists") &&
-        !message.includes("unique")
-      ){
-
-        console.warn(
-          "Welcome bonus:",
-          result.error.message
-        );
-
-      }
-
+      throw result.error;
     }
+
+
+    /*
+      Reload wallet after credit.
+    */
 
     await loadWallet();
 
-    return true;
+    const newBalance =
+      getWalletBalance(currentWallet);
+
+
+    /*
+      The RPC has returned successfully.
+      We now verify that the wallet has
+      actually received at least UGX 7,000.
+    */
+
+    if(newBalance < WELCOME_BONUS){
+
+      return {
+        success:false,
+        message:
+          "Welcome bonus transaction completed, but the wallet balance was not updated."
+      };
+
+    }
+
+
+    return {
+      success:true,
+      alreadyExists:false,
+      message:
+        "UGX 7,000 welcome bonus credited successfully."
+    };
+
 
   }catch(error){
 
-    console.warn(
-      "Welcome bonus:",
+    console.error(
+      "Welcome bonus error:",
       error
     );
 
     await loadWallet();
 
-    return false;
+    return {
+      success:false,
+      message:
+        error.message ||
+        "Welcome bonus could not be credited."
+    };
 
   }
 
@@ -2221,6 +2198,7 @@ async function(e){
     );
 
   button.disabled=true;
+
   button.textContent=
     "Creating Account...";
 
@@ -2272,10 +2250,13 @@ async function(e){
       throw error;
     }
 
+
     if(!data.user){
+
       throw new Error(
         "Account creation failed."
       );
+
     }
 
 
@@ -2308,23 +2289,39 @@ async function(e){
 
 
     /*
-      If the account has an active session,
-      immediately make sure the welcome bonus
-      exists and reload the wallet.
+      A session means the account can immediately
+      use the wallet RPC.
     */
 
     if(data.session){
 
       await loadProfile();
 
-      await ensureWelcomeBonus();
+      const bonusResult =
+        await ensureWelcomeBonus();
 
       await enterApplication();
 
-      showToast(
-        "Account created. UGX 7,000 welcome bonus added.",
-        "success"
-      );
+
+      if(bonusResult.success){
+
+        showToast(
+          bonusResult.alreadyExists
+            ? "Welcome bonus already credited."
+            : "Account created. UGX 7,000 welcome bonus credited.",
+          "success"
+        );
+
+      }else{
+
+        showToast(
+          "Account created, but the welcome bonus could not be credited: " +
+          bonusResult.message,
+          "error"
+        );
+
+      }
+
 
     }else{
 
@@ -2351,6 +2348,7 @@ async function(e){
   }finally{
 
     button.disabled=false;
+
     button.textContent=
       "Create Account";
 
@@ -2377,6 +2375,7 @@ async function(e){
     );
 
   button.disabled=true;
+
   button.textContent=
     "Signing In...";
 
@@ -2544,6 +2543,7 @@ async function loadWallet(){
     currentWallet=null;
 
     return;
+
   }
 
   currentWallet=data;
@@ -2642,15 +2642,11 @@ function renderAll(){
     currentUser.email;
 
 
-  /*
-    Make the welcome bonus message explicit
-    when the balance is exactly 7,000.
-  */
-
   const balanceNote =
     document.getElementById(
       "balanceNote"
     );
+
 
   if(balance >= WELCOME_BONUS){
 
@@ -3064,6 +3060,7 @@ async function performCheckin(){
     "iphonevest_checkin_" +
     currentUser.id;
 
+
   if(
     localStorage.getItem(key) ===
     todayKey()
@@ -3075,6 +3072,7 @@ async function performCheckin(){
     );
 
     return;
+
   }
 
 
@@ -3103,8 +3101,16 @@ async function performCheckin(){
         p_reference:
           reference,
 
+        /*
+          FIX:
+          'daily_checkin' was rejected by the
+          wallet_transactions CHECK constraint.
+
+          'earning' is an allowed transaction type.
+        */
+
         p_type:
-          "daily_checkin",
+          "earning",
 
         p_description:
           "Daily check-in bonus"
@@ -3135,6 +3141,11 @@ async function performCheckin(){
 
 
   }catch(error){
+
+    console.error(
+      "Check-in error:",
+      error
+    );
 
     showToast(
       error.message ||
@@ -3874,10 +3885,6 @@ async function(){
   .getElementById("authScreen")
   .classList.remove("hidden");
 
-  /*
-    Always open Create Account after logout.
-  */
-
   showSignup();
 
 });
@@ -3912,11 +3919,6 @@ async function(event,session){
 ========================================================= */
 
 (async function(){
-
-  /*
-    Create Account is ALWAYS the default
-    public opening screen.
-  */
 
   showSignup();
 
