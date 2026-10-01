@@ -12,6 +12,7 @@ content="iPhoneVest digital package platform.">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
+
 *{
   box-sizing:border-box;
   margin:0;
@@ -50,7 +51,10 @@ a{
   text-decoration:none;
 }
 
-button,input,select{
+button,
+input,
+select,
+textarea{
   font:inherit;
 }
 
@@ -68,7 +72,9 @@ button:disabled{
   margin:auto;
 }
 
-/* NAV */
+/* =========================================================
+   NAV
+========================================================= */
 
 header{
   position:sticky;
@@ -111,6 +117,7 @@ nav{
 .nav-actions{
   display:flex;
   gap:8px;
+  flex-wrap:wrap;
 }
 
 .btn{
@@ -143,7 +150,14 @@ nav{
   border-color:rgba(255,95,95,.3);
 }
 
-/* HERO */
+.btn-warning{
+  color:#ffd166;
+  border-color:rgba(255,209,102,.3);
+}
+
+/* =========================================================
+   HERO
+========================================================= */
 
 .hero{
   padding:80px 0 65px;
@@ -228,7 +242,9 @@ nav{
     drop-shadow(0 0 30px rgba(183,255,0,.1));
 }
 
-/* SECTIONS */
+/* =========================================================
+   SECTIONS
+========================================================= */
 
 section{
   padding:80px 0;
@@ -248,7 +264,9 @@ section{
   color:var(--muted);
 }
 
-/* ACCOUNT */
+/* =========================================================
+   ACCOUNT
+========================================================= */
 
 #accountSection{
   display:none;
@@ -307,7 +325,9 @@ section{
   color:var(--lime);
 }
 
-/* WITHDRAW */
+/* =========================================================
+   WITHDRAW
+========================================================= */
 
 .withdraw-section{
   margin-top:35px;
@@ -375,6 +395,10 @@ section{
   margin-top:10px;
 }
 
+/* =========================================================
+   HISTORY
+========================================================= */
+
 .history{
   margin-top:35px;
 }
@@ -424,7 +448,9 @@ section{
   margin-top:5px;
 }
 
-/* PACKAGES */
+/* =========================================================
+   PACKAGES
+========================================================= */
 
 .package-controls{
   display:flex;
@@ -496,8 +522,7 @@ section{
   width:100%;
   height:175px;
   object-fit:contain;
-  filter:
-    drop-shadow(0 15px 20px rgba(0,0,0,.7));
+  filter:drop-shadow(0 15px 20px rgba(0,0,0,.7));
 }
 
 .package-card h3{
@@ -535,7 +560,9 @@ section{
   font-size:11px;
 }
 
-/* FEATURES */
+/* =========================================================
+   FEATURES
+========================================================= */
 
 .features-grid{
   display:grid;
@@ -571,7 +598,9 @@ section{
   font-size:14px;
 }
 
-/* HOW */
+/* =========================================================
+   HOW
+========================================================= */
 
 .steps{
   display:grid;
@@ -602,7 +631,227 @@ section{
   margin-top:6px;
 }
 
-/* MODALS */
+/* =========================================================
+   ADMIN DASHBOARD
+========================================================= */
+
+#adminSection{
+  display:none;
+}
+
+.admin-panel{
+  background:
+    linear-gradient(145deg,rgba(183,255,0,.05),rgba(255,255,255,.015)),
+    var(--panel);
+  border:1px solid var(--border);
+  border-radius:22px;
+  padding:30px;
+}
+
+.admin-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px;
+  flex-wrap:wrap;
+  margin-bottom:25px;
+}
+
+.admin-header h2{
+  font-size:30px;
+}
+
+.admin-header p{
+  color:#777;
+  font-size:13px;
+  margin-top:5px;
+}
+
+.admin-stats{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:15px;
+  margin-bottom:25px;
+}
+
+.admin-stat{
+  background:#080808;
+  border:1px solid var(--border);
+  border-radius:15px;
+  padding:20px;
+}
+
+.admin-stat small{
+  display:block;
+  color:#777;
+  margin-bottom:7px;
+}
+
+.admin-stat strong{
+  font-size:24px;
+}
+
+.admin-toolbar{
+  display:flex;
+  gap:10px;
+  justify-content:space-between;
+  align-items:center;
+  flex-wrap:wrap;
+  margin-bottom:20px;
+}
+
+.admin-toolbar select,
+.admin-toolbar input{
+  background:#050505;
+  color:white;
+  border:1px solid #292929;
+  border-radius:9px;
+  padding:11px;
+  outline:none;
+}
+
+.admin-toolbar input{
+  min-width:230px;
+}
+
+.admin-requests{
+  display:grid;
+  gap:14px;
+}
+
+.admin-request{
+  background:#080808;
+  border:1px solid #242424;
+  border-radius:16px;
+  padding:20px;
+}
+
+.admin-request.pending{
+  border-color:rgba(255,209,102,.25);
+}
+
+.admin-request.approved{
+  border-color:rgba(183,255,0,.22);
+}
+
+.admin-request.rejected{
+  border-color:rgba(255,104,104,.22);
+}
+
+.admin-request-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:15px;
+  flex-wrap:wrap;
+}
+
+.admin-request h3{
+  font-size:17px;
+  margin-bottom:4px;
+}
+
+.admin-request-email{
+  color:#888;
+  font-size:12px;
+}
+
+.admin-status{
+  padding:6px 10px;
+  border-radius:999px;
+  font-size:10px;
+  font-weight:900;
+  text-transform:uppercase;
+}
+
+.admin-status.pending{
+  color:#ffd166;
+  background:rgba(255,209,102,.08);
+}
+
+.admin-status.approved{
+  color:var(--lime);
+  background:rgba(183,255,0,.08);
+}
+
+.admin-status.rejected{
+  color:#ff8585;
+  background:rgba(255,95,95,.08);
+}
+
+.admin-request-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:12px;
+  margin:18px 0;
+}
+
+.admin-detail{
+  background:#050505;
+  border-radius:10px;
+  padding:12px;
+}
+
+.admin-detail small{
+  display:block;
+  color:#666;
+  font-size:10px;
+  text-transform:uppercase;
+  margin-bottom:4px;
+}
+
+.admin-detail strong{
+  font-size:13px;
+  word-break:break-word;
+}
+
+.admin-request-actions{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top:15px;
+}
+
+.admin-request-actions .btn{
+  min-width:120px;
+}
+
+.admin-note-input{
+  width:100%;
+  background:#050505;
+  color:#fff;
+  border:1px solid #292929;
+  padding:11px;
+  border-radius:9px;
+  outline:none;
+  margin-top:12px;
+}
+
+.admin-note-input:focus{
+  border-color:var(--lime);
+}
+
+.admin-empty{
+  text-align:center;
+  padding:40px;
+  color:#777;
+  border:1px dashed #292929;
+  border-radius:14px;
+}
+
+.admin-security{
+  background:rgba(183,255,0,.04);
+  border:1px solid rgba(183,255,0,.12);
+  border-radius:12px;
+  padding:13px;
+  margin-bottom:20px;
+  color:#888;
+  font-size:12px;
+}
+
+/* =========================================================
+   MODALS
+========================================================= */
 
 .modal-overlay{
   display:none;
@@ -662,7 +911,8 @@ section{
 }
 
 .form-group input,
-.form-group select{
+.form-group select,
+.form-group textarea{
   width:100%;
   background:#050505;
   color:white;
@@ -672,8 +922,14 @@ section{
   outline:none;
 }
 
+.form-group textarea{
+  resize:vertical;
+  min-height:80px;
+}
+
 .form-group input:focus,
-.form-group select:focus{
+.form-group select:focus,
+.form-group textarea:focus{
   border-color:var(--lime);
 }
 
@@ -806,7 +1062,9 @@ section{
   color:#fff;
 }
 
-/* TOAST */
+/* =========================================================
+   TOAST
+========================================================= */
 
 .toast{
   position:fixed;
@@ -828,7 +1086,9 @@ section{
   display:block;
 }
 
-/* LOADING */
+/* =========================================================
+   LOADING
+========================================================= */
 
 .loading{
   text-align:center;
@@ -837,7 +1097,9 @@ section{
   grid-column:1/-1;
 }
 
-/* FOOTER */
+/* =========================================================
+   FOOTER
+========================================================= */
 
 footer{
   border-top:1px solid var(--border);
@@ -847,7 +1109,9 @@ footer{
   text-align:center;
 }
 
-/* MOBILE */
+/* =========================================================
+   MOBILE
+========================================================= */
 
 @media(max-width:950px){
 
@@ -884,6 +1148,14 @@ footer{
   .hero-iphone{
     max-width:390px;
   }
+
+  .admin-stats{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .admin-request-grid{
+    grid-template-columns:1fr 1fr;
+  }
 }
 
 @media(max-width:700px){
@@ -919,6 +1191,14 @@ footer{
   .hero-iphone{
     max-width:330px;
   }
+
+  .admin-stats{
+    grid-template-columns:1fr;
+  }
+
+  .admin-request-grid{
+    grid-template-columns:1fr;
+  }
 }
 
 @media(max-width:450px){
@@ -946,7 +1226,13 @@ footer{
   .payment-number{
     font-size:18px;
   }
+
+  .admin-panel,
+  .account-panel{
+    padding:20px;
+  }
 }
+
 </style>
 </head>
 
@@ -996,6 +1282,10 @@ Logout
 
 <main>
 
+<!-- ======================================================
+     HERO
+====================================================== -->
+
 <section class="container hero">
 
 <div>
@@ -1030,7 +1320,6 @@ Explore Packages
 
 </div>
 
-
 <div class="hero-device">
 
 <div class="device-glow"></div>
@@ -1046,6 +1335,10 @@ loading="eager"
 
 </section>
 
+
+<!-- ======================================================
+     CUSTOMER ACCOUNT
+====================================================== -->
 
 <section id="accountSection"
 class="container">
@@ -1074,7 +1367,6 @@ View Packages
 
 </div>
 
-
 <div class="account-grid">
 
 <div class="account-card">
@@ -1090,7 +1382,6 @@ UGX 0
 
 </div>
 
-
 <div class="account-card">
 
 <small>
@@ -1102,7 +1393,6 @@ Active Packages
 </strong>
 
 </div>
-
 
 <div class="account-card">
 
@@ -1134,7 +1424,6 @@ Request a withdrawal from your available UGX balance.
 
 </div>
 
-
 <div class="withdraw-grid">
 
 <div class="withdraw-field">
@@ -1157,7 +1446,6 @@ Airtel Money
 
 </div>
 
-
 <div class="withdraw-field">
 
 <label>
@@ -1171,7 +1459,6 @@ placeholder="07XXXXXXXX"
 >
 
 </div>
-
 
 <div class="withdraw-field">
 
@@ -1191,7 +1478,6 @@ placeholder="Enter amount"
 
 </div>
 
-
 <div class="withdraw-actions">
 
 <button class="btn btn-primary"
@@ -1206,11 +1492,9 @@ payout system once the payment provider is connected.
 
 </div>
 
-
 <div id="withdrawStatus"
 class="status-message">
 </div>
-
 
 <div class="history">
 
@@ -1237,6 +1521,152 @@ No withdrawal requests yet.
 </section>
 
 
+<!-- ======================================================
+     ADMIN DASHBOARD
+====================================================== -->
+
+<section id="adminSection"
+class="container">
+
+<div class="admin-panel">
+
+<div class="admin-header">
+
+<div>
+
+<h2>
+iPhoneVest Admin Dashboard
+</h2>
+
+<p>
+Review customer payment requests and activate approved packages.
+</p>
+
+</div>
+
+<button
+class="btn btn-primary"
+id="refreshAdminBtn">
+Refresh Requests
+</button>
+
+</div>
+
+<div class="admin-security">
+<strong>Admin area.</strong>
+Only the authorized administrator can approve or reject payment requests.
+Approval creates the customer's investment in the database.
+</div>
+
+
+<div class="admin-stats">
+
+<div class="admin-stat">
+
+<small>
+Pending Review
+</small>
+
+<strong
+class="green"
+id="adminPendingCount">
+0
+</strong>
+
+</div>
+
+<div class="admin-stat">
+
+<small>
+Approved
+</small>
+
+<strong
+id="adminApprovedCount">
+0
+</strong>
+
+</div>
+
+<div class="admin-stat">
+
+<small>
+Rejected
+</small>
+
+<strong
+id="adminRejectedCount">
+0
+</strong>
+
+</div>
+
+<div class="admin-stat">
+
+<small>
+Total Requests
+</small>
+
+<strong
+id="adminTotalCount">
+0
+</strong>
+
+</div>
+
+</div>
+
+
+<div class="admin-toolbar">
+
+<select id="adminStatusFilter">
+
+<option value="all">
+All Requests
+</option>
+
+<option value="pending_review">
+Pending Review
+</option>
+
+<option value="approved">
+Approved
+</option>
+
+<option value="rejected">
+Rejected
+</option>
+
+</select>
+
+<input
+type="text"
+id="adminSearch"
+placeholder="Search reference or phone..."
+>
+
+</div>
+
+
+<div
+class="admin-requests"
+id="adminRequests">
+
+<div class="loading">
+Loading payment requests...
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ======================================================
+     PACKAGES
+====================================================== -->
+
 <section id="packages">
 
 <div class="container">
@@ -1253,7 +1683,6 @@ Select from the available iPhoneVest package tiers.
 
 </div>
 
-
 <div class="package-controls">
 
 <div class="search-box">
@@ -1265,7 +1694,6 @@ placeholder="Search package or amount..."
 >
 
 </div>
-
 
 <div class="select-box">
 
@@ -1289,7 +1717,6 @@ Highest amount
 
 </div>
 
-
 <div class="packages-grid"
 id="packagesGrid">
 
@@ -1299,17 +1726,22 @@ Loading iPhoneVest packages...
 
 </div>
 
-
 <div class="package-disclaimer">
+
 Package figures displayed on this prototype are the package
 figures configured in the iPhoneVest database. They should not
 be interpreted as guaranteed returns.
+
 </div>
 
 </div>
 
 </section>
 
+
+<!-- ======================================================
+     HOW
+====================================================== -->
 
 <section id="how">
 
@@ -1326,7 +1758,6 @@ A simple flow for using the iPhoneVest platform.
 </p>
 
 </div>
-
 
 <div class="steps">
 
@@ -1346,7 +1777,6 @@ Register your iPhoneVest account.
 
 </div>
 
-
 <div class="step">
 
 <div class="step-number">
@@ -1363,7 +1793,6 @@ Select the iPhoneVest package you want.
 
 </div>
 
-
 <div class="step">
 
 <div class="step-number">
@@ -1379,7 +1808,6 @@ Send the exact package amount to the displayed mobile-money number.
 </p>
 
 </div>
-
 
 <div class="step">
 
@@ -1404,6 +1832,10 @@ Enter your mobile-money transaction reference for verification.
 </section>
 
 
+<!-- ======================================================
+     FEATURES
+====================================================== -->
+
 <section id="features">
 
 <div class="container">
@@ -1419,7 +1851,6 @@ Built around account security and transparent records.
 </p>
 
 </div>
-
 
 <div class="features-grid">
 
@@ -1440,7 +1871,6 @@ rather than storing passwords inside the website.
 
 </div>
 
-
 <div class="feature-card">
 
 <div class="feature-icon">
@@ -1457,7 +1887,6 @@ the platform database.
 </p>
 
 </div>
-
 
 <div class="feature-card">
 
@@ -1526,7 +1955,9 @@ of financial returns.
 </footer>
 
 
-<!-- AUTH MODAL -->
+<!-- ======================================================
+     AUTH MODAL
+====================================================== -->
 
 <div class="modal-overlay"
 id="authModal">
@@ -1564,7 +1995,6 @@ required
 
 </div>
 
-
 <div class="form-group">
 
 <label>
@@ -1580,7 +2010,6 @@ required
 
 </div>
 
-
 <div class="form-group">
 
 <label>
@@ -1595,7 +2024,6 @@ required
 >
 
 </div>
-
 
 <div class="form-group">
 
@@ -1613,18 +2041,15 @@ required
 
 </div>
 
-
 <button class="btn btn-primary"
 type="submit"
 id="signupSubmit">
 Create Account
 </button>
 
-
 <div class="status-message"
 id="signupStatus">
 </div>
-
 
 <div class="switch-text">
 
@@ -1658,7 +2083,6 @@ required
 
 </div>
 
-
 <div class="form-group">
 
 <label>
@@ -1674,18 +2098,15 @@ required
 
 </div>
 
-
 <button class="btn btn-primary"
 type="submit"
 id="loginSubmit">
 Login
 </button>
 
-
 <div class="status-message"
 id="loginStatus">
 </div>
-
 
 <div class="switch-text">
 
@@ -1705,7 +2126,9 @@ Create Account
 </div>
 
 
-<!-- MANUAL PAYMENT MODAL -->
+<!-- ======================================================
+     MANUAL PAYMENT MODAL
+====================================================== -->
 
 <div class="modal-overlay"
 id="packageModal">
@@ -1725,30 +2148,12 @@ id="closePackageModal">
 
 </div>
 
-
 <div class="selected-package"
 id="selectedPackage">
 </div>
 
 
 <div class="payment-accounts">
-
-<div class="payment-account airtel">
-
-<div class="payment-network">
-AIRTEL MONEY
-</div>
-
-<div class="payment-name">
-BRIAN
-</div>
-
-<div class="payment-number">
-+256 746 673971
-</div>
-
-</div>
-
 
 <div class="payment-account mtn">
 
@@ -1761,7 +2166,24 @@ ELLY
 </div>
 
 <div class="payment-number">
-+256 788 271972
++256 746 673 971
+</div>
+
+</div>
+
+
+<div class="payment-account airtel">
+
+<div class="payment-network">
+AIRTEL MONEY
+</div>
+
+<div class="payment-name">
+BRIAN
+</div>
+
+<div class="payment-number">
++256 788 271 972
 </div>
 
 </div>
@@ -1789,12 +2211,12 @@ Payment Network
 
 <select id="paymentProvider">
 
-<option value="airtel">
-Airtel Money
+<option value="mtn">
+MTN Mobile Money — ELLY
 </option>
 
-<option value="mtn">
-MTN Mobile Money
+<option value="airtel">
+Airtel Money — BRIAN
 </option>
 
 </select>
@@ -1835,9 +2257,13 @@ autocomplete="off"
 
 
 <div class="reference-box">
-You are submitting a <strong>pending payment request</strong>.
+
+You are submitting a
+<strong>pending payment request</strong>.
+
 Your package will not be activated simply because this form
 is submitted. The payment must be verified and approved.
+
 </div>
 
 
@@ -1849,7 +2275,9 @@ class="status-message">
 <button class="btn btn-primary"
 style="width:100%;"
 id="submitPaymentBtn">
+
 I HAVE PAID — SUBMIT FOR VERIFICATION
+
 </button>
 
 </div>
@@ -1866,7 +2294,7 @@ id="toast">
 
 /* =========================================================
    SUPABASE
-   ========================================================= */
+========================================================= */
 
 const SUPABASE_URL =
 "https://lapwvklbgdjzysszzcaz.supabase.co";
@@ -1875,20 +2303,27 @@ const SUPABASE_ANON_KEY =
 "sb_publishable_Coxsew-mxjY7cG1V2OeeIA_7i0zUZVb";
 
 const {
-createClient
+  createClient
 } = window.supabase;
 
 const supabaseClient =
 createClient(
-SUPABASE_URL,
-SUPABASE_ANON_KEY
+  SUPABASE_URL,
+  SUPABASE_ANON_KEY
 );
 
 
 /* =========================================================
-   REAL IPHONE IMAGE
-   Official Apple product image
-   ========================================================= */
+   ADMIN CONFIGURATION
+========================================================= */
+
+const ADMIN_EMAIL =
+"worldbridan3@gmail.com";
+
+
+/* =========================================================
+   IPHONE IMAGE
+========================================================= */
 
 const IPHONE_IMAGE =
 "https://images.apple.com/v/iphone-18-pro/b/images/overview/product-viewer/3d_viewer__hgotqf9hvvee_large.jpg";
@@ -1896,16 +2331,17 @@ const IPHONE_IMAGE =
 
 /* =========================================================
    GLOBALS
-   ========================================================= */
+========================================================= */
 
 let currentUser = null;
 let packages = [];
 let selectedPackage = null;
+let adminRequests = [];
 
 
 /* =========================================================
    ELEMENTS
-   ========================================================= */
+========================================================= */
 
 const authModal =
 document.getElementById("authModal");
@@ -1931,6 +2367,9 @@ document.getElementById("packagesGrid");
 const accountSection =
 document.getElementById("accountSection");
 
+const adminSection =
+document.getElementById("adminSection");
+
 const logoutNavBtn =
 document.getElementById("logoutNavBtn");
 
@@ -1946,7 +2385,7 @@ document.getElementById("paymentStatus");
 
 /* =========================================================
    HELPERS
-   ========================================================= */
+========================================================= */
 
 function formatUGX(value){
 
@@ -2035,7 +2474,6 @@ String(phone || "")
 .replace(/\s+/g,"")
 .replace(/-/g,"");
 
-
 if(normalized.startsWith("0")){
 
 normalized =
@@ -2055,9 +2493,21 @@ return normalized;
 }
 
 
+function isAdmin(){
+
+return !!(
+currentUser &&
+currentUser.email &&
+currentUser.email.toLowerCase() ===
+ADMIN_EMAIL.toLowerCase()
+);
+
+}
+
+
 /* =========================================================
    AUTH
-   ========================================================= */
+========================================================= */
 
 function openAuth(mode="signup"){
 
@@ -2127,7 +2577,7 @@ behavior:"smooth"
 
 /* =========================================================
    PACKAGES
-   ========================================================= */
+========================================================= */
 
 async function loadPackages(){
 
@@ -2288,7 +2738,9 @@ UGX ${formatUGX(pkg.daily_amount)} daily figure
 <button
 class="btn btn-primary"
 onclick="selectPackage('${pkg.id}')">
+
 Select Package
+
 </button>
 
 </div>
@@ -2300,7 +2752,7 @@ Select Package
 
 /* =========================================================
    PACKAGE SELECTION
-   ========================================================= */
+========================================================= */
 
 function selectPackage(packageId){
 
@@ -2313,6 +2765,18 @@ if(!selectedPackage){
 
 showToast(
 "Package could not be found."
+);
+
+return;
+
+}
+
+if(!currentUser){
+
+openAuth("login");
+
+showToast(
+"Please login or create an account first."
 );
 
 return;
@@ -2351,9 +2815,11 @@ font-weight:800;
 text-transform:uppercase;
 margin-bottom:7px;
 ">
+
 ${escapeHtml(
 selectedPackage.name
 )}
+
 </div>
 
 <div style="
@@ -2361,9 +2827,11 @@ color:#aaa;
 font-size:13px;
 margin-bottom:8px;
 ">
+
 ${escapeHtml(
 selectedPackage.asset_model
 )}
+
 </div>
 
 </div>
@@ -2397,7 +2865,7 @@ document.getElementById(
 
 document.getElementById(
 "paymentProvider"
-).value="airtel";
+).value="mtn";
 
 packageModal.classList.add(
 "active"
@@ -2408,7 +2876,7 @@ packageModal.classList.add(
 
 /* =========================================================
    SIGNUP
-   ========================================================= */
+========================================================= */
 
 signupForm.addEventListener(
 "submit",
@@ -2516,7 +2984,7 @@ signupStatus,
 
 /* =========================================================
    LOGIN
-   ========================================================= */
+========================================================= */
 
 loginForm.addEventListener(
 "submit",
@@ -2588,7 +3056,7 @@ showToast(
 
 /* =========================================================
    SESSION
-   ========================================================= */
+========================================================= */
 
 async function checkSession(){
 
@@ -2632,13 +3100,16 @@ await updateAccountUI();
 
 /* =========================================================
    ACCOUNT UI
-   ========================================================= */
+========================================================= */
 
 async function updateAccountUI(){
 
 if(!currentUser){
 
 accountSection.style.display =
+"none";
+
+adminSection.style.display =
 "none";
 
 loginNavBtn.style.display =
@@ -2677,12 +3148,39 @@ await loadAccountStats();
 
 await loadWithdrawalHistory();
 
+
+/* ADMIN */
+
+if(isAdmin()){
+
+adminSection.style.display =
+"block";
+
+await loadAdminRequests();
+
+setTimeout(
+()=>{
+adminSection.scrollIntoView({
+behavior:"smooth",
+block:"start"
+});
+},
+300
+);
+
+}else{
+
+adminSection.style.display =
+"none";
+
+}
+
 }
 
 
 /* =========================================================
    WALLET
-   ========================================================= */
+========================================================= */
 
 async function loadWallet(){
 
@@ -2728,7 +3226,7 @@ formatUGX(balance);
 
 /* =========================================================
    ACCOUNT STATS
-   ========================================================= */
+========================================================= */
 
 async function loadAccountStats(){
 
@@ -2787,7 +3285,7 @@ formatUGX(earned);
 
 /* =========================================================
    WITHDRAWAL HISTORY
-   ========================================================= */
+========================================================= */
 
 async function loadWithdrawalHistory(){
 
@@ -2904,25 +3402,33 @@ UGX ${formatUGX(item.amount)}
 
 <div class="history-status"
 style="color:${statusColor};">
+
 ${escapeHtml(status)}
+
 </div>
 
 </div>
 
 <div class="history-details">
+
 ${escapeHtml(
 item.provider || "Mobile Money"
 )}
+
 ·
+
 ${escapeHtml(
 item.phone_number || ""
 )}
+
 </div>
 
 <div class="history-ref">
+
 ${escapeHtml(
 item.reference || ""
 )}
+
 </div>
 
 </div>
@@ -2936,7 +3442,7 @@ item.reference || ""
 
 /* =========================================================
    WITHDRAWAL
-   ========================================================= */
+========================================================= */
 
 document.getElementById(
 "withdrawBtn"
@@ -3057,7 +3563,7 @@ statusBox,
 
 /* =========================================================
    MANUAL PAYMENT SUBMISSION
-   ========================================================= */
+========================================================= */
 
 document.getElementById(
 "submitPaymentBtn"
@@ -3250,6 +3756,7 @@ packageModal.classList.remove("active");
 button.disabled=false;
 button.textContent=
 "I HAVE PAID — SUBMIT FOR VERIFICATION";
+
 },
 2200
 );
@@ -3280,8 +3787,764 @@ button.textContent=
 
 
 /* =========================================================
+   ADMIN DASHBOARD
+========================================================= */
+
+async function loadAdminRequests(){
+
+if(!isAdmin()){
+
+adminSection.style.display =
+"none";
+
+return;
+
+}
+
+const container =
+document.getElementById(
+"adminRequests"
+);
+
+container.innerHTML=`
+<div class="loading">
+Loading payment requests...
+</div>
+`;
+
+const {
+data,
+error
+} =
+await supabaseClient
+.from("manual_payment_requests")
+.select(`
+id,
+user_id,
+package_id,
+amount,
+currency,
+provider,
+sender_phone,
+transaction_reference,
+status,
+admin_note,
+investment_id,
+created_at,
+reviewed_at,
+investment_packages(
+name,
+asset_model,
+daily_amount,
+duration_days
+)
+`)
+.order(
+"created_at",
+{
+ascending:false
+}
+);
+
+if(error){
+
+console.error(
+"Admin requests error:",
+error
+);
+
+container.innerHTML=`
+<div class="admin-empty">
+Unable to load payment requests.
+<br><br>
+${escapeHtml(error.message)}
+</div>
+`;
+
+return;
+
+}
+
+adminRequests =
+data || [];
+
+await loadAdminUserDetails();
+
+renderAdminRequests();
+
+}
+
+
+/* =========================================================
+   ADMIN USER DETAILS
+========================================================= */
+
+async function loadAdminUserDetails(){
+
+if(!adminRequests.length) return;
+
+const userIds =
+[
+...new Set(
+adminRequests.map(
+item=>item.user_id
+)
+)
+];
+
+const {
+data,
+error
+} =
+await supabaseClient
+.from("profiles")
+.select("id,full_name,phone")
+.in("id",userIds);
+
+if(error){
+
+console.warn(
+"Could not load profile names:",
+error
+);
+
+return;
+
+}
+
+const profileMap =
+new Map(
+(data || []).map(
+profile=>[
+profile.id,
+profile
+]
+)
+);
+
+adminRequests =
+adminRequests.map(
+item=>({
+
+...item,
+
+profile:
+profileMap.get(
+item.user_id
+) || null
+
+})
+);
+
+}
+
+
+/* =========================================================
+   ADMIN RENDER
+========================================================= */
+
+function renderAdminRequests(){
+
+const container =
+document.getElementById(
+"adminRequests"
+);
+
+const filter =
+document.getElementById(
+"adminStatusFilter"
+).value;
+
+const search =
+document.getElementById(
+"adminSearch"
+).value
+.toLowerCase()
+.trim();
+
+let filtered =
+[...adminRequests];
+
+if(filter !== "all"){
+
+filtered =
+filtered.filter(
+item =>
+item.status === filter
+);
+
+}
+
+if(search){
+
+filtered =
+filtered.filter(
+item =>
+
+String(
+item.transaction_reference || ""
+)
+.toLowerCase()
+.includes(search)
+
+||
+
+String(
+item.sender_phone || ""
+)
+.toLowerCase()
+.includes(search)
+
+||
+
+String(
+item.id || ""
+)
+.toLowerCase()
+.includes(search)
+
+||
+
+String(
+item.profile?.full_name || ""
+)
+.toLowerCase()
+.includes(search)
+);
+
+}
+
+
+/* COUNTS */
+
+const pending =
+adminRequests.filter(
+item=>item.status==="pending_review"
+).length;
+
+const approved =
+adminRequests.filter(
+item=>item.status==="approved"
+).length;
+
+const rejected =
+adminRequests.filter(
+item=>item.status==="rejected"
+).length;
+
+document.getElementById(
+"adminPendingCount"
+).textContent =
+pending;
+
+document.getElementById(
+"adminApprovedCount"
+).textContent =
+approved;
+
+document.getElementById(
+"adminRejectedCount"
+).textContent =
+rejected;
+
+document.getElementById(
+"adminTotalCount"
+).textContent =
+adminRequests.length;
+
+
+if(!filtered.length){
+
+container.innerHTML=`
+<div class="admin-empty">
+
+No payment requests found.
+
+</div>
+`;
+
+return;
+
+}
+
+
+container.innerHTML =
+filtered.map(
+item=>{
+
+const pkg =
+item.investment_packages || {};
+
+const profile =
+item.profile || {};
+
+const status =
+item.status || "pending_review";
+
+const statusLabel =
+status === "pending_review"
+? "Pending Review"
+: status;
+
+
+return `
+
+<div class="admin-request ${escapeHtml(status)}">
+
+<div class="admin-request-top">
+
+<div>
+
+<h3>
+${escapeHtml(
+profile.full_name ||
+"Customer"
+)}
+</h3>
+
+<div class="admin-request-email">
+
+User ID:
+${escapeHtml(item.user_id)}
+
+</div>
+
+</div>
+
+<div class="admin-status ${escapeHtml(status)}">
+
+${escapeHtml(statusLabel)}
+
+</div>
+
+</div>
+
+
+<div class="admin-request-grid">
+
+
+<div class="admin-detail">
+
+<small>
+Package
+</small>
+
+<strong>
+${escapeHtml(
+pkg.name || "Package"
+)}
+</strong>
+
+</div>
+
+
+<div class="admin-detail">
+
+<small>
+Amount
+</small>
+
+<strong>
+UGX ${formatUGX(item.amount)}
+</strong>
+
+</div>
+
+
+<div class="admin-detail">
+
+<small>
+Provider
+</small>
+
+<strong>
+${escapeHtml(
+String(item.provider || "")
+.toUpperCase()
+)}
+</strong>
+
+</div>
+
+
+<div class="admin-detail">
+
+<small>
+Sender Number
+</small>
+
+<strong>
+${escapeHtml(
+item.sender_phone || ""
+)}
+</strong>
+
+</div>
+
+
+<div class="admin-detail">
+
+<small>
+Transaction Reference
+</small>
+
+<strong>
+${escapeHtml(
+item.transaction_reference || ""
+)}
+</strong>
+
+</div>
+
+
+<div class="admin-detail">
+
+<small>
+Daily Figure
+</small>
+
+<strong>
+UGX ${formatUGX(
+pkg.daily_amount
+)}
+</strong>
+
+</div>
+
+
+<div class="admin-detail">
+
+<small>
+Duration
+</small>
+
+<strong>
+${escapeHtml(
+pkg.duration_days || ""
+)}
+ days
+</strong>
+
+</div>
+
+
+<div class="admin-detail">
+
+<small>
+Submitted
+</small>
+
+<strong>
+${escapeHtml(
+formatDate(item.created_at)
+)}
+</strong>
+
+</div>
+
+</div>
+
+
+${
+status === "pending_review"
+?
+
+`
+
+<textarea
+class="admin-note-input"
+id="adminNote-${item.id}"
+placeholder="Optional admin note..."
+></textarea>
+
+<div class="admin-request-actions">
+
+<button
+class="btn btn-primary"
+onclick="reviewPayment('${item.id}','approve')">
+
+✓ APPROVE & ACTIVATE
+
+</button>
+
+<button
+class="btn btn-danger"
+onclick="reviewPayment('${item.id}','reject')">
+
+✕ REJECT
+
+</button>
+
+</div>
+
+`
+
+:
+
+`
+
+<div style="
+color:#777;
+font-size:12px;
+margin-top:10px;
+">
+
+${
+item.investment_id
+?
+
+`Investment created: ${escapeHtml(item.investment_id)}`
+
+:
+
+`Admin note: ${escapeHtml(item.admin_note || "None")}`
+
+}
+
+</div>
+
+`
+
+}
+
+</div>
+
+`;
+
+}
+).join("");
+
+}
+
+
+/* =========================================================
+   DATE FORMAT
+========================================================= */
+
+function formatDate(value){
+
+if(!value) return "-";
+
+const date =
+new Date(value);
+
+if(Number.isNaN(date.getTime())){
+return String(value);
+}
+
+return date.toLocaleString(
+"en-UG",
+{
+dateStyle:"medium",
+timeStyle:"short"
+}
+);
+
+}
+
+
+/* =========================================================
+   ADMIN APPROVE / REJECT
+========================================================= */
+
+async function reviewPayment(
+requestId,
+action
+){
+
+if(!isAdmin()){
+
+showToast(
+"Admin access denied."
+);
+
+return;
+
+}
+
+const request =
+adminRequests.find(
+item=>item.id===requestId
+);
+
+if(!request){
+
+showToast(
+"Payment request not found."
+);
+
+return;
+
+}
+
+
+let note = "";
+
+const noteInput =
+document.getElementById(
+"adminNote-" + requestId
+);
+
+if(noteInput){
+note =
+noteInput.value.trim();
+}
+
+
+if(action === "approve"){
+
+const confirmed =
+window.confirm(
+"Approve this payment and activate the customer's package?"
+);
+
+if(!confirmed){
+return;
+}
+
+}else{
+
+const confirmed =
+window.confirm(
+"Reject this payment request?"
+);
+
+if(!confirmed){
+return;
+}
+
+}
+
+
+try{
+
+showToast(
+action === "approve"
+? "Approving payment..."
+: "Rejecting payment..."
+);
+
+
+const {
+data,
+error
+} =
+await supabaseClient.rpc(
+"admin_review_manual_payment",
+{
+p_request_id:requestId,
+p_action:action,
+p_admin_note:note || null
+}
+);
+
+
+if(error){
+
+console.error(
+"Admin review error:",
+error
+);
+
+throw new Error(
+error.message ||
+"Unable to review payment."
+);
+
+}
+
+
+if(!data || !data.success){
+
+throw new Error(
+"Admin action was not completed."
+);
+
+}
+
+
+if(action === "approve"){
+
+showToast(
+"Payment approved and investment activated."
+);
+
+}else{
+
+showToast(
+"Payment request rejected."
+);
+
+}
+
+
+await loadAdminRequests();
+
+
+/* Refresh the customer account too. */
+
+await loadWallet();
+await loadAccountStats();
+
+
+}catch(error){
+
+console.error(
+"Admin action error:",
+error
+);
+
+showToast(
+error.message ||
+"Unable to complete admin action."
+);
+
+}
+
+}
+
+
+/* =========================================================
+   ADMIN CONTROLS
+========================================================= */
+
+document.getElementById(
+"refreshAdminBtn"
+).addEventListener(
+"click",
+async function(){
+
+if(!isAdmin()) return;
+
+await loadAdminRequests();
+
+showToast(
+"Admin requests refreshed."
+);
+
+}
+);
+
+
+document.getElementById(
+"adminStatusFilter"
+).addEventListener(
+"change",
+renderAdminRequests
+);
+
+
+document.getElementById(
+"adminSearch"
+).addEventListener(
+"input",
+renderAdminRequests
+);
+
+
+/* =========================================================
    LOGOUT
-   ========================================================= */
+========================================================= */
 
 logoutNavBtn.addEventListener(
 "click",
@@ -3305,6 +4568,8 @@ return;
 
 currentUser=null;
 
+adminRequests=[];
+
 await updateAccountUI();
 
 showToast(
@@ -3317,7 +4582,7 @@ showToast(
 
 /* =========================================================
    BUTTONS
-   ========================================================= */
+========================================================= */
 
 loginNavBtn.addEventListener(
 "click",
@@ -3374,7 +4639,7 @@ showSignupForm
 
 /* =========================================================
    SEARCH
-   ========================================================= */
+========================================================= */
 
 document.getElementById(
 "packageSearch"
@@ -3393,7 +4658,7 @@ renderPackages
 
 /* =========================================================
    MODAL BACKDROP
-   ========================================================= */
+========================================================= */
 
 authModal.addEventListener(
 "click",
@@ -3426,7 +4691,7 @@ clearStatus(paymentStatus);
 
 /* =========================================================
    YEAR
-   ========================================================= */
+========================================================= */
 
 document.getElementById(
 "year"
@@ -3436,7 +4701,7 @@ new Date().getFullYear();
 
 /* =========================================================
    START
-   ========================================================= */
+========================================================= */
 
 async function initializeApp(){
 
