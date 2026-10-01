@@ -58,6 +58,11 @@ button{
   cursor:pointer;
 }
 
+button:disabled{
+  opacity:.55;
+  cursor:not-allowed;
+}
+
 .container{
   width:min(1180px,92%);
   margin:auto;
@@ -711,7 +716,8 @@ section{
   margin-bottom:6px;
 }
 
-.form-group input{
+.form-group input,
+.form-group select{
   width:100%;
   background:#050505;
   color:white;
@@ -721,7 +727,8 @@ section{
   outline:none;
 }
 
-.form-group input:focus{
+.form-group input:focus,
+.form-group select:focus{
   border-color:var(--lime);
 }
 
@@ -768,6 +775,12 @@ section{
   border:1px solid rgba(255,95,95,.2);
 }
 
+.status-warning{
+  background:rgba(255,209,102,.08);
+  color:#ffd166;
+  border:1px solid rgba(255,209,102,.2);
+}
+
 .selected-package{
   background:#070707;
   border:1px solid var(--border);
@@ -784,6 +797,13 @@ section{
 .selected-package .daily{
   color:var(--lime);
   font-weight:800;
+}
+
+.payment-note{
+  color:#888;
+  font-size:12px;
+  margin-top:10px;
+  line-height:1.6;
 }
 
 /* TOAST */
@@ -925,8 +945,6 @@ footer{
 
 <body>
 
-<!-- NAVIGATION -->
-
 <header>
 
 <div class="container">
@@ -968,8 +986,6 @@ Logout
 
 </header>
 
-
-<!-- HERO -->
 
 <main>
 
@@ -1033,8 +1049,6 @@ Digital package platform
 </section>
 
 
-<!-- ACCOUNT -->
-
 <section id="accountSection"
          class="container">
 
@@ -1062,8 +1076,6 @@ View Packages
 
 </div>
 
-
-<!-- ACCOUNT CARDS -->
 
 <div class="account-grid">
 
@@ -1110,8 +1122,6 @@ UGX 0
 </div>
 
 
-<!-- WITHDRAW -->
-
 <div class="withdraw-section">
 
 <div class="withdraw-title">
@@ -1128,7 +1138,6 @@ Request a withdrawal from your available UGX balance.
 
 
 <div class="withdraw-grid">
-
 
 <div class="withdraw-field">
 
@@ -1182,7 +1191,6 @@ placeholder="Enter amount"
 
 </div>
 
-
 </div>
 
 
@@ -1205,8 +1213,6 @@ payout system once the payment provider is connected.
      class="status-message">
 </div>
 
-
-<!-- WITHDRAWAL HISTORY -->
 
 <div class="history">
 
@@ -1232,8 +1238,6 @@ No withdrawal requests yet.
 
 </section>
 
-
-<!-- PACKAGES -->
 
 <section id="packages">
 
@@ -1309,8 +1313,6 @@ be interpreted as guaranteed returns.
 </section>
 
 
-<!-- HOW IT WORKS -->
-
 <section id="how">
 
 <div class="container">
@@ -1375,8 +1377,7 @@ Activate
 </h3>
 
 <p>
-Package activation will be connected
-to the secure payment system.
+Choose a package and complete the mobile-money payment.
 </p>
 
 </div>
@@ -1405,8 +1406,6 @@ Track package activity and account information.
 </section>
 
 
-<!-- FEATURES -->
-
 <section id="features">
 
 <div class="container">
@@ -1425,7 +1424,6 @@ Built around account security and transparent records.
 
 
 <div class="features-grid">
-
 
 <div class="feature-card">
 
@@ -1487,8 +1485,6 @@ are designed to be recorded in the platform ledger.
 </section>
 
 
-<!-- ABOUT -->
-
 <section id="about">
 
 <div class="container">
@@ -1512,8 +1508,6 @@ around iPhone-themed package tiers.
 
 </main>
 
-
-<!-- FOOTER -->
 
 <footer>
 
@@ -1554,8 +1548,6 @@ Create Account
 
 </div>
 
-
-<!-- SIGNUP -->
 
 <form id="signupForm">
 
@@ -1650,8 +1642,6 @@ Login
 </form>
 
 
-<!-- LOGIN -->
-
 <form id="loginForm"
       style="display:none;">
 
@@ -1717,7 +1707,7 @@ Create Account
 </div>
 
 
-<!-- PACKAGE MODAL -->
+<!-- PACKAGE / PAYMENT MODAL -->
 
 <div class="modal-overlay"
      id="packageModal">
@@ -1727,7 +1717,7 @@ Create Account
 <div class="modal-header">
 
 <h2>
-Package Selected
+Activate Package
 </h2>
 
 <button class="close"
@@ -1743,30 +1733,70 @@ Package Selected
 </div>
 
 
-<p style="
-color:#888;
-font-size:13px;
-margin-bottom:18px;
-">
+<div class="form-group">
 
-Secure payment and package activation will be connected
-after the payment backend is configured.
+<label>
+Payment Provider
+</label>
 
+<select id="paymentProvider">
+
+<option value="mtn">
+MTN Mobile Money
+</option>
+
+<option value="airtel">
+Airtel Money
+</option>
+
+</select>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Mobile Money Number
+</label>
+
+<input
+type="tel"
+id="paymentPhone"
+placeholder="07XXXXXXXX"
+autocomplete="tel"
+>
+
+</div>
+
+
+<p class="payment-note">
+The package amount is retrieved securely from the
+iPhoneVest database. You do not enter the amount manually.
 </p>
+
+<p class="payment-note">
+After you continue, a payment request will be sent to
+your selected mobile-money number. Approve the request
+on your phone to complete the payment.
+</p>
+
+
+<div id="paymentStatus"
+     class="status-message">
+</div>
 
 
 <button class="btn btn-primary"
         style="width:100%;"
         id="activatePackageBtn">
-Continue
+Activate & Pay
 </button>
 
 </div>
 
 </div>
 
-
-<!-- TOAST -->
 
 <div class="toast"
      id="toast">
@@ -1794,6 +1824,14 @@ createClient(
   SUPABASE_URL,
   SUPABASE_ANON_KEY
 );
+
+
+/* =========================================================
+   EDGE FUNCTION
+   ========================================================= */
+
+const INITIATE_PAYMENT_FUNCTION =
+"initiate-pesajet-payment";
 
 
 /* =========================================================
@@ -1843,6 +1881,9 @@ document.getElementById("loginNavBtn");
 
 const signupNavBtn =
 document.getElementById("signupNavBtn");
+
+const paymentStatus =
+document.getElementById("paymentStatus");
 
 
 /* =========================================================
@@ -1902,13 +1943,20 @@ type
 element.textContent =
 message;
 
+let className =
+"status-success";
+
+if(type==="error"){
+className="status-error";
+}
+
+if(type==="warning"){
+className="status-warning";
+}
+
 element.className =
 "status-message show " +
-(
-type === "error"
-? "status-error"
-: "status-success"
-);
+className;
 
 }
 
@@ -1919,6 +1967,35 @@ element.textContent = "";
 
 element.className =
 "status-message";
+
+}
+
+
+function normalizeUgandaPhone(phone){
+
+let normalized =
+String(phone || "")
+.trim()
+.replace(/\s+/g,"")
+.replace(/-/g,"");
+
+
+if(normalized.startsWith("0")){
+
+normalized =
+"+256" +
+normalized.substring(1);
+
+}else if(normalized.startsWith("256")){
+
+normalized =
+"+" +
+normalized;
+
+}
+
+
+return normalized;
 
 }
 
@@ -2233,6 +2310,15 @@ daily figure
 
 `;
 
+clearStatus(paymentStatus);
+
+document.getElementById(
+"paymentPhone"
+).value="";
+
+document.getElementById(
+"paymentProvider"
+).value="mtn";
 
 packageModal.classList.add(
 "active"
@@ -2332,6 +2418,11 @@ signupStatus,
 "Account created successfully.",
 "success"
 );
+
+currentUser =
+data.user;
+
+await updateAccountUI();
 
 setTimeout(
 closeAuth,
@@ -2539,6 +2630,9 @@ await loadWithdrawalHistory();
 
 async function loadWallet(){
 
+if(!currentUser) return;
+
+
 const {
 data,
 error
@@ -2586,6 +2680,9 @@ formatUGX(balance);
    ========================================================= */
 
 async function loadAccountStats(){
+
+if(!currentUser) return;
+
 
 const {
 data,
@@ -2965,6 +3062,381 @@ statusBox,
 
 
 /* =========================================================
+   PESAJET PAYMENT
+   ========================================================= */
+
+document.getElementById(
+"activatePackageBtn"
+).addEventListener(
+"click",
+async function(){
+
+if(!selectedPackage){
+
+showStatus(
+paymentStatus,
+"Please select a package first.",
+"error"
+);
+
+return;
+
+}
+
+
+if(!currentUser){
+
+packageModal.classList.remove("active");
+
+openAuth("login");
+
+return;
+
+}
+
+
+const provider =
+document.getElementById(
+"paymentProvider"
+).value;
+
+
+const phoneInput =
+document.getElementById(
+"paymentPhone"
+);
+
+
+const phone =
+phoneInput.value.trim();
+
+
+clearStatus(paymentStatus);
+
+
+if(!["mtn","airtel"].includes(provider)){
+
+showStatus(
+paymentStatus,
+"Please select MTN or Airtel.",
+"error"
+);
+
+return;
+
+}
+
+
+if(!phone){
+
+showStatus(
+paymentStatus,
+"Enter the mobile-money number that will make the payment.",
+"error"
+);
+
+phoneInput.focus();
+
+return;
+
+}
+
+
+const normalizedPhone =
+normalizeUgandaPhone(phone);
+
+
+if(!/^\+256[37]\d{8}$/.test(normalizedPhone)){
+
+showStatus(
+paymentStatus,
+"Enter a valid Ugandan mobile-money number, for example 077XXXXXXX.",
+"error"
+);
+
+phoneInput.focus();
+
+return;
+
+}
+
+
+const button =
+document.getElementById(
+"activatePackageBtn"
+);
+
+
+button.disabled=true;
+
+button.textContent=
+"Sending Payment Request...";
+
+
+showStatus(
+paymentStatus,
+"Connecting securely to PesaJet...",
+"warning"
+);
+
+
+try{
+
+const {
+data,
+error
+} =
+await supabaseClient.functions.invoke(
+INITIATE_PAYMENT_FUNCTION,
+{
+body:{
+package_id:selectedPackage.id,
+provider:provider,
+phone_number:normalizedPhone
+}
+}
+);
+
+
+if(error){
+
+console.error(
+"PesaJet function error:",
+error
+);
+
+throw new Error(
+error.message ||
+"Unable to start the payment."
+);
+
+}
+
+
+if(!data || !data.success){
+
+throw new Error(
+data?.error ||
+"Payment request could not be started."
+);
+
+}
+
+
+showStatus(
+paymentStatus,
+"Payment request sent. Check your phone and approve the mobile-money prompt.",
+"success"
+);
+
+showToast(
+"Payment request sent to your phone."
+);
+
+
+if(data.payment_id){
+
+await monitorPayment(
+data.payment_id
+);
+
+}else{
+
+button.disabled=false;
+
+button.textContent=
+"Activate & Pay";
+
+}
+
+}catch(error){
+
+console.error(
+"Payment initiation error:",
+error
+);
+
+showStatus(
+paymentStatus,
+error.message ||
+"Unable to start payment.",
+"error"
+);
+
+button.disabled=false;
+
+button.textContent=
+"Activate & Pay";
+
+}
+
+}
+);
+
+
+/* =========================================================
+   PAYMENT STATUS MONITOR
+   ========================================================= */
+
+async function monitorPayment(paymentId){
+
+const button =
+document.getElementById(
+"activatePackageBtn"
+);
+
+
+let attempts=0;
+
+const maxAttempts=30;
+
+showStatus(
+paymentStatus,
+"Waiting for payment confirmation...",
+"warning"
+);
+
+
+while(attempts<maxAttempts){
+
+attempts++;
+
+
+await new Promise(
+resolve =>
+setTimeout(resolve,3000)
+);
+
+
+if(!currentUser){
+
+break;
+
+}
+
+
+const {
+data,
+error
+} =
+await supabaseClient
+.from("payment_transactions")
+.select(`
+id,
+status,
+investment_id,
+provider_reference,
+amount,
+currency
+`)
+.eq(
+"id",
+paymentId
+)
+.eq(
+"user_id",
+currentUser.id
+)
+.maybeSingle();
+
+
+if(error){
+
+console.error(
+"Payment status error:",
+error
+);
+
+continue;
+
+}
+
+
+if(!data){
+
+continue;
+
+}
+
+
+const status =
+String(data.status || "")
+.toLowerCase();
+
+
+if(status==="completed"){
+
+showStatus(
+paymentStatus,
+"Payment confirmed. Your package has been activated.",
+"success"
+);
+
+showToast(
+"Payment confirmed successfully."
+);
+
+
+await updateAccountUI();
+
+
+setTimeout(
+()=>{
+packageModal.classList.remove("active");
+},
+1800
+);
+
+
+button.disabled=false;
+
+button.textContent=
+"Activated";
+
+
+return;
+
+}
+
+
+if(
+status==="failed" ||
+status==="expired"
+){
+
+showStatus(
+paymentStatus,
+"Payment was not completed. You can try again.",
+"error"
+);
+
+button.disabled=false;
+
+button.textContent=
+"Try Again";
+
+return;
+
+}
+
+}
+
+
+showStatus(
+paymentStatus,
+"Payment is still being processed. Please check your account shortly.",
+"warning"
+);
+
+button.disabled=false;
+
+button.textContent=
+"Check Payment Again";
+
+}
+
+
+/* =========================================================
    LOGOUT
    ========================================================= */
 
@@ -3042,6 +3514,9 @@ document.getElementById(
 packageModal.classList.remove(
 "active"
 );
+
+clearStatus(paymentStatus);
+
 }
 );
 
@@ -3059,34 +3534,6 @@ document.getElementById(
 ).addEventListener(
 "click",
 showSignupForm
-);
-
-
-document.getElementById(
-"activatePackageBtn"
-).addEventListener(
-"click",
-function(){
-
-packageModal.classList.remove(
-"active"
-);
-
-
-if(!currentUser){
-
-openAuth("login");
-
-return;
-
-}
-
-
-showToast(
-"Secure package activation will be connected after payment setup."
-);
-
-}
 );
 
 
@@ -3135,6 +3582,8 @@ if(event.target===packageModal){
 packageModal.classList.remove(
 "active"
 );
+
+clearStatus(paymentStatus);
 
 }
 
