@@ -2,891 +2,826 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>iPhoneVest | Digital Package Platform</title>
-  <meta name="description" content="iPhoneVest digital package platform prototype with iPhone 18 Pro inspired package visuals.">
-  <meta name="theme-color" content="#050505">
+
+  <meta
+    name="description"
+    content="iPhoneVest digital package platform."
+  >
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <style>
-    :root{
-      --bg:#050505;
-      --bg2:#0a0a0a;
-      --card:#101010;
-      --card2:#151515;
-      --line:rgba(255,255,255,.09);
-      --text:#f5f5f5;
-      --muted:#9b9b9b;
-      --lime:#b7ff2a;
-      --lime2:#8fd600;
-      --danger:#ff5b67;
-      --shadow:0 20px 70px rgba(0,0,0,.45);
-      --radius:24px;
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
 
-    *{
-      box-sizing:border-box;
-      margin:0;
-      padding:0;
+    :root {
+      --bg: #050505;
+      --panel: #0c0c0c;
+      --panel2: #111;
+      --lime: #b7ff00;
+      --lime2: #8fce00;
+      --text: #f4f4f4;
+      --muted: #929292;
+      --border: rgba(183,255,0,.15);
+      --danger: #ff5f5f;
     }
 
-    html{
-      scroll-behavior:smooth;
-    }
-
-    body{
-      font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    body {
+      font-family: Arial, Helvetica, sans-serif;
       background:
-        radial-gradient(circle at 80% 5%,rgba(183,255,42,.10),transparent 28%),
-        radial-gradient(circle at 10% 25%,rgba(255,255,255,.04),transparent 25%),
+        radial-gradient(circle at 15% 10%, rgba(183,255,0,.08), transparent 25%),
+        radial-gradient(circle at 85% 20%, rgba(183,255,0,.05), transparent 25%),
         var(--bg);
-      color:var(--text);
-      line-height:1.6;
-      overflow-x:hidden;
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.5;
     }
 
-    a{
-      color:inherit;
-      text-decoration:none;
+    a {
+      color: inherit;
+      text-decoration: none;
     }
 
     button,
-    input{
-      font:inherit;
+    input,
+    select {
+      font: inherit;
     }
 
-    button{
-      cursor:pointer;
+    button {
+      cursor: pointer;
     }
 
-    img{
-      max-width:100%;
-      display:block;
-    }
-
-    .container{
-      width:min(1180px,92%);
-      margin:auto;
+    .container {
+      width: min(1180px, 92%);
+      margin: auto;
     }
 
     /* NAVIGATION */
-
-    nav{
-      position:fixed;
-      top:0;
-      left:0;
-      right:0;
-      z-index:1000;
-      background:rgba(5,5,5,.82);
-      backdrop-filter:blur(18px);
-      border-bottom:1px solid var(--line);
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(18px);
+      background: rgba(5,5,5,.82);
+      border-bottom: 1px solid var(--border);
     }
 
-    .nav-inner{
-      min-height:74px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:20px;
+    nav {
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
     }
 
-    .logo{
-      font-size:1.35rem;
-      font-weight:900;
-      letter-spacing:-.7px;
+    .logo {
+      font-size: 22px;
+      font-weight: 900;
+      letter-spacing: -1px;
     }
 
-    .logo span{
-      color:var(--lime);
+    .logo span {
+      color: var(--lime);
     }
 
-    .nav-links{
-      display:flex;
-      align-items:center;
-      gap:26px;
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      color: #c9c9c9;
+      font-size: 14px;
     }
 
-    .nav-links a{
-      color:#bdbdbd;
-      font-size:.92rem;
-      transition:.2s;
+    .nav-links a:hover {
+      color: var(--lime);
     }
 
-    .nav-links a:hover{
-      color:#fff;
+    .nav-actions {
+      display: flex;
+      gap: 8px;
     }
 
-    .nav-actions{
-      display:flex;
-      align-items:center;
-      gap:10px;
+    .btn {
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text);
+      padding: 11px 16px;
+      border-radius: 10px;
+      font-weight: 700;
+      transition: .2s;
     }
 
-    .btn{
-      border:1px solid var(--line);
-      background:#111;
-      color:#fff;
-      padding:11px 17px;
-      border-radius:12px;
-      font-weight:800;
-      transition:.2s;
+    .btn:hover {
+      border-color: var(--lime);
+      transform: translateY(-1px);
     }
 
-    .btn:hover{
-      transform:translateY(-1px);
-      border-color:rgba(183,255,42,.5);
+    .btn-primary {
+      background: var(--lime);
+      color: #050505;
+      border-color: var(--lime);
     }
 
-    .btn-primary{
-      background:var(--lime);
-      color:#050505;
-      border-color:var(--lime);
+    .btn-primary:hover {
+      background: #d1ff55;
     }
 
-    .btn-primary:hover{
-      background:#c8ff59;
-    }
-
-    .menu-btn{
-      display:none;
-      background:#111;
-      color:#fff;
-      border:1px solid var(--line);
-      border-radius:10px;
-      padding:9px 12px;
+    .btn-danger {
+      border-color: rgba(255,95,95,.3);
+      color: #ff8585;
     }
 
     /* HERO */
-
-    .hero{
-      padding:145px 0 90px;
-      min-height:760px;
-      position:relative;
-      overflow:hidden;
+    .hero {
+      padding: 90px 0 65px;
+      min-height: 650px;
+      display: grid;
+      grid-template-columns: 1.05fr .95fr;
+      align-items: center;
+      gap: 50px;
     }
 
-    .hero-grid{
-      display:grid;
-      grid-template-columns:1.05fr .95fr;
-      align-items:center;
-      gap:60px;
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid var(--border);
+      background: rgba(183,255,0,.05);
+      color: var(--lime);
+      padding: 7px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 800;
+      margin-bottom: 20px;
     }
 
-    .badge{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      border:1px solid rgba(183,255,42,.25);
-      background:rgba(183,255,42,.06);
-      color:var(--lime);
-      border-radius:999px;
-      padding:8px 13px;
-      font-size:.78rem;
-      font-weight:800;
-      margin-bottom:22px;
+    .badge-dot {
+      width: 7px;
+      height: 7px;
+      background: var(--lime);
+      border-radius: 50%;
+      box-shadow: 0 0 12px var(--lime);
     }
 
-    .dot{
-      width:7px;
-      height:7px;
-      background:var(--lime);
-      border-radius:50%;
-      box-shadow:0 0 12px var(--lime);
+    .hero h1 {
+      font-size: clamp(42px, 7vw, 78px);
+      line-height: .95;
+      letter-spacing: -4px;
+      margin-bottom: 25px;
     }
 
-    h1{
-      font-size:clamp(3rem,6vw,5.9rem);
-      line-height:.95;
-      letter-spacing:-5px;
-      max-width:760px;
+    .hero h1 span {
+      color: var(--lime);
     }
 
-    h1 span{
-      color:var(--lime);
+    .hero p {
+      max-width: 650px;
+      color: var(--muted);
+      font-size: 17px;
+      margin-bottom: 30px;
     }
 
-    .hero-copy{
-      margin-top:25px;
-      color:#aaa;
-      font-size:1.08rem;
-      max-width:620px;
+    .hero-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
     }
 
-    .hero-buttons{
-      display:flex;
-      gap:12px;
-      flex-wrap:wrap;
-      margin-top:30px;
+    .hero-device {
+      position: relative;
+      min-height: 470px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
 
-    .hero-note{
-      margin-top:18px;
-      color:#6f6f6f;
-      font-size:.78rem;
-      max-width:560px;
+    .device-glow {
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      background: rgba(183,255,0,.11);
+      filter: blur(70px);
     }
 
-    .hero-device{
-      min-height:500px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      position:relative;
+    .iphone {
+      position: relative;
+      width: 220px;
+      height: 430px;
+      border: 5px solid #282828;
+      border-radius: 38px;
+      background: linear-gradient(145deg,#202020,#080808);
+      box-shadow:
+        0 0 0 1px #000,
+        0 30px 80px rgba(0,0,0,.8),
+        0 0 50px rgba(183,255,0,.08);
+      transform: rotate(5deg);
+      overflow: hidden;
     }
 
-    .glow{
-      position:absolute;
-      width:360px;
-      height:360px;
-      border-radius:50%;
-      background:rgba(183,255,42,.11);
-      filter:blur(70px);
+    .iphone::before {
+      content: "";
+      position: absolute;
+      top: 11px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 75px;
+      height: 20px;
+      border-radius: 20px;
+      background: #000;
+      z-index: 3;
     }
 
-    .iphone{
-      position:relative;
-      width:min(360px,75vw);
-      transform:rotate(5deg);
-      filter:drop-shadow(0 35px 45px rgba(0,0,0,.65));
-      z-index:2;
+    .iphone-screen {
+      position: absolute;
+      inset: 6px;
+      border-radius: 32px;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 70% 20%, rgba(183,255,0,.3), transparent 20%),
+        linear-gradient(150deg,#101010,#050505);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 25px;
     }
 
-    .iphone img{
-      width:100%;
-      border-radius:34px;
-      object-fit:contain;
+    .screen-logo {
+      color: var(--lime);
+      font-weight: 900;
+      font-size: 20px;
+      margin-bottom: 10px;
     }
 
-    .floating-card{
-      position:absolute;
-      z-index:5;
-      background:rgba(15,15,15,.9);
-      border:1px solid var(--line);
-      border-radius:18px;
-      padding:16px;
-      box-shadow:var(--shadow);
-      backdrop-filter:blur(15px);
-    }
-
-    .floating-card.one{
-      left:2%;
-      bottom:12%;
-    }
-
-    .floating-card.two{
-      right:0;
-      top:16%;
-    }
-
-    .floating-label{
-      color:#777;
-      font-size:.72rem;
-    }
-
-    .floating-value{
-      margin-top:3px;
-      font-weight:900;
-      color:var(--lime);
-    }
-
-    /* STATS */
-
-    .stats{
-      border-top:1px solid var(--line);
-      border-bottom:1px solid var(--line);
-      background:rgba(255,255,255,.015);
-    }
-
-    .stats-grid{
-      display:grid;
-      grid-template-columns:repeat(4,1fr);
-    }
-
-    .stat{
-      padding:27px 20px;
-      border-right:1px solid var(--line);
-    }
-
-    .stat:last-child{
-      border-right:0;
-    }
-
-    .stat strong{
-      display:block;
-      font-size:1.5rem;
-    }
-
-    .stat span{
-      color:#777;
-      font-size:.8rem;
+    .screen-text {
+      color: white;
+      font-size: 11px;
+      opacity: .7;
     }
 
     /* SECTIONS */
-
-    section{
-      padding:100px 0;
+    section {
+      padding: 80px 0;
     }
 
-    .section-head{
-      display:flex;
-      justify-content:space-between;
-      align-items:end;
-      gap:30px;
-      margin-bottom:38px;
+    .section-title {
+      text-align: center;
+      margin-bottom: 40px;
     }
 
-    .eyebrow{
-      color:var(--lime);
-      text-transform:uppercase;
-      letter-spacing:2px;
-      font-size:.7rem;
-      font-weight:900;
-      margin-bottom:10px;
+    .section-title h2 {
+      font-size: 38px;
+      margin-bottom: 10px;
+      letter-spacing: -1px;
     }
 
-    h2{
-      font-size:clamp(2rem,4vw,3.5rem);
-      letter-spacing:-2px;
-      line-height:1;
+    .section-title p {
+      color: var(--muted);
     }
 
-    .section-description{
-      color:#858585;
-      max-width:550px;
+    /* SEARCH */
+    .package-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 25px;
+      flex-wrap: wrap;
+    }
+
+    .search-box {
+      flex: 1;
+      min-width: 240px;
+    }
+
+    .search-box input,
+    .select-box select {
+      width: 100%;
+      background: #0b0b0b;
+      border: 1px solid var(--border);
+      color: white;
+      padding: 13px 14px;
+      border-radius: 10px;
+      outline: none;
+    }
+
+    .search-box input:focus,
+    .select-box select:focus {
+      border-color: var(--lime);
+    }
+
+    .select-box {
+      width: 210px;
     }
 
     /* PACKAGES */
-
-    .package-tools{
-      display:flex;
-      gap:12px;
-      flex-wrap:wrap;
-      margin-bottom:28px;
+    .packages-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
     }
 
-    .search{
-      flex:1;
-      min-width:230px;
-      position:relative;
-    }
-
-    .search input{
-      width:100%;
-      background:#0d0d0d;
-      border:1px solid var(--line);
-      color:#fff;
-      border-radius:14px;
-      padding:14px 16px;
-      outline:none;
-    }
-
-    .search input:focus{
-      border-color:rgba(183,255,42,.55);
-    }
-
-    .filter{
-      background:#0d0d0d;
-      color:#aaa;
-      border:1px solid var(--line);
-      border-radius:14px;
-      padding:0 15px;
-      min-height:48px;
-    }
-
-    .packages-grid{
-      display:grid;
-      grid-template-columns:repeat(4,1fr);
-      gap:18px;
-    }
-
-    .package-card{
+    .package-card {
       background:
-        linear-gradient(145deg,rgba(255,255,255,.045),rgba(255,255,255,.012)),
-        var(--card);
-      border:1px solid var(--line);
-      border-radius:22px;
-      overflow:hidden;
-      transition:.25s;
-      position:relative;
+        linear-gradient(145deg, rgba(255,255,255,.035), rgba(255,255,255,.01)),
+        var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 20px;
+      transition: .25s;
+      position: relative;
+      overflow: hidden;
     }
 
-    .package-card:hover{
-      transform:translateY(-6px);
-      border-color:rgba(183,255,42,.35);
-      box-shadow:0 25px 70px rgba(0,0,0,.4);
+    .package-card::before {
+      content: "";
+      position: absolute;
+      top: -60px;
+      right: -60px;
+      width: 120px;
+      height: 120px;
+      background: rgba(183,255,0,.08);
+      border-radius: 50%;
+      filter: blur(25px);
     }
 
-    .package-image{
-      height:190px;
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      overflow:hidden;
-      background:
-        radial-gradient(circle at 50% 55%,rgba(183,255,42,.10),transparent 50%),
-        #080808;
-      border-bottom:1px solid var(--line);
-      padding:15px;
+    .package-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(183,255,0,.45);
     }
 
-    .package-image img{
-      height:175px;
-      width:100%;
-      object-fit:contain;
-      object-position:center;
-      transition:.3s;
-      filter:drop-shadow(0 20px 20px rgba(0,0,0,.65));
+    .package-number {
+      font-size: 11px;
+      color: var(--lime);
+      font-weight: 800;
+      text-transform: uppercase;
+      margin-bottom: 10px;
     }
 
-    .package-card:hover .package-image img{
-      transform:scale(1.06);
+    .package-device {
+      height: 110px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 8px;
     }
 
-    .package-content{
-      padding:20px;
+    .mini-phone {
+      width: 58px;
+      height: 95px;
+      border-radius: 12px;
+      border: 3px solid #333;
+      background: linear-gradient(145deg,#222,#070707);
+      box-shadow: 0 8px 25px rgba(0,0,0,.6);
+      position: relative;
     }
 
-    .package-number{
-      color:#696969;
-      font-size:.72rem;
-      font-weight:800;
-      margin-bottom:5px;
+    .mini-phone::before {
+      content: "";
+      position: absolute;
+      top: 4px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 20px;
+      height: 6px;
+      background: #000;
+      border-radius: 10px;
     }
 
-    .package-name{
-      font-size:1.05rem;
-      font-weight:900;
-      margin-bottom:15px;
+    .package-card h3 {
+      font-size: 16px;
+      margin-bottom: 8px;
     }
 
-    .amount{
-      font-size:1.55rem;
-      font-weight:950;
-      letter-spacing:-1px;
+    .package-price {
+      font-size: 23px;
+      font-weight: 900;
+      margin-bottom: 3px;
     }
 
-    .amount small{
-      color:#777;
-      font-size:.7rem;
-      letter-spacing:0;
-      font-weight:700;
+    .package-price span {
+      font-size: 12px;
+      color: var(--muted);
+      font-weight: 500;
     }
 
-    .daily{
-      margin-top:8px;
-      padding:11px;
-      background:rgba(183,255,42,.06);
-      border:1px solid rgba(183,255,42,.12);
-      border-radius:12px;
+    .package-daily {
+      color: var(--lime);
+      font-size: 14px;
+      font-weight: 800;
+      margin-bottom: 17px;
     }
 
-    .daily-label{
-      color:#777;
-      font-size:.68rem;
-      text-transform:uppercase;
-      letter-spacing:1px;
+    .package-card .btn {
+      width: 100%;
+      font-size: 13px;
     }
 
-    .daily-value{
-      color:var(--lime);
-      font-weight:950;
-      font-size:1.1rem;
-      margin-top:2px;
-    }
-
-    .choose{
-      width:100%;
-      margin-top:15px;
-    }
-
-    /* HOW IT WORKS */
-
-    .steps{
-      display:grid;
-      grid-template-columns:repeat(4,1fr);
-      gap:18px;
-    }
-
-    .step{
-      border:1px solid var(--line);
-      background:#0c0c0c;
-      border-radius:20px;
-      padding:25px;
-    }
-
-    .step-number{
-      width:38px;
-      height:38px;
-      display:grid;
-      place-items:center;
-      border-radius:12px;
-      background:var(--lime);
-      color:#050505;
-      font-weight:950;
-      margin-bottom:25px;
-    }
-
-    .step h3{
-      margin-bottom:8px;
-    }
-
-    .step p{
-      color:#777;
-      font-size:.88rem;
+    .package-disclaimer {
+      margin-top: 25px;
+      text-align: center;
+      color: #777;
+      font-size: 11px;
     }
 
     /* FEATURES */
-
-    .feature-grid{
-      display:grid;
-      grid-template-columns:repeat(3,1fr);
-      gap:18px;
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 18px;
     }
 
-    .feature{
-      background:#0c0c0c;
-      border:1px solid var(--line);
-      border-radius:20px;
-      padding:28px;
+    .feature-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 27px;
     }
 
-    .feature-icon{
-      width:48px;
-      height:48px;
-      border-radius:14px;
-      background:rgba(183,255,42,.08);
-      color:var(--lime);
-      display:grid;
-      place-items:center;
-      font-size:1.25rem;
-      margin-bottom:20px;
+    .feature-icon {
+      width: 45px;
+      height: 45px;
+      display: grid;
+      place-items: center;
+      border-radius: 12px;
+      background: rgba(183,255,0,.08);
+      color: var(--lime);
+      margin-bottom: 18px;
+      font-weight: 900;
     }
 
-    .feature p{
-      color:#777;
-      font-size:.88rem;
-      margin-top:8px;
+    .feature-card h3 {
+      margin-bottom: 8px;
     }
 
-    /* CTA */
-
-    .cta{
-      padding:70px 0;
+    .feature-card p {
+      color: var(--muted);
+      font-size: 14px;
     }
 
-    .cta-box{
-      position:relative;
-      overflow:hidden;
+    /* HOW */
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(4,1fr);
+      gap: 18px;
+    }
+
+    .step {
+      text-align: center;
+      padding: 25px 15px;
+    }
+
+    .step-number {
+      width: 48px;
+      height: 48px;
+      margin: 0 auto 15px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      border: 1px solid var(--lime);
+      color: var(--lime);
+      font-weight: 900;
+    }
+
+    .step p {
+      color: var(--muted);
+      font-size: 13px;
+      margin-top: 6px;
+    }
+
+    /* ACCOUNT */
+    #accountSection {
+      display: none;
+    }
+
+    .account-panel {
       background:
-        radial-gradient(circle at 90% 20%,rgba(183,255,42,.20),transparent 30%),
-        #101010;
-      border:1px solid var(--line);
-      border-radius:30px;
-      padding:60px;
+        linear-gradient(145deg,rgba(183,255,0,.06),rgba(255,255,255,.015)),
+        var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      padding: 30px;
     }
 
-    .cta-box p{
-      color:#888;
-      max-width:620px;
-      margin-top:15px;
+    .account-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 25px;
     }
 
-    /* DISCLAIMER */
-
-    .notice{
-      border:1px solid rgba(255,193,7,.16);
-      background:rgba(255,193,7,.045);
-      color:#aaa;
-      border-radius:16px;
-      padding:18px;
-      font-size:.8rem;
-      margin-top:35px;
+    .account-header h2 {
+      font-size: 28px;
     }
 
-    .notice strong{
-      color:#ddd;
+    .account-email {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .account-grid {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 15px;
+    }
+
+    .account-card {
+      background: #080808;
+      border: 1px solid var(--border);
+      border-radius: 15px;
+      padding: 20px;
+    }
+
+    .account-card small {
+      display: block;
+      color: var(--muted);
+      margin-bottom: 7px;
+    }
+
+    .account-card strong {
+      font-size: 22px;
+    }
+
+    .account-card strong.green {
+      color: var(--lime);
     }
 
     /* FOOTER */
-
-    footer{
-      border-top:1px solid var(--line);
-      padding:45px 0;
-      color:#666;
-      font-size:.82rem;
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 30px 0;
+      color: #777;
+      font-size: 12px;
+      text-align: center;
     }
 
-    .footer-grid{
-      display:flex;
-      justify-content:space-between;
-      gap:25px;
-      flex-wrap:wrap;
+    /* MODAL */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 999;
+      background: rgba(0,0,0,.78);
+      backdrop-filter: blur(8px);
+      padding: 20px;
+      overflow-y: auto;
     }
 
-    .footer-links{
-      display:flex;
-      gap:20px;
+    .modal-overlay.active {
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
 
-    /* MODALS */
-
-    .modal{
-      position:fixed;
-      inset:0;
-      background:rgba(0,0,0,.75);
-      backdrop-filter:blur(10px);
-      z-index:2000;
-      display:none;
-      align-items:center;
-      justify-content:center;
-      padding:20px;
+    .modal {
+      width: min(440px,100%);
+      background: #0c0c0c;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 28px;
+      box-shadow: 0 30px 100px rgba(0,0,0,.8);
     }
 
-    .modal.show{
-      display:flex;
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      align-items: center;
+      margin-bottom: 20px;
     }
 
-    .modal-box{
-      width:min(510px,100%);
-      background:#111;
-      border:1px solid var(--line);
-      border-radius:24px;
-      padding:28px;
-      box-shadow:0 30px 100px rgba(0,0,0,.65);
-      position:relative;
-      max-height:90vh;
-      overflow:auto;
+    .modal-header h2 {
+      font-size: 23px;
     }
 
-    .modal-close{
-      position:absolute;
-      right:17px;
-      top:15px;
-      border:0;
-      background:#1a1a1a;
-      color:#aaa;
-      width:35px;
-      height:35px;
-      border-radius:10px;
+    .close {
+      border: 0;
+      background: transparent;
+      color: #aaa;
+      font-size: 25px;
+      cursor: pointer;
     }
 
-    .modal-box h3{
-      font-size:1.6rem;
-      margin-bottom:5px;
+    .form-group {
+      margin-bottom: 14px;
     }
 
-    .modal-sub{
-      color:#777;
-      font-size:.85rem;
-      margin-bottom:22px;
+    .form-group label {
+      display: block;
+      color: #aaa;
+      font-size: 12px;
+      margin-bottom: 6px;
     }
 
-    .form-group{
-      margin-bottom:15px;
+    .form-group input {
+      width: 100%;
+      background: #050505;
+      color: white;
+      border: 1px solid #292929;
+      padding: 13px;
+      border-radius: 10px;
+      outline: none;
     }
 
-    .form-group label{
-      display:block;
-      font-size:.78rem;
-      color:#999;
-      margin-bottom:7px;
+    .form-group input:focus {
+      border-color: var(--lime);
     }
 
-    .form-group input{
-      width:100%;
-      background:#090909;
-      border:1px solid var(--line);
-      color:#fff;
-      padding:13px;
-      border-radius:12px;
-      outline:none;
+    .modal .btn-primary {
+      width: 100%;
+      margin-top: 8px;
     }
 
-    .form-group input:focus{
-      border-color:rgba(183,255,42,.5);
+    .switch-text {
+      color: #888;
+      font-size: 12px;
+      text-align: center;
+      margin-top: 17px;
     }
 
-    .modal-btn{
-      width:100%;
-      margin-top:5px;
+    .switch-text button {
+      background: none;
+      border: none;
+      color: var(--lime);
+      font-weight: 800;
     }
 
-    .selected-package{
-      display:grid;
-      grid-template-columns:120px 1fr;
-      gap:18px;
-      align-items:center;
-      padding:15px;
-      background:#0a0a0a;
-      border:1px solid var(--line);
-      border-radius:16px;
-      margin:18px 0;
+    .status-message {
+      display: none;
+      margin-top: 13px;
+      padding: 11px;
+      border-radius: 9px;
+      font-size: 12px;
     }
 
-    .selected-package img{
-      width:100%;
-      height:110px;
-      object-fit:contain;
+    .status-message.show {
+      display: block;
     }
 
-    .selected-package strong{
-      font-size:1.25rem;
+    .status-success {
+      background: rgba(183,255,0,.08);
+      color: var(--lime);
+      border: 1px solid rgba(183,255,0,.2);
     }
 
-    .selected-package p{
-      color:#777;
-      font-size:.8rem;
+    .status-error {
+      background: rgba(255,95,95,.08);
+      color: #ff8585;
+      border: 1px solid rgba(255,95,95,.2);
+    }
+
+    /* PACKAGE MODAL */
+    .selected-package {
+      background: #070707;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 18px;
+      margin-bottom: 18px;
+    }
+
+    .selected-package .amount {
+      font-size: 25px;
+      font-weight: 900;
+    }
+
+    .selected-package .daily {
+      color: var(--lime);
+      font-weight: 800;
+    }
+
+    /* TOAST */
+    .toast {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 2000;
+      background: #111;
+      border: 1px solid var(--border);
+      color: white;
+      padding: 14px 17px;
+      border-radius: 12px;
+      box-shadow: 0 15px 50px rgba(0,0,0,.5);
+      display: none;
+      max-width: 320px;
+      font-size: 13px;
+    }
+
+    .toast.show {
+      display: block;
+      animation: toastIn .25s ease;
+    }
+
+    @keyframes toastIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* LOADING */
+    .loading {
+      text-align: center;
+      color: var(--muted);
+      padding: 40px;
+      grid-column: 1/-1;
     }
 
     /* MOBILE */
-
-    @media(max-width:1050px){
-      .packages-grid{
-        grid-template-columns:repeat(3,1fr);
+    @media (max-width: 950px) {
+      .packages-grid {
+        grid-template-columns: repeat(3,1fr);
       }
 
-      .hero-grid{
-        gap:35px;
-      }
-    }
-
-    @media(max-width:850px){
-      .nav-links,
-      .nav-actions{
-        display:none;
+      .hero {
+        grid-template-columns: 1fr;
+        text-align: center;
       }
 
-      .menu-btn{
-        display:block;
+      .hero p {
+        margin-left: auto;
+        margin-right: auto;
       }
 
-      .mobile-menu{
-        display:none;
-        padding:15px 0 20px;
-        border-top:1px solid var(--line);
+      .hero-buttons {
+        justify-content: center;
       }
 
-      .mobile-menu.show{
-        display:block;
+      .features-grid {
+        grid-template-columns: 1fr 1fr;
       }
 
-      .mobile-menu a{
-        display:block;
-        padding:12px 0;
-        color:#aaa;
-      }
-
-      .hero-grid{
-        grid-template-columns:1fr;
-        text-align:center;
-      }
-
-      .hero-copy{
-        margin-left:auto;
-        margin-right:auto;
-      }
-
-      .hero-buttons{
-        justify-content:center;
-      }
-
-      .hero-note{
-        margin-left:auto;
-        margin-right:auto;
-      }
-
-      .hero-device{
-        min-height:450px;
-      }
-
-      .stats-grid{
-        grid-template-columns:repeat(2,1fr);
-      }
-
-      .stat:nth-child(2){
-        border-right:0;
-      }
-
-      .stat:nth-child(3),
-      .stat:nth-child(4){
-        border-top:1px solid var(--line);
-      }
-
-      .packages-grid{
-        grid-template-columns:repeat(2,1fr);
-      }
-
-      .steps{
-        grid-template-columns:repeat(2,1fr);
-      }
-
-      .feature-grid{
-        grid-template-columns:repeat(2,1fr);
-      }
-
-      .section-head{
-        align-items:start;
-        flex-direction:column;
+      .steps {
+        grid-template-columns: 1fr 1fr;
       }
     }
 
-    @media(max-width:560px){
-      h1{
-        letter-spacing:-3px;
-        font-size:3.25rem;
+    @media (max-width: 700px) {
+      .nav-links {
+        display: none;
       }
 
-      section{
-        padding:75px 0;
+      .nav-actions .btn:first-child {
+        display: none;
       }
 
-      .hero{
-        padding-top:125px;
+      .packages-grid {
+        grid-template-columns: repeat(2,1fr);
       }
 
-      .hero-device{
-        min-height:390px;
+      .account-grid {
+        grid-template-columns: 1fr;
       }
 
-      .iphone{
-        width:280px;
+      .features-grid {
+        grid-template-columns: 1fr;
       }
 
-      .floating-card{
-        padding:12px;
+      .hero {
+        padding-top: 55px;
       }
 
-      .floating-card.one{
-        left:0;
+      .hero h1 {
+        letter-spacing: -2px;
       }
 
-      .floating-card.two{
-        right:0;
+      .iphone {
+        width: 190px;
+        height: 370px;
+      }
+    }
+
+    @media (max-width: 450px) {
+      .packages-grid {
+        grid-template-columns: 1fr;
       }
 
-      .stats-grid{
-        grid-template-columns:1fr 1fr;
+      .steps {
+        grid-template-columns: 1fr;
       }
 
-      .packages-grid{
-        grid-template-columns:1fr;
+      .select-box {
+        width: 100%;
       }
 
-      .steps,
-      .feature-grid{
-        grid-template-columns:1fr;
+      .package-controls {
+        display: block;
       }
 
-      .cta-box{
-        padding:35px 24px;
-      }
-
-      .package-image{
-        height:220px;
-      }
-
-      .package-image img{
-        height:205px;
+      .search-box {
+        margin-bottom: 10px;
       }
     }
   </style>
@@ -895,1066 +830,1801 @@
 <body>
 
   <!-- NAVIGATION -->
-  <nav>
-    <div class="container nav-inner">
+  <header>
+    <div class="container">
+      <nav>
 
-      <a href="#" class="logo">
-        iPhone<span>Vest</span>
-      </a>
+        <a href="#" class="logo">
+          iPhone<span>Vest</span>
+        </a>
 
-      <div class="nav-links">
-        <a href="#packages">Packages</a>
-        <a href="#how">How It Works</a>
-        <a href="#features">Features</a>
-        <a href="#about">About</a>
-      </div>
-
-      <div class="nav-actions">
-        <button class="btn" onclick="openModal('loginModal')">Login</button>
-        <button class="btn btn-primary" onclick="openModal('registerModal')">
-          Create Account
-        </button>
-      </div>
-
-      <button class="menu-btn" onclick="toggleMenu()">☰</button>
-    </div>
-
-    <div class="container mobile-menu" id="mobileMenu">
-      <a href="#packages" onclick="toggleMenu()">Packages</a>
-      <a href="#how" onclick="toggleMenu()">How It Works</a>
-      <a href="#features" onclick="toggleMenu()">Features</a>
-      <a href="#about" onclick="toggleMenu()">About</a>
-      <a href="#" onclick="openModal('loginModal');toggleMenu()">Login</a>
-      <a href="#" onclick="openModal('registerModal');toggleMenu()">Create Account</a>
-    </div>
-  </nav>
-
-
-  <!-- HERO -->
-  <header class="hero">
-    <div class="container hero-grid">
-
-      <div>
-        <div class="badge">
-          <span class="dot"></span>
-          DIGITAL PACKAGE PLATFORM
+        <div class="nav-links">
+          <a href="#packages">Packages</a>
+          <a href="#how">How It Works</a>
+          <a href="#features">Features</a>
+          <a href="#about">About</a>
         </div>
 
-        <h1>
-          Put your money to work with
-          <span>iPhoneVest.</span>
-        </h1>
+        <div class="nav-actions">
+          <button class="btn" id="loginNavBtn">
+            Login
+          </button>
 
-        <p class="hero-copy">
-          Explore digital package tiers represented through the premium
-          iPhone 18 Pro experience. Choose a package, follow your portfolio,
-          and manage your account from one simple dashboard.
-        </p>
-
-        <div class="hero-buttons">
-          <a href="#packages" class="btn btn-primary">
-            Explore Packages
-          </a>
-
-          <button class="btn" onclick="openModal('registerModal')">
+          <button class="btn btn-primary" id="signupNavBtn">
             Create Account
+          </button>
+
+          <button
+            class="btn btn-danger"
+            id="logoutNavBtn"
+            style="display:none;"
+          >
+            Logout
           </button>
         </div>
 
-        <p class="hero-note">
-          Prototype interface: account authentication, payment processing,
-          package activation and earnings are not connected yet.
-        </p>
-      </div>
-
-      <div class="hero-device">
-
-        <div class="glow"></div>
-
-        <div class="iphone">
-          <!-- Official Apple iPhone 18 Pro Burgundy product image -->
-          <img
-            src="https://www.apple.com/v/iphone-18-pro/b/images/overview/aio/hero__elo7tt0mnqy6_large.jpg"
-            alt="iPhone 18 Pro in Burgundy"
-          >
-        </div>
-
-        <div class="floating-card one">
-          <div class="floating-label">Active package</div>
-          <div class="floating-value">iPhone 18 Pro</div>
-        </div>
-
-        <div class="floating-card two">
-          <div class="floating-label">Portfolio access</div>
-          <div class="floating-value">24 / 7</div>
-        </div>
-
-      </div>
-
+      </nav>
     </div>
   </header>
 
 
-  <!-- STATS -->
-  <div class="stats">
-    <div class="container stats-grid">
+  <!-- HERO -->
+  <main>
 
-      <div class="stat">
-        <strong>20</strong>
-        <span>Package tiers</span>
-      </div>
+    <section class="container hero">
 
-      <div class="stat">
-        <strong>24/7</strong>
-        <span>Portfolio access</span>
-      </div>
+      <div>
 
-      <div class="stat">
-        <strong>UGX</strong>
-        <span>Primary currency</span>
-      </div>
-
-      <div class="stat">
-        <strong>1</strong>
-        <span>Simple dashboard</span>
-      </div>
-
-    </div>
-  </div>
-
-
-  <!-- PACKAGES -->
-  <section id="packages">
-
-    <div class="container">
-
-      <div class="section-head">
-
-        <div>
-          <div class="eyebrow">Package marketplace</div>
-          <h2>Choose your package.</h2>
+        <div class="badge">
+          <span class="badge-dot"></span>
+          iPhoneVest Digital Platform
         </div>
 
-        <p class="section-description">
-          Browse the available package tiers and view the package amount
-          and corresponding daily figure supplied for this prototype.
-        </p>
-
-      </div>
-
-
-      <div class="package-tools">
-
-        <div class="search">
-          <input
-            type="search"
-            id="packageSearch"
-            placeholder="Search packages..."
-            oninput="filterPackages()"
-          >
-        </div>
-
-        <select class="filter" id="packageFilter" onchange="filterPackages()">
-          <option value="all">All packages</option>
-          <option value="under100">Under UGX 100K</option>
-          <option value="100to500">UGX 100K – 500K</option>
-          <option value="500to1m">UGX 500K – 1M</option>
-          <option value="over1m">Above UGX 1M</option>
-        </select>
-
-      </div>
-
-
-      <div class="packages-grid" id="packagesGrid">
-
-        <!-- 01 -->
-        <article class="package-card" data-amount="20000">
-          <div class="package-image">
-            <img src="https://www.apple.com/v/iphone-18-pro/b/images/overview/aio/hero__elo7tt0mnqy6_large.jpg" alt="iPhone 18 Pro">
-          </div>
-          <div class="package-content">
-            <div class="package-number">PACKAGE 01</div>
-            <div class="package-name">iPhone 18 Starter</div>
-            <div class="amount">UGX 20,000</div>
-            <div class="daily">
-              <div class="daily-label">Daily package amount</div>
-              <div class="daily-value">UGX 4,000</div>
-            </div>
-            <button class="btn btn-primary choose" onclick="openPackage(1,'iPhone 18 Starter','UGX 20,000','UGX 4,000')">Choose Package</button>
-          </div>
-        </article>
-
-        <!-- 02 -->
-        <article class="package-card" data-amount="30000">
-          <div class="package-image">
-            <img src="https://www.apple.com/v/iphone-18-pro/b/images/overview/aio/hero__elo7tt0mnqy6_large.jpg" alt="iPhone 18 Pro">
-          </div>
-          <div class="package-content">
-            <div class="package-number">PACKAGE 02</div>
-            <div class="package-name">iPhone 18 Starter Plus</div>
-            <div class="amount">UGX 30,000</div>
-            <div class="daily">
-              <div class="daily-label">Daily package amount</div>
-              <div class="daily-value">UGX 6,000</div>
-            </div>
-            <button class="btn btn-primary choose" onclick="openPackage(2,'iPhone 18 Starter Plus','UGX 30,000','UGX 6,000')">Choose Package</button>
-          </div>
-        </article>
-
-        <!-- 03 -->
-        <article class="package-card" data-amount="50000">
-          <div class="package-image">
-            <img src="https://www.apple.com/v/iphone-18-pro/b/images/overview/aio/hero__elo7tt0mnqy6_large.jpg" alt="iPhone 18 Pro">
-          </div>
-          <div class="package-content">
-            <div class="package-number">PACKAGE 03</div>
-            <div class="package-name">iPhone 18 Growth</div>
-            <div class="amount">UGX 50,000</div>
-            <div class="daily">
-              <div class="daily-label">Daily package amount</div>
-              <div class="daily-value">UGX 12,000</div>
-            </div>
-            <button class="btn btn-primary choose" onclick="openPackage(3,'iPhone 18 Growth','UGX 50,000','UGX 12,000')">Choose Package</button>
-          </div>
-        </article>
-
-        <!-- 04 -->
-        <article class="package-card" data-amount="80000">
-          <div class="package-image">
-            <img src="https://www.apple.com/v/iphone-18-pro/b/images/overview/aio/hero__elo7tt0mnqy6_large.jpg" alt="iPhone 18 Pro">
-          </div>
-          <div class="package-content">
-            <div class="package-number">PACKAGE 04</div>
-            <div class="package-name">iPhone 18 Growth Plus</div>
-            <div class="amount">UGX 80,000</div>
-            <div class="daily">
-              <div class="daily-label">Daily package amount</div>
-              <div class="daily-value">UGX 18,000</div>
-            </div>
-            <button class="btn btn-primary choose" onclick="openPackage(4,'iPhone 18 Growth Plus','UGX 80,000','UGX 18,000')">Choose Package</button>
-          </div>
-        </article>
-
-        <!-- 05 -->
-        <article class="package-card" data-amount="120000">
-          <div class="package-image">
-            <img src="https://www.apple.com/v/iphone-18-pro/b/images/overview/aio/hero__elo7tt0mnqy6_large.jpg" alt="iPhone 18 Pro">
-          </div>
-          <div class="package-content">
-            <div class="package-number">PACKAGE 05</div>
-            <div class="package-name">iPhone 18 Advance</div>
-            <div class="amount">UGX 120,000</div>
-            <div class="daily">
-              <div class="daily-label">Daily package amount</div>
-              <div class="daily-value">UGX 25,000</div>
-            </div>
-            <button class="btn btn-primary choose" onclick="openPackage(5,'iPhone 18 Advance','UGX 120,000','UGX 25,000')">Choose Package</button>
-          </div>
-        </article>
-
-        <!-- 06 -->
-        <article class="package-card" data-amount="150000">
-          <div class="package-image">
-            <img src="https://www.apple.com/v/iphone-18-pro/b/images/overview/aio/hero__elo7tt0mnqy6_large.jpg" alt="iPhone 18 Pro">
-          </div>
-          <div class="package-content">
-            <div class="package-number">PACKAGE 06</div>
-            <div class="package-name">iPhone 18 Advance Plus</div>
-            <div class="amount">UGX 150,000</div>
-            <div class="daily">
-              <div class="daily-label">Daily package amount</div>
-              <div class="daily-value">UGX 30,000</div>
-            </div>
-            <button class="btn btn-primary choose" onclick="openPackage(6,'iPhone 18 Advance Plus','UGX 150,000','UGX 30,000')">Choose Package</button>
-          </div>
-        </article>
-
-        <!-- 07 -->
-        <article class="package-card" data-amount="200000">
-          <div class="package-image">
-            <img src="https://www.apple.com/v/iphone-18-pro/b/images/overview/aio/hero__elo7tt0mnqy6_large.jpg" alt="iPhone 18 Pro">
-          </div>
-          <div class="package-content">
-            <div class="package-number">PACKAGE 07</div>
-            <div class="package-name">iPhone 18 Pro</div>
-            <div class="amount">UGX 200,000</div>
-            <div class="daily">
-              <div class="daily-label">Daily package amount</div>
-              <div class="daily-value">UGX 40,000</div>
-            </div>
-            <button class="btn btn-primary choose" onclick="openPackage(7,'iPhone 18 Pro','UGX 200,000','UGX 40,000')">Choose Package</button>
-          </div>
-        </article>
-
-        <!-- 08 -->
-        <article class="package-card" data-amount="250000">
-          <div class="package-image">
-            <img src="https://www.apple.com/v/iphone-18-pro/b/images/overview/aio/hero__elo7tt0mnqy6_large.jpg" alt="iPhone 18 Pro">
-          </div>
-          <div class="package-content">
-            <div class="package-number">PACKAGE 08</div>
-            <div class="package-name">iPhone 18 Pro Plus</div>
-            <div class="amount">UGX 250,000</div>
-            <div class="daily">
-              <div class="daily-label">Daily package amount</div>
-              <div class="daily-value">UGX 55,000</div>
-            </div>
-            <button class="btn btn-primary choose" onclick="openPackage(8,'iPhone 18 Pro Plus','UGX 250,000','UGX 55,000')">Choose Package</button>
-          </div>
-        </article>
-
-        <!-- 09 -->
-        <article class="package-card" data-amount="300000">
-          <div class="package-image">
-            <img src="https://www.apple.com/v/iphone-18-pro/b/images/overview/aio/hero__elo7tt0mnqy6_large.jpg" alt="iPhone 18 Pro">
-          </div>
-          <div class="package-content">
-            <div class="package-number">PACKAGE 09</div>
-            <div class="package-name">iPhone 18 Pro Growth</div>
-            <div class="amount">UGX 300,000</div>
-            <div class="daily">
-              <div class="daily-label">Daily package amount</div>
-              <div class="daily-value">UGX 70,000</div>
-            </div>
-            <button class="btn btn-primary choose" onclick="openPackage(9,'iPhone 18 Pro Growth','UGX 300,000','UGX 70,000')">Choose Package</button>
-          </div>
-        </article>
-
-        <!-- 10 -->
-        <article class="package-card" data-amount="400000">
-          <div class="package-image">
-            <img src="https://www.apple.com/v/iphone-18-pro/b/images/overview/aio/hero__elo7tt0mnqy6_large.jpg" alt="iPhone 18 Pro">
-          </div>
-          <div class="package-content">
-            <div class="package-number">PACKAGE 10</div>
-            <div class="package-name">iPhone 18 Pro Advance</div>
-            <div class="amount">UGX 400,000</div>
-            <div class="daily">
-              <div class="daily-label">Daily package amount</div>
-              <div class="daily-value">UGX 109,000</div>
-            </div>
-            <button class="btn btn-primary choose" onclick="openPackage(10,'iPhone 18 Pro Advance','UGX 400,000','UGX 109,000')">Choose Package</button>
-          </div>
-        </article>
-
-        <!-- 11 -->
-        <article class="package-card" data-amount="500000">
-          <div class="package-image">
-            <img src="https://www.apple.com/v/iphone-18-pro/b/images/overview/aio/hero__elo7tt0mnqy6_large.jpg" alt="iPhone 18 Pro">
-          </div>
-          <div class="package-content">
-            <div class="package-number">PACKAGE 11</div>
-            <div class="package-name">iPhone 18 Pro Max</div>
-            <div class="amount">UGX 500,000</div>
-            <div class="daily">
-              <div class="daily-label">Daily package amount</div>
-              <div class="daily-value">UGX 135,000</div>
-            </div>
-            <button class="btn btn-primary choose" onclick="openPackage(11,'iPhone 18 Pro Max','UGX 500,000','UGX 135,000')">Choose Package</button>
-          </div>
-        </article>
-
-        <!-- 12 -->
-        <article class="package-card" data-amount="600000">
-          <div class="package-image">
-            <img src="https://www.apple.com/v/iphone-18-pro/b/images/overview/aio/hero__elo7tt0mnqy6_large.jpg" alt="iPhone 18 Pro">
-          </div>
-          <div class="package-content">
-            <div class="package-number">PACKAGE 12</div>
-            <div class="package-name">iPhone 18 Pro Max Plus</div>
-            <div class="amount">UGX 600,000</div>
-            <div class="daily">
-              <div class="daily-label">Daily package amount</div>
-              <div class="daily-value">UGX 175,000</div>
-            </div>
-            <button class="btn btn-primary choose" onclick="openPackage(12,'iPhone 18 Pro Max Plus','UGX 600,000','UGX 175,000')">Choose Package</button>
-          </div>
-        </article>
-
-        <!-- 13 -->
-        <article class="package-card" data-amount="700000">
-          <div class="package-image">
-            <img src="https://www.apple.com/v/iphone-18-pro/b/images/overview/aio/hero__elo7tt0mnqy6_large.jpg" alt="iPhone 18 Pro">
-          </div>
-          <div class="package-content">
-            <div class="package-number">PACKAGE 13</div>
-            <div class="package-name">iPhone 18 Pro Max Elite</div>
-            <div class="amount">UGX 700,000</div>
-            <div class="daily">
-              <div class="daily-label">Daily package amount</div>
-              <div class="daily-value">UGX 200,000</div>
-            </div>
-            <button class="btn btn-primary choose" onclick="openPackage(13,'iPhone 18 Pro Max Elite','UGX 700,000','UGX 200,000')">Choose Package</button>
-          </div>
-        </article>
-
-        <!-- 14 -->
-        <article class="package-card" data-amount="800000">
-          <div class="package-image">
-            <img src="https://www.apple.com/v/iphone-18-pro/b/images/overview/aio/hero__elo7tt0mnqy6_large.jpg" alt="iPhone 18 Pro">
-          </div>
-          <div class="package-content">
-            <div class="package-number">PACKAGE 14</div>
-            <div class="package-name">iPhone 18 Pro Max Premium</div>
-            <div class="amount">UGX 800,000</div>
-            <div class="daily">
-              <div class="daily-label">Daily package amount</div>
-              <div class="daily-value">UGX 250,000</div>
-            </div>
-            <button class="btn btn-primary choose" onclick="openPackage(14,'iPhone 18 Pro Max Premium','UGX 800,000','UGX 250,000')">Choose Package</button>
-          </div>
-        </article>
-
-        <!-- 15 -->
-        <article class="package-card" data-amount="900000">
-          <div class="package-image">
-            <img src="https://www.apple.com/v/iphone-18-pro/b/images/overview/aio/hero__elo7tt0mnqy6_large.jpg" alt="iPhone 18 Pro">
-          </div>
-          <div class="package-content">
-            <div class="package-number">PACKAGE 15</div>
-            <div class="package-name">iPhone 18 Pro Max Ultra</div>
-            <div class="amount">UGX 900,000</div>
-            <div class="daily">
-              <div class="daily-label">Daily package amount</div>
-              <div class="daily-value">UGX 300,000</div>
-            </div>
-            <button class="btn btn-primary choose" onclick="openPackage(15,'iPhone 18 Pro Max Ultra','UGX 900,000','UGX 300,000')">Choose Package</button>
-          </div>
-        </article>
-
-        <!-- 16 -->
-        <article class="package-card" data-amount="1000000">
-          <div class="package-image">
-            <img src="https://www.apple.com/v/iphone-18-pro/b/images/overview/aio/hero__elo7tt0mnqy6_large.jpg" alt="iPhone 18 Pro">
-          </div>
-          <div class="package-content">
-            <div class="package-number">PACKAGE 16</div>
-            <div class="package-name">iPhone 18 Pro Max Diamond</div>
-            <div class="amount">UGX 1,000,000</div>
-            <div class="daily">
-              <div class="daily-label">Daily package amount</div>
-              <div class="daily-value">UGX 350,000</div>
-            </div>
-            <button class="btn btn-primary choose" onclick="openPackage(16,'iPhone 18 Pro Max Diamond','UGX 1,000,000','UGX 350,000')">Choose Package</button>
-          </div>
-        </article>
-
-        <!-- 17 -->
-        <article class="package-card" data-amount="1500000">
-          <div class="package-image">
-            <img src="https://www.apple.com/v/iphone-18-pro/b/images/overview/aio/hero__elo7tt0mnqy6_large.jpg" alt="iPhone 18 Pro">
-          </div>
-          <div class="package-content">
-            <div class="package-number">PACKAGE 17</div>
-            <div class="package-name">iPhone 18 Pro Max Platinum</div>
-            <div class="amount">UGX 1,500,000</div>
-            <div class="daily">
-              <div class="daily-label">Daily package amount</div>
-              <div class="daily-value">UGX 400,000</div>
-            </div>
-            <button class="btn btn-primary choose" onclick="openPackage(17,'iPhone 18 Pro Max Platinum','UGX 1,500,000','UGX 400,000')">Choose Package</button>
-          </div>
-        </article>
-
-        <!-- 18 -->
-        <article class="package-card" data-amount="2000000">
-          <div class="package-image">
-            <img src="https://www.apple.com/v/iphone-18-pro/b/images/overview/aio/hero__elo7tt0mnqy6_large.jpg" alt="iPhone 18 Pro">
-          </div>
-          <div class="package-content">
-            <div class="package-number">PACKAGE 18</div>
-            <div class="package-name">iPhone 18 Pro Max Titanium</div>
-            <div class="amount">UGX 2,000,000</div>
-            <div class="daily">
-              <div class="daily-label">Daily package amount</div>
-              <div class="daily-value">UGX 450,000</div>
-            </div>
-            <button class="btn btn-primary choose" onclick="openPackage(18,'iPhone 18 Pro Max Titanium','UGX 2,000,000','UGX 450,000')">Choose Package</button>
-          </div>
-        </article>
-
-        <!-- 19 -->
-        <article class="package-card" data-amount="2500000">
-          <div class="package-image">
-            <img src="https://www.apple.com/v/iphone-18-pro/b/images/overview/aio/hero__elo7tt0mnqy6_large.jpg" alt="iPhone 18 Pro">
-          </div>
-          <div class="package-content">
-            <div class="package-number">PACKAGE 19</div>
-            <div class="package-name">iPhone 18 Pro Max Black Titanium</div>
-            <div class="amount">UGX 2,500,000</div>
-            <div class="daily">
-              <div class="daily-label">Daily package amount</div>
-              <div class="daily-value">UGX 500,000</div>
-            </div>
-            <button class="btn btn-primary choose" onclick="openPackage(19,'iPhone 18 Pro Max Black Titanium','UGX 2,500,000','UGX 500,000')">Choose Package</button>
-          </div>
-        </article>
-
-        <!-- 20 -->
-        <article class="package-card" data-amount="3000000">
-          <div class="package-image">
-            <img src="https://www.apple.com/v/iphone-18-pro/b/images/overview/aio/hero__elo7tt0mnqy6_large.jpg" alt="iPhone 18 Pro">
-          </div>
-          <div class="package-content">
-            <div class="package-number">PACKAGE 20</div>
-            <div class="package-name">iPhone 18 Pro Max Ultra Elite</div>
-            <div class="amount">UGX 3,000,000</div>
-            <div class="daily">
-              <div class="daily-label">Daily package amount</div>
-              <div class="daily-value">UGX 600,000</div>
-            </div>
-            <button class="btn btn-primary choose" onclick="openPackage(20,'iPhone 18 Pro Max Ultra Elite','UGX 3,000,000','UGX 600,000')">Choose Package</button>
-          </div>
-        </article>
-
-      </div>
-
-      <div id="noResults" style="display:none;text-align:center;padding:45px;color:#777;">
-        No package matches your search.
-      </div>
-
-      <div class="notice">
-        <strong>Prototype disclosure:</strong>
-        The daily figures displayed above are package figures supplied for
-        this prototype. They are not a guarantee of profit or investment
-        performance. Before operating as a live financial product, the
-        underlying business model, risks, fees, withdrawal rules and applicable
-        legal/regulatory requirements should be established and disclosed.
-      </div>
-
-    </div>
-  </section>
-
-
-  <!-- HOW IT WORKS -->
-  <section id="how">
-
-    <div class="container">
-
-      <div class="section-head">
-        <div>
-          <div class="eyebrow">Simple process</div>
-          <h2>How it works.</h2>
-        </div>
-
-        <p class="section-description">
-          The prototype is designed around a straightforward account and
-          package-management flow.
-        </p>
-      </div>
-
-      <div class="steps">
-
-        <div class="step">
-          <div class="step-number">01</div>
-          <h3>Create Account</h3>
-          <p>
-            Register your account and create your personal profile.
-          </p>
-        </div>
-
-        <div class="step">
-          <div class="step-number">02</div>
-          <h3>Fund Wallet</h3>
-          <p>
-            Connect your preferred supported payment method when the backend
-            is enabled.
-          </p>
-        </div>
-
-        <div class="step">
-          <div class="step-number">03</div>
-          <h3>Choose Package</h3>
-          <p>
-            Select the package tier that matches the amount you want to use.
-          </p>
-        </div>
-
-        <div class="step">
-          <div class="step-number">04</div>
-          <h3>Track Portfolio</h3>
-          <p>
-            View package activity, records and account information from your
-            dashboard.
-          </p>
-        </div>
-
-      </div>
-
-    </div>
-  </section>
-
-
-  <!-- FEATURES -->
-  <section id="features">
-
-    <div class="container">
-
-      <div class="section-head">
-        <div>
-          <div class="eyebrow">Platform features</div>
-          <h2>Everything in one place.</h2>
-        </div>
-      </div>
-
-      <div class="feature-grid">
-
-        <div class="feature">
-          <div class="feature-icon">◈</div>
-          <h3>Portfolio Tracking</h3>
-          <p>
-            A central place to view your active packages and account activity.
-          </p>
-        </div>
-
-        <div class="feature">
-          <div class="feature-icon">₿</div>
-          <h3>Wallet</h3>
-          <p>
-            Designed for wallet balances, deposits and future withdrawals.
-          </p>
-        </div>
-
-        <div class="feature">
-          <div class="feature-icon">↗</div>
-          <h3>Mobile Money</h3>
-          <p>
-            Prepared for future mobile-money payment integration.
-          </p>
-        </div>
-
-        <div class="feature">
-          <div class="feature-icon">✓</div>
-          <h3>Account Security</h3>
-          <p>
-            The planned backend will use authenticated accounts and controlled
-            financial operations.
-          </p>
-        </div>
-
-        <div class="feature">
-          <div class="feature-icon">▣</div>
-          <h3>Transaction History</h3>
-          <p>
-            Keep a structured record of deposits, package activity and
-            withdrawals.
-          </p>
-        </div>
-
-        <div class="feature">
-          <div class="feature-icon">◷</div>
-          <h3>Automated Records</h3>
-          <p>
-            Future backend automation can maintain package and account records.
-          </p>
-        </div>
-
-      </div>
-
-    </div>
-  </section>
-
-
-  <!-- ABOUT -->
-  <section id="about">
-
-    <div class="container">
-
-      <div class="section-head">
-        <div>
-          <div class="eyebrow">About iPhoneVest</div>
-          <h2>Built for a simple digital experience.</h2>
-        </div>
-
-        <p class="section-description">
-          iPhoneVest is currently being developed as a web-platform prototype.
-          The visual concept uses the iPhone 18 Pro as the package identity.
-        </p>
-      </div>
-
-    </div>
-  </section>
-
-
-  <!-- CTA -->
-  <section class="cta">
-
-    <div class="container">
-
-      <div class="cta-box">
-
-        <div class="eyebrow">Get started</div>
-
-        <h2>
-          Explore the packages.
-        </h2>
+        <h1>
+          Your digital package.
+          <span>Your next move.</span>
+        </h1>
 
         <p>
-          Create a prototype account and explore the package interface.
-          Real authentication, payment processing, wallet accounting and
-          withdrawals will require the backend implementation.
+          Explore iPhoneVest package tiers, create your account and manage
+          your digital package activity from one platform.
         </p>
 
         <div class="hero-buttons">
-          <button class="btn btn-primary" onclick="openModal('registerModal')">
+
+          <button
+            class="btn btn-primary"
+            id="heroSignupBtn"
+          >
             Create Account
           </button>
 
-          <a href="#packages" class="btn">
-            View Packages
+          <a
+            href="#packages"
+            class="btn"
+          >
+            Explore Packages
           </a>
+
         </div>
 
       </div>
 
-    </div>
-  </section>
+
+      <div class="hero-device">
+
+        <div class="device-glow"></div>
+
+        <div class="iphone">
+
+          <div class="iphone-screen">
+
+            <div class="screen-logo">
+              iPhoneVest
+            </div>
+
+            <div class="screen-text">
+              Digital package platform
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ACCOUNT -->
+    <section
+      id="accountSection"
+      class="container"
+    >
+
+      <div class="account-panel">
+
+        <div class="account-header">
+
+          <div>
+            <h2>My iPhoneVest Account</h2>
+
+            <div
+              class="account-email"
+              id="accountEmail"
+            >
+              Loading...
+            </div>
+          </div>
+
+          <button
+            class="btn btn-primary"
+            onclick="scrollToPackages()"
+          >
+            View Packages
+          </button>
+
+        </div>
+
+
+        <div class="account-grid">
+
+          <div class="account-card">
+            <small>Available Balance</small>
+            <strong
+              class="green"
+              id="walletBalance"
+            >
+              UGX 0
+            </strong>
+          </div>
+
+          <div class="account-card">
+            <small>Active Packages</small>
+            <strong id="activePackages">
+              0
+            </strong>
+          </div>
+
+          <div class="account-card">
+            <small>Total Earned</small>
+            <strong
+              class="green"
+              id="totalEarned"
+            >
+              UGX 0
+            </strong>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- PACKAGES -->
+    <section id="packages">
+
+      <div class="container">
+
+        <div class="section-title">
+
+          <h2>Choose Your Package</h2>
+
+          <p>
+            Select from the available iPhoneVest package tiers.
+          </p>
+
+        </div>
+
+
+        <div class="package-controls">
+
+          <div class="search-box">
+            <input
+              type="text"
+              id="packageSearch"
+              placeholder="Search package or amount..."
+            >
+          </div>
+
+          <div class="select-box">
+            <select id="packageSort">
+              <option value="default">
+                Default order
+              </option>
+
+              <option value="low">
+                Lowest amount
+              </option>
+
+              <option value="high">
+                Highest amount
+              </option>
+            </select>
+          </div>
+
+        </div>
+
+
+        <div
+          class="packages-grid"
+          id="packagesGrid"
+        >
+
+          <div class="loading">
+            Loading iPhoneVest packages...
+          </div>
+
+        </div>
+
+
+        <div class="package-disclaimer">
+          Package figures displayed on this prototype are the package
+          figures configured in the iPhoneVest database. They should not
+          be interpreted as guaranteed returns.
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- HOW IT WORKS -->
+    <section id="how">
+
+      <div class="container">
+
+        <div class="section-title">
+
+          <h2>How It Works</h2>
+
+          <p>
+            A simple flow for using the iPhoneVest platform.
+          </p>
+
+        </div>
+
+
+        <div class="steps">
+
+          <div class="step">
+
+            <div class="step-number">
+              01
+            </div>
+
+            <h3>
+              Create Account
+            </h3>
+
+            <p>
+              Register your iPhoneVest account.
+            </p>
+
+          </div>
+
+
+          <div class="step">
+
+            <div class="step-number">
+              02
+            </div>
+
+            <h3>
+              Explore Packages
+            </h3>
+
+            <p>
+              Review the available package tiers.
+            </p>
+
+          </div>
+
+
+          <div class="step">
+
+            <div class="step-number">
+              03
+            </div>
+
+            <h3>
+              Activate
+            </h3>
+
+            <p>
+              Package activation will be connected to the secure payment
+              system in the next development stage.
+            </p>
+
+          </div>
+
+
+          <div class="step">
+
+            <div class="step-number">
+              04
+            </div>
+
+            <h3>
+              Manage
+            </h3>
+
+            <p>
+              Track package activity and account information.
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- FEATURES -->
+    <section id="features">
+
+      <div class="container">
+
+        <div class="section-title">
+
+          <h2>Platform Features</h2>
+
+          <p>
+            Built around account security and transparent records.
+          </p>
+
+        </div>
+
+
+        <div class="features-grid">
+
+          <div class="feature-card">
+
+            <div class="feature-icon">
+              IV
+            </div>
+
+            <h3>
+              Secure Accounts
+            </h3>
+
+            <p>
+              Authentication is handled through Supabase Auth rather than
+              storing passwords inside the website.
+            </p>
+
+          </div>
+
+
+          <div class="feature-card">
+
+            <div class="feature-icon">
+              ₮
+            </div>
+
+            <h3>
+              UGX Wallet
+            </h3>
+
+            <p>
+              Each registered user receives a UGX wallet through the
+              platform database.
+            </p>
+
+          </div>
+
+
+          <div class="feature-card">
+
+            <div class="feature-icon">
+              ✓
+            </div>
+
+            <h3>
+              Transaction Records
+            </h3>
+
+            <p>
+              Deposits, withdrawals, earnings and wallet movements are
+              designed to be recorded in the platform ledger.
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ABOUT -->
+    <section id="about">
+
+      <div class="container">
+
+        <div class="section-title">
+
+          <h2>About iPhoneVest</h2>
+
+          <p>
+            A digital package management platform concept built around
+            iPhone-themed package tiers.
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
 
 
   <!-- FOOTER -->
   <footer>
 
-    <div class="container footer-grid">
+    <div class="container">
 
-      <div>
-        <strong style="color:#fff;">iPhone<span style="color:#b7ff2a;">Vest</span></strong>
-        <div style="margin-top:7px;">
-          Digital package platform prototype.
-        </div>
-      </div>
+      <p>
+        © <span id="year"></span> iPhoneVest.
+        All rights reserved.
+      </p>
 
-      <div class="footer-links">
-        <a href="#packages">Packages</a>
-        <a href="#how">How It Works</a>
-        <a href="#features">Features</a>
-      </div>
+      <p style="margin-top:7px;">
+        Package figures are informational and are not a guarantee of
+        financial returns.
+      </p>
 
-    </div>
-
-    <div class="container" style="margin-top:25px;">
-      © 2026 iPhoneVest. Prototype interface.
     </div>
 
   </footer>
 
 
-  <!-- LOGIN MODAL -->
-  <div class="modal" id="loginModal" onclick="outsideClose(event,'loginModal')">
+  <!-- LOGIN / SIGNUP MODAL -->
+  <div
+    class="modal-overlay"
+    id="authModal"
+  >
 
-    <div class="modal-box">
+    <div class="modal">
 
-      <button class="modal-close" onclick="closeModal('loginModal')">
-        ×
-      </button>
+      <div class="modal-header">
 
-      <h3>Welcome back</h3>
+        <h2 id="authTitle">
+          Create Account
+        </h2>
 
-      <p class="modal-sub">
-        Login interface for the iPhoneVest prototype.
-      </p>
-
-      <form onsubmit="demoSubmit(event,'Login')">
-
-        <div class="form-group">
-          <label>Email or phone</label>
-          <input
-            type="text"
-            placeholder="Enter email or phone"
-            required
-          >
-        </div>
-
-        <div class="form-group">
-          <label>Password</label>
-          <input
-            type="password"
-            placeholder="Enter password"
-            required
-          >
-        </div>
-
-        <button class="btn btn-primary modal-btn">
-          Login
+        <button
+          class="close"
+          id="closeAuthModal"
+        >
+          ×
         </button>
 
-      </form>
-
-    </div>
-  </div>
+      </div>
 
 
-  <!-- REGISTER MODAL -->
-  <div class="modal" id="registerModal" onclick="outsideClose(event,'registerModal')">
-
-    <div class="modal-box">
-
-      <button class="modal-close" onclick="closeModal('registerModal')">
-        ×
-      </button>
-
-      <h3>Create your account</h3>
-
-      <p class="modal-sub">
-        Registration interface for the iPhoneVest prototype.
-      </p>
-
-      <form onsubmit="demoSubmit(event,'Registration')">
+      <!-- SIGNUP FORM -->
+      <form id="signupForm">
 
         <div class="form-group">
-          <label>Full name</label>
+
+          <label>
+            Full Name
+          </label>
+
           <input
             type="text"
+            id="signupName"
             placeholder="Your full name"
             required
           >
+
         </div>
 
-        <div class="form-group">
-          <label>Phone number</label>
-          <input
-            type="tel"
-            placeholder="+256..."
-            required
-          >
-        </div>
 
         <div class="form-group">
-          <label>Email address</label>
+
+          <label>
+            Email
+          </label>
+
           <input
             type="email"
+            id="signupEmail"
             placeholder="you@example.com"
             required
           >
+
         </div>
+
 
         <div class="form-group">
-          <label>Password</label>
+
+          <label>
+            Phone Number
+          </label>
+
           <input
-            type="password"
-            placeholder="Create a password"
+            type="tel"
+            id="signupPhone"
+            placeholder="07XXXXXXXX"
             required
           >
+
         </div>
 
-        <button class="btn btn-primary modal-btn">
+
+        <div class="form-group">
+
+          <label>
+            Password
+          </label>
+
+          <input
+            type="password"
+            id="signupPassword"
+            placeholder="At least 6 characters"
+            minlength="6"
+            required
+          >
+
+        </div>
+
+
+        <button
+          class="btn btn-primary"
+          type="submit"
+          id="signupSubmit"
+        >
           Create Account
         </button>
+
+
+        <div
+          class="status-message"
+          id="signupStatus"
+        ></div>
+
+
+        <div class="switch-text">
+
+          Already have an account?
+
+          <button
+            type="button"
+            id="switchToLogin"
+          >
+            Login
+          </button>
+
+        </div>
+
+      </form>
+
+
+      <!-- LOGIN FORM -->
+      <form
+        id="loginForm"
+        style="display:none;"
+      >
+
+        <div class="form-group">
+
+          <label>
+            Email
+          </label>
+
+          <input
+            type="email"
+            id="loginEmail"
+            placeholder="you@example.com"
+            required
+          >
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label>
+            Password
+          </label>
+
+          <input
+            type="password"
+            id="loginPassword"
+            placeholder="Your password"
+            required
+          >
+
+        </div>
+
+
+        <button
+          class="btn btn-primary"
+          type="submit"
+          id="loginSubmit"
+        >
+          Login
+        </button>
+
+
+        <div
+          class="status-message"
+          id="loginStatus"
+        ></div>
+
+
+        <div class="switch-text">
+
+          Don't have an account?
+
+          <button
+            type="button"
+            id="switchToSignup"
+          >
+            Create Account
+          </button>
+
+        </div>
 
       </form>
 
     </div>
+
   </div>
 
 
   <!-- PACKAGE MODAL -->
-  <div class="modal" id="packageModal" onclick="outsideClose(event,'packageModal')">
+  <div
+    class="modal-overlay"
+    id="packageModal"
+  >
 
-    <div class="modal-box">
+    <div class="modal">
 
-      <button class="modal-close" onclick="closeModal('packageModal')">
-        ×
-      </button>
+      <div class="modal-header">
 
-      <h3 id="modalPackageName">Package</h3>
+        <h2>
+          Package Selected
+        </h2>
 
-      <p class="modal-sub">
-        Review the selected package.
-      </p>
-
-      <div class="selected-package">
-
-        <img
-          id="modalPackageImage"
-          src="https://www.apple.com/v/iphone-18-pro/b/images/overview/aio/hero__elo7tt0mnqy6_large.jpg"
-          alt="iPhone 18 Pro"
+        <button
+          class="close"
+          id="closePackageModal"
         >
-
-        <div>
-          <div style="color:#777;font-size:.72rem;">
-            PACKAGE AMOUNT
-          </div>
-
-          <strong id="modalPackageAmount">
-            UGX 0
-          </strong>
-
-          <p>
-            Daily package amount:
-            <span
-              id="modalPackageDaily"
-              style="color:#b7ff2a;font-weight:900;"
-            >
-              UGX 0
-            </span>
-          </p>
-
-        </div>
+          ×
+        </button>
 
       </div>
 
-      <button
-        class="btn btn-primary modal-btn"
-        onclick="openModal('registerModal');closeModal('packageModal')"
-      >
-        Create Account to Continue
-      </button>
 
-      <p style="margin-top:14px;color:#666;font-size:.72rem;text-align:center;">
-        Prototype only. Package activation is not connected to a payment
-        provider yet.
+      <div
+        class="selected-package"
+        id="selectedPackage"
+      ></div>
+
+
+      <p
+        style="
+          color:#888;
+          font-size:13px;
+          margin-bottom:18px;
+        "
+      >
+        Your account is connected to the iPhoneVest platform. Secure
+        payment and package activation will be connected in the next
+        backend stage.
       </p>
 
+
+      <button
+        class="btn btn-primary"
+        style="width:100%;"
+        id="activatePackageBtn"
+      >
+        Continue
+      </button>
+
     </div>
+
   </div>
 
 
+  <!-- TOAST -->
+  <div
+    class="toast"
+    id="toast"
+  ></div>
+
+
   <script>
+    /* =========================================================
+       SUPABASE CONFIGURATION
+       ========================================================= */
 
-    const appleIphoneImage =
-      "https://www.apple.com/v/iphone-18-pro/b/images/overview/aio/hero__elo7tt0mnqy6_large.jpg";
+    const SUPABASE_URL =
+      "https://lapwvklbgdjzysszzcaz.supabase.co";
+
+    const SUPABASE_ANON_KEY =
+      "sb_publishable_Coxsew-mxjY7cG1V2OeeIA_7i0zUZVb";
+
+    const {
+      createClient
+    } = window.supabase;
+
+    const supabaseClient = createClient(
+      SUPABASE_URL,
+      SUPABASE_ANON_KEY
+    );
 
 
-    function openModal(id){
-      document.getElementById(id).classList.add("show");
-      document.body.style.overflow = "hidden";
+    /* =========================================================
+       GLOBAL STATE
+       ========================================================= */
+
+    let currentUser = null;
+    let packages = [];
+    let selectedPackage = null;
+
+
+    /* =========================================================
+       ELEMENTS
+       ========================================================= */
+
+    const authModal =
+      document.getElementById("authModal");
+
+    const packageModal =
+      document.getElementById("packageModal");
+
+    const signupForm =
+      document.getElementById("signupForm");
+
+    const loginForm =
+      document.getElementById("loginForm");
+
+    const signupStatus =
+      document.getElementById("signupStatus");
+
+    const loginStatus =
+      document.getElementById("loginStatus");
+
+    const packagesGrid =
+      document.getElementById("packagesGrid");
+
+    const accountSection =
+      document.getElementById("accountSection");
+
+    const logoutNavBtn =
+      document.getElementById("logoutNavBtn");
+
+    const loginNavBtn =
+      document.getElementById("loginNavBtn");
+
+    const signupNavBtn =
+      document.getElementById("signupNavBtn");
+
+
+    /* =========================================================
+       HELPERS
+       ========================================================= */
+
+    function formatUGX(value) {
+
+      return new Intl.NumberFormat(
+        "en-UG",
+        {
+          maximumFractionDigits: 0
+        }
+      ).format(Number(value || 0));
+
     }
 
 
-    function closeModal(id){
-      document.getElementById(id).classList.remove("show");
+    function showToast(message) {
 
-      const openModals =
-        document.querySelectorAll(".modal.show");
+      const toast =
+        document.getElementById("toast");
 
-      if(openModals.length === 0){
-        document.body.style.overflow = "";
+      toast.textContent = message;
+
+      toast.classList.add("show");
+
+      setTimeout(() => {
+
+        toast.classList.remove("show");
+
+      }, 3500);
+
+    }
+
+
+    function showStatus(element, message, type) {
+
+      element.textContent = message;
+
+      element.className =
+        "status-message show " +
+        (
+          type === "error"
+            ? "status-error"
+            : "status-success"
+        );
+
+    }
+
+
+    function clearStatus(element) {
+
+      element.textContent = "";
+
+      element.className =
+        "status-message";
+
+    }
+
+
+    function openAuth(mode = "signup") {
+
+      authModal.classList.add("active");
+
+      if (mode === "login") {
+
+        showLoginForm();
+
+      } else {
+
+        showSignupForm();
+
       }
+
     }
 
 
-    function outsideClose(event,id){
-      if(event.target.id === id){
-        closeModal(id);
+    function closeAuth() {
+
+      authModal.classList.remove("active");
+
+      clearStatus(signupStatus);
+
+      clearStatus(loginStatus);
+
+    }
+
+
+    function showLoginForm() {
+
+      document.getElementById("authTitle").textContent =
+        "Login";
+
+      signupForm.style.display = "none";
+
+      loginForm.style.display = "block";
+
+      clearStatus(signupStatus);
+
+      clearStatus(loginStatus);
+
+    }
+
+
+    function showSignupForm() {
+
+      document.getElementById("authTitle").textContent =
+        "Create Account";
+
+      signupForm.style.display = "block";
+
+      loginForm.style.display = "none";
+
+      clearStatus(signupStatus);
+
+      clearStatus(loginStatus);
+
+    }
+
+
+    function scrollToPackages() {
+
+      document
+        .getElementById("packages")
+        .scrollIntoView({
+          behavior: "smooth"
+        });
+
+    }
+
+
+    /* =========================================================
+       LOAD PACKAGES FROM SUPABASE
+       ========================================================= */
+
+    async function loadPackages() {
+
+      packagesGrid.innerHTML = `
+        <div class="loading">
+          Loading iPhoneVest packages...
+        </div>
+      `;
+
+      const {
+        data,
+        error
+      } = await supabaseClient
+        .from("investment_packages")
+        .select("*")
+        .eq("is_active", true)
+        .order("display_order", {
+          ascending: true
+        });
+
+      if (error) {
+
+        console.error(
+          "Package loading error:",
+          error
+        );
+
+        packagesGrid.innerHTML = `
+          <div class="loading">
+            Unable to load packages.
+            Please refresh the page.
+          </div>
+        `;
+
+        return;
+
       }
-    }
 
+      packages = data || [];
 
-    function toggleMenu(){
-      document.getElementById("mobileMenu")
-        .classList.toggle("show");
-    }
-
-
-    function openPackage(number,name,amount,daily){
-
-      document.getElementById("modalPackageName").textContent =
-        name;
-
-      document.getElementById("modalPackageAmount").textContent =
-        amount;
-
-      document.getElementById("modalPackageDaily").textContent =
-        daily;
-
-      document.getElementById("modalPackageImage").src =
-        appleIphoneImage;
-
-      document.getElementById("modalPackageImage").alt =
-        name;
-
-      openModal("packageModal");
-    }
-
-
-    function demoSubmit(event,type){
-
-      event.preventDefault();
-
-      alert(
-        type +
-        " submitted in demo mode.\n\n" +
-        "The backend is not connected yet."
-      );
+      renderPackages();
 
     }
 
 
-    function filterPackages(){
+    /* =========================================================
+       RENDER PACKAGES
+       ========================================================= */
+
+    function renderPackages() {
 
       const search =
-        document.getElementById("packageSearch")
+        document
+          .getElementById("packageSearch")
           .value
           .toLowerCase()
           .trim();
 
-      const filter =
-        document.getElementById("packageFilter")
+      const sort =
+        document
+          .getElementById("packageSort")
           .value;
 
-      const cards =
-        document.querySelectorAll(".package-card");
+      let filtered =
+        [...packages];
 
-      let visible = 0;
+      if (search) {
 
-      cards.forEach(card => {
+        filtered =
+          filtered.filter(pkg => {
 
-        const amount =
-          Number(card.dataset.amount);
+            return (
+              String(pkg.name)
+                .toLowerCase()
+                .includes(search)
 
-        const text =
-          card.innerText.toLowerCase();
+              ||
 
-        let matchesSearch =
-          text.includes(search);
+              String(pkg.principal_amount)
+                .includes(search)
 
-        let matchesFilter = true;
+              ||
 
-        if(filter === "under100"){
-          matchesFilter = amount < 100000;
-        }
+              String(pkg.daily_amount)
+                .includes(search)
+            );
 
-        if(filter === "100to500"){
-          matchesFilter =
-            amount >= 100000 &&
-            amount <= 500000;
-        }
-
-        if(filter === "500to1m"){
-          matchesFilter =
-            amount > 500000 &&
-            amount <= 1000000;
-        }
-
-        if(filter === "over1m"){
-          matchesFilter = amount > 1000000;
-        }
-
-        if(matchesSearch && matchesFilter){
-          card.style.display = "";
-          visible++;
-        }else{
-          card.style.display = "none";
-        }
-
-      });
-
-      document.getElementById("noResults").style.display =
-        visible === 0 ? "block" : "none";
-    }
-
-
-    document.addEventListener("keydown",function(event){
-
-      if(event.key === "Escape"){
-
-        document.querySelectorAll(".modal.show")
-          .forEach(modal => {
-            closeModal(modal.id);
           });
 
       }
 
-    });
+
+      if (sort === "low") {
+
+        filtered.sort(
+          (a,b) =>
+            Number(a.principal_amount) -
+            Number(b.principal_amount)
+        );
+
+      }
+
+
+      if (sort === "high") {
+
+        filtered.sort(
+          (a,b) =>
+            Number(b.principal_amount) -
+            Number(a.principal_amount)
+        );
+
+      }
+
+
+      if (!filtered.length) {
+
+        packagesGrid.innerHTML = `
+          <div class="loading">
+            No packages found.
+          </div>
+        `;
+
+        return;
+
+      }
+
+
+      packagesGrid.innerHTML =
+        filtered.map(pkg => `
+
+          <div class="package-card">
+
+            <div class="package-number">
+              ${escapeHtml(pkg.name)}
+            </div>
+
+            <div class="package-device">
+
+              <div class="mini-phone"></div>
+
+            </div>
+
+            <h3>
+              ${escapeHtml(pkg.asset_model)}
+            </h3>
+
+            <div class="package-price">
+              UGX ${formatUGX(pkg.principal_amount)}
+              <span>package</span>
+            </div>
+
+            <div class="package-daily">
+              UGX ${formatUGX(pkg.daily_amount)} daily figure
+            </div>
+
+            <button
+              class="btn btn-primary"
+              onclick="selectPackage('${pkg.id}')"
+            >
+              Select Package
+            </button>
+
+          </div>
+
+        `).join("");
+
+    }
+
+
+    function escapeHtml(value) {
+
+      return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+    }
+
+
+    /* =========================================================
+       PACKAGE SELECTION
+       ========================================================= */
+
+    function selectPackage(packageId) {
+
+      selectedPackage =
+        packages.find(
+          pkg => pkg.id === packageId
+        );
+
+      if (!selectedPackage) {
+
+        showToast(
+          "Package could not be found."
+        );
+
+        return;
+
+      }
+
+
+      document.getElementById(
+        "selectedPackage"
+      ).innerHTML = `
+
+        <div
+          style="
+            color:#b7ff00;
+            font-size:11px;
+            font-weight:800;
+            text-transform:uppercase;
+            margin-bottom:7px;
+          "
+        >
+          ${escapeHtml(selectedPackage.name)}
+        </div>
+
+        <div
+          style="
+            color:#aaa;
+            font-size:13px;
+            margin-bottom:8px;
+          "
+        >
+          ${escapeHtml(selectedPackage.asset_model)}
+        </div>
+
+        <div class="amount">
+          UGX ${formatUGX(
+            selectedPackage.principal_amount
+          )}
+        </div>
+
+        <div class="daily">
+          UGX ${formatUGX(
+            selectedPackage.daily_amount
+          )} daily figure
+        </div>
+
+      `;
+
+
+      packageModal.classList.add("active");
+
+    }
+
+
+    /* =========================================================
+       SIGNUP
+       ========================================================= */
+
+    signupForm.addEventListener(
+      "submit",
+      async function(event) {
+
+        event.preventDefault();
+
+        clearStatus(signupStatus);
+
+        const fullName =
+          document
+            .getElementById("signupName")
+            .value
+            .trim();
+
+        const email =
+          document
+            .getElementById("signupEmail")
+            .value
+            .trim();
+
+        const phone =
+          document
+            .getElementById("signupPhone")
+            .value
+            .trim();
+
+        const password =
+          document
+            .getElementById("signupPassword")
+            .value;
+
+
+        if (!fullName || !email || !phone) {
+
+          showStatus(
+            signupStatus,
+            "Please complete all fields.",
+            "error"
+          );
+
+          return;
+
+        }
+
+
+        const submit =
+          document.getElementById(
+            "signupSubmit"
+          );
+
+        submit.disabled = true;
+
+        submit.textContent =
+          "Creating account...";
+
+
+        const {
+          data,
+          error
+        } =
+          await supabaseClient.auth.signUp({
+
+            email: email,
+
+            password: password,
+
+            options: {
+
+              data: {
+                full_name: fullName,
+                phone: phone
+              }
+
+            }
+
+          });
+
+
+        submit.disabled = false;
+
+        submit.textContent =
+          "Create Account";
+
+
+        if (error) {
+
+          console.error(
+            "Signup error:",
+            error
+          );
+
+          showStatus(
+            signupStatus,
+            error.message,
+            "error"
+          );
+
+          return;
+
+        }
+
+
+        if (data.session) {
+
+          showStatus(
+            signupStatus,
+            "Account created successfully. Welcome to iPhoneVest!",
+            "success"
+          );
+
+          setTimeout(
+            closeAuth,
+            1000
+          );
+
+        } else {
+
+          showStatus(
+            signupStatus,
+            "Account created. Check your email if confirmation is required before login.",
+            "success"
+          );
+
+        }
+
+      }
+    );
+
+
+    /* =========================================================
+       LOGIN
+       ========================================================= */
+
+    loginForm.addEventListener(
+      "submit",
+      async function(event) {
+
+        event.preventDefault();
+
+        clearStatus(loginStatus);
+
+        const email =
+          document
+            .getElementById("loginEmail")
+            .value
+            .trim();
+
+        const password =
+          document
+            .getElementById("loginPassword")
+            .value;
+
+
+        const submit =
+          document.getElementById(
+            "loginSubmit"
+          );
+
+        submit.disabled = true;
+
+        submit.textContent =
+          "Logging in...";
+
+
+        const {
+          data,
+          error
+        } =
+          await supabaseClient.auth.signInWithPassword({
+
+            email,
+            password
+
+          });
+
+
+        submit.disabled = false;
+
+        submit.textContent =
+          "Login";
+
+
+        if (error) {
+
+          console.error(
+            "Login error:",
+            error
+          );
+
+          showStatus(
+            loginStatus,
+            error.message,
+            "error"
+          );
+
+          return;
+
+        }
+
+
+        currentUser =
+          data.user;
+
+        closeAuth();
+
+        await updateAccountUI();
+
+        showToast(
+          "Welcome back to iPhoneVest."
+        );
+
+      }
+    );
+
+
+    /* =========================================================
+       SESSION
+       ========================================================= */
+
+    async function checkSession() {
+
+      const {
+        data,
+        error
+      } =
+        await supabaseClient.auth.getSession();
+
+
+      if (error) {
+
+        console.error(
+          "Session error:",
+          error
+        );
+
+        return;
+
+      }
+
+
+      currentUser =
+        data.session
+          ? data.session.user
+          : null;
+
+
+      await updateAccountUI();
+
+    }
+
+
+    supabaseClient.auth.onAuthStateChange(
+      async function(event, session) {
+
+        currentUser =
+          session
+            ? session.user
+            : null;
+
+        await updateAccountUI();
+
+      }
+    );
+
+
+    /* =========================================================
+       ACCOUNT UI
+       ========================================================= */
+
+    async function updateAccountUI() {
+
+      if (!currentUser) {
+
+        accountSection.style.display =
+          "none";
+
+        loginNavBtn.style.display =
+          "inline-block";
+
+        signupNavBtn.style.display =
+          "inline-block";
+
+        logoutNavBtn.style.display =
+          "none";
+
+        return;
+
+      }
+
+
+      accountSection.style.display =
+        "block";
+
+      loginNavBtn.style.display =
+        "none";
+
+      signupNavBtn.style.display =
+        "none";
+
+      logoutNavBtn.style.display =
+        "inline-block";
+
+
+      document.getElementById(
+        "accountEmail"
+      ).textContent =
+        currentUser.email || "";
+
+
+      await loadWallet();
+
+      await loadAccountStats();
+
+    }
+
+
+    /* =========================================================
+       LOAD WALLET
+       ========================================================= */
+
+    async function loadWallet() {
+
+      const {
+        data,
+        error
+      } =
+        await supabaseClient
+          .from("wallets")
+          .select("available_balance")
+          .eq("user_id", currentUser.id)
+          .eq("currency", "UGX")
+          .maybeSingle();
+
+
+      if (error) {
+
+        console.error(
+          "Wallet error:",
+          error
+        );
+
+        return;
+
+      }
+
+
+      const balance =
+        data
+          ? data.available_balance
+          : 0;
+
+
+      document.getElementById(
+        "walletBalance"
+      ).textContent =
+        "UGX " + formatUGX(balance);
+
+    }
+
+
+    /* =========================================================
+       ACCOUNT STATS
+       ========================================================= */
+
+    async function loadAccountStats() {
+
+      const {
+        data: investments,
+        error: investmentError
+      } =
+        await supabaseClient
+          .from("investments")
+          .select(
+            "id, total_earned, status"
+          )
+          .eq("user_id", currentUser.id);
+
+
+      if (investmentError) {
+
+        console.error(
+          "Investment stats error:",
+          investmentError
+        );
+
+        return;
+
+      }
+
+
+      const active =
+        (investments || []).filter(
+          item =>
+            item.status === "active"
+        ).length;
+
+
+      const earned =
+        (investments || []).reduce(
+          (sum, item) =>
+            sum +
+            Number(item.total_earned || 0),
+          0
+        );
+
+
+      document.getElementById(
+        "activePackages"
+      ).textContent =
+        active;
+
+
+      document.getElementById(
+        "totalEarned"
+      ).textContent =
+        "UGX " + formatUGX(earned);
+
+    }
+
+
+    /* =========================================================
+       LOGOUT
+       ========================================================= */
+
+    logoutNavBtn.addEventListener(
+      "click",
+      async function() {
+
+        const {
+          error
+        } =
+          await supabaseClient.auth.signOut();
+
+
+        if (error) {
+
+          showToast(
+            error.message
+          );
+
+          return;
+
+        }
+
+
+        currentUser = null;
+
+        await updateAccountUI();
+
+        showToast(
+          "You have been logged out."
+        );
+
+      }
+    );
+
+
+    /* =========================================================
+       NAVIGATION BUTTONS
+       ========================================================= */
+
+    loginNavBtn.addEventListener(
+      "click",
+      () => openAuth("login")
+    );
+
+    signupNavBtn.addEventListener(
+      "click",
+      () => openAuth("signup")
+    );
+
+    document.getElementById(
+      "heroSignupBtn"
+    ).addEventListener(
+      "click",
+      () => openAuth("signup")
+    );
+
+
+    /* =========================================================
+       MODAL CONTROLS
+       ========================================================= */
+
+    document.getElementById(
+      "closeAuthModal"
+    ).addEventListener(
+      "click",
+      closeAuth
+    );
+
+
+    document.getElementById(
+      "closePackageModal"
+    ).addEventListener(
+      "click",
+      () => {
+        packageModal.classList.remove(
+          "active"
+        );
+      }
+    );
+
+
+    document.getElementById(
+      "switchToLogin"
+    ).addEventListener(
+      "click",
+      showLoginForm
+    );
+
+
+    document.getElementById(
+      "switchToSignup"
+    ).addEventListener(
+      "click",
+      showSignupForm
+    );
+
+
+    authModal.addEventListener(
+      "click",
+      function(event) {
+
+        if (event.target === authModal) {
+          closeAuth();
+        }
+
+      }
+    );
+
+
+    packageModal.addEventListener(
+      "click",
+      function(event) {
+
+        if (event.target === packageModal) {
+
+          packageModal.classList.remove(
+            "active"
+          );
+
+        }
+
+      }
+    );
+
+
+    /* =========================================================
+       PACKAGE ACTIVATION PLACEHOLDER
+       ========================================================= */
+
+    document.getElementById(
+      "activatePackageBtn"
+    ).addEventListener(
+      "click",
+      function() {
+
+        if (!currentUser) {
+
+          packageModal.classList.remove(
+            "active"
+          );
+
+          openAuth("login");
+
+          return;
+
+        }
+
+
+        packageModal.classList.remove(
+          "active"
+        );
+
+
+        showToast(
+          "Package activation will be connected after the payment system is configured."
+        );
+
+      }
+    );
+
+
+    /* =========================================================
+       SEARCH / SORT
+       ========================================================= */
+
+    document.getElementById(
+      "packageSearch"
+    ).addEventListener(
+      "input",
+      renderPackages
+    );
+
+
+    document.getElementById(
+      "packageSort"
+    ).addEventListener(
+      "change",
+      renderPackages
+    );
+
+
+    /* =========================================================
+       YEAR
+       ========================================================= */
+
+    document.getElementById(
+      "year"
+    ).textContent =
+      new Date().getFullYear();
+
+
+    /* =========================================================
+       INITIALIZE
+       ========================================================= */
+
+    async function initializeApp() {
+
+      await loadPackages();
+
+      await checkSession();
+
+    }
+
+
+    initializeApp();
 
   </script>
 
