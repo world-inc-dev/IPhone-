@@ -1599,6 +1599,21 @@ button{
 
       </div>
 
+      <div class="card" style="margin-top:16px;">
+
+        <div class="card-title">
+          Withdrawal Requests
+        </div>
+
+        <div
+          id="adminWithdrawals"
+          class="admin-list"
+        >
+          Loading...
+        </div>
+
+      </div>
+
     </section>
 
   </div>
@@ -2433,6 +2448,17 @@ async function enterApplication(){
    LOAD DATA
 ========================================================= */
 
+function isAdmin(){
+
+  return !!(
+    currentUser &&
+    currentUser.email &&
+    currentUser.email.toLowerCase() ===
+    ADMIN_EMAIL.toLowerCase()
+  );
+}
+
+
 async function loadAll(){
 
   if(!currentUser){
@@ -2460,6 +2486,7 @@ async function loadAll(){
     .classList.remove("hidden");
 
     await loadAdminRequests();
+    await loadAdminWithdrawals();
 
   }
 
@@ -3638,6 +3665,156 @@ async function loadAdminRequests(){
 
 }
 
+async function loadAdminWithdrawals(){
+
+  const box = document.getElementById("adminWithdrawals");
+
+  if(!box){
+    return;
+  }
+
+  box.innerHTML = `
+    <div class="empty">
+      Loading withdrawal requests...
+    </div>
+  `;
+
+  try{
+
+    const { data, error } =
+      await supabaseClient
+      .from("withdrawals")
+      .select("*")
+      .order("requested_at", {ascending:false});
+
+    if(error){
+      throw error;
+    }
+
+    if(!data || data.length === 0){
+      box.innerHTML = `
+        <div class="empty">
+          No withdrawal requests.
+        </div>
+      `;
+      return;
+    }
+
+    box.innerHTML = data.map(w => {
+
+      const status = String(w.status || "pending").toLowerCase();
+      const canApprove = status === "pending";
+
+      return `
+        <div class="admin-request">
+
+          <div class="admin-top">
+            <div class="admin-ref">
+              ${escapeHTML(w.reference || w.id)}
+            </div>
+
+            <div class="admin-status">
+              ${escapeHTML(status)}
+            </div>
+          </div>
+
+          <div class="admin-details">
+            Amount: ${money(w.amount)}<br>
+            Provider: ${escapeHTML(w.provider || "")}<br>
+            Phone: ${escapeHTML(w.phone_number || "")}<br>
+            Net amount: ${money(w.net_amount ?? w.amount)}<br>
+            Requested: ${w.requested_at ? new Date(w.requested_at).toLocaleString() : "-"}
+          </div>
+
+          ${canApprove ? `
+            <div class="admin-actions">
+              <button
+                class="approve"
+                type="button"
+                onclick="approveWithdrawal('${w.id}')"
+              >
+                ✓ Approve Withdrawal
+              </button>
+            </div>
+          ` : `
+            <div class="admin-details">
+              This withdrawal has already been ${escapeHTML(status)}.
+            </div>
+          `}
+
+        </div>
+      `;
+
+    }).join("");
+
+  }catch(error){
+
+    console.error("Admin withdrawals error:", error);
+
+    box.innerHTML = `
+      <div class="empty">
+        ${escapeHTML(error.message || "Failed to load withdrawal requests.")}
+      </div>
+    `;
+
+  }
+}
+
+
+async function approveWithdrawal(withdrawalId){
+
+  if(!isAdmin()){
+    showToast("Admin access is restricted.", "error");
+    return;
+  }
+
+  const confirmed = window.confirm(
+    "Approve this withdrawal? The withdrawal amount will be deducted from the user's available balance."
+  );
+
+  if(!confirmed){
+    return;
+  }
+
+  try{
+
+    const { data, error } =
+      await supabaseClient
+      .rpc("admin_approve_withdrawal", {
+        p_withdrawal_id: withdrawalId
+      });
+
+    if(error){
+      throw error;
+    }
+
+    if(!data || data.success !== true){
+      throw new Error("Withdrawal approval was not completed.");
+    }
+
+    showToast(
+      "Withdrawal approved and balance deducted.",
+      "success"
+    );
+
+    await loadAdminWithdrawals();
+    await loadWallet();
+    await loadWithdrawals();
+    renderAll();
+
+  }catch(error){
+
+    console.error("Withdrawal approval error:", error);
+
+    showToast(
+      error.message || "Withdrawal approval failed.",
+      "error"
+    );
+
+  }
+}
+
+
 async function reviewPayment(
   requestId,
   action
@@ -3730,7 +3907,13 @@ document
 
       if(target==="adminPanel"){
 
+        if(!isAdmin()){
+          showToast("Admin access is restricted.", "error");
+          return;
+        }
+
         await loadAdminRequests();
+        await loadAdminWithdrawals();
 
       }
 
