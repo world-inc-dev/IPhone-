@@ -51,6 +51,11 @@ button{
   display:none!important;
 }
 
+
+/* =========================================================
+   FULL PLATFORM IPHONE BACKGROUND
+========================================================= */
+
 .platform-background{
   position:fixed;
   inset:0;
@@ -121,6 +126,11 @@ button{
   pointer-events:none;
 }
 
+
+/* =========================================================
+   AUTH
+========================================================= */
+
 #authScreen{
   min-height:100vh;
   position:relative;
@@ -169,19 +179,27 @@ button{
 .auth-switch{
   display:flex;
   gap:4px;
+
   margin:22px 0;
+
   padding:4px;
+
   border-radius:13px;
+
   background:rgba(255,255,255,.035);
 }
 
 .auth-switch button{
   flex:1;
+
   border:0;
   border-radius:10px;
+
   padding:11px;
+
   color:var(--muted);
   background:transparent;
+
   font-weight:800;
 }
 
@@ -197,17 +215,24 @@ button{
 .field label{
   display:block;
   margin-bottom:7px;
+
   color:#aeb7b0;
+
   font-size:11px;
 }
 
 .field input,
 .field select{
   width:100%;
+
   padding:13px;
+
   border-radius:12px;
+
   outline:none;
+
   border:1px solid rgba(255,255,255,.08);
+
   background:rgba(255,255,255,.045);
   color:white;
 }
@@ -224,8 +249,10 @@ button{
 
 .main-btn{
   width:100%;
+
   border:0;
   border-radius:13px;
+
   padding:14px;
 
   background:linear-gradient(
@@ -235,6 +262,7 @@ button{
   );
 
   color:#071000;
+
   font-weight:900;
 }
 
@@ -244,14 +272,23 @@ button{
 
 .auth-note{
   margin-top:13px;
+
   color:var(--muted);
+
   text-align:center;
+
   font-size:10px;
   line-height:1.5;
 }
 
+
+/* =========================================================
+   APPLICATION
+========================================================= */
+
 #app{
   min-height:100vh;
+
   position:relative;
   z-index:5;
 }
@@ -259,16 +296,26 @@ button{
 .app-content{
   position:relative;
   z-index:6;
+
   width:min(1120px,calc(100% - 20px));
+
   margin:auto;
+
   padding:9px 0 25px;
 }
 
+
+/* =========================================================
+   TOP BAR
+========================================================= */
+
 .topbar{
   height:55px;
+
   display:flex;
   align-items:center;
   justify-content:space-between;
+
   gap:10px;
 }
 
@@ -289,39 +336,64 @@ button{
 
 .user-chip{
   max-width:160px;
+
   overflow:hidden;
   text-overflow:ellipsis;
   white-space:nowrap;
+
   padding:8px 11px;
+
   border:1px solid var(--border);
   border-radius:30px;
+
   background:rgba(2,7,4,.72);
+
   font-size:11px;
 }
 
 .logout-btn{
   padding:8px 10px;
+
   border-radius:9px;
+
   border:1px solid rgba(255,255,255,.09);
+
   background:rgba(255,255,255,.04);
+
   color:#ddd;
+
   font-size:10px;
 }
 
+
+/* =========================================================
+   SUMMARY
+========================================================= */
+
 .summary-grid{
   display:grid;
-  grid-template-columns:repeat(4,1fr);
+
+  grid-template-columns:
+    repeat(4,1fr);
+
   gap:8px;
 }
 
 .summary-card{
   min-height:91px;
+
   padding:13px;
+
   border-radius:16px;
+
   border:1px solid var(--border);
+
   background:rgba(3,9,5,.73);
+
   backdrop-filter:blur(17px);
-  box-shadow:0 8px 30px rgba(0,0,0,.15);
+
+  box-shadow:
+    0 8px 30px rgba(0,0,0,.15);
 }
 
 .summary-card.highlight{
@@ -332,37 +404,59 @@ button{
 
 .summary-label{
   color:var(--muted);
+
   font-size:9px;
+
   text-transform:uppercase;
+
   letter-spacing:.8px;
 }
 
 .summary-value{
   margin-top:8px;
+
   font-size:20px;
+
   font-weight:900;
 }
 
 .summary-small{
   margin-top:5px;
+
   color:#8e9b92;
+
   font-size:9px;
 }
 
+
+/* =========================================================
+   ACTIONS
+========================================================= */
+
 .quick-actions{
   display:grid;
-  grid-template-columns:repeat(3,1fr);
+
+  grid-template-columns:
+    repeat(3,1fr);
+
   gap:8px;
+
   margin:8px 0;
 }
 
 .action-btn{
   padding:12px 8px;
+
   border-radius:12px;
+
   border:1px solid var(--border);
+
   background:rgba(4,11,6,.76);
+
   color:white;
+
   font-size:11px;
+
   font-weight:900;
 }
 
@@ -371,25 +465,42 @@ button{
   color:#071000;
 }
 
+
+/* =========================================================
+   TABS
+========================================================= */
+
 .tabs{
   display:flex;
   gap:5px;
+
   padding:4px;
+
   margin-bottom:8px;
+
   border-radius:13px;
+
   background:rgba(2,7,4,.78);
+
   border:1px solid rgba(255,255,255,.06);
+
   overflow-x:auto;
 }
 
 .tab-btn{
   flex:1;
+
   min-width:82px;
+
   padding:10px;
+
   border:0;
   border-radius:9px;
+
   background:transparent;
+
   color:var(--muted);
+
   font-size:10px;
   font-weight:900;
 }
@@ -407,46 +518,74 @@ button{
   display:block;
 }
 
+
+/* =========================================================
+   CARDS
+========================================================= */
+
 .card{
   padding:15px;
+
   border-radius:18px;
+
   border:1px solid var(--border);
+
   background:rgba(3,9,5,.75);
+
   backdrop-filter:blur(18px);
 }
 
 .card-title{
   margin-bottom:12px;
+
   font-size:13px;
   font-weight:900;
 }
 
+
+/* =========================================================
+   DASHBOARD
+========================================================= */
+
 .dashboard-grid{
   display:grid;
-  grid-template-columns:1.25fr .75fr;
+
+  grid-template-columns:
+    1.25fr .75fr;
+
   gap:8px;
 }
 
 .active-package{
   display:flex;
+
   align-items:center;
+
   gap:13px;
 }
 
 .package-image{
   width:105px;
   height:115px;
+
   flex-shrink:0;
+
   overflow:hidden;
+
   border-radius:15px;
+
   border:1px solid rgba(184,255,53,.25);
+
   background:#030604;
-  box-shadow:0 0 30px rgba(184,255,53,.1);
+
+  box-shadow:
+    0 0 30px rgba(184,255,53,.1);
 }
 
 .package-image img{
   width:100%;
   height:100%;
+
   object-fit:cover;
 }
 
@@ -457,73 +596,111 @@ button{
 
 .package-meta{
   margin-top:5px;
+
   color:var(--muted);
+
   font-size:10px;
+
   line-height:1.55;
 }
 
 .status{
   display:inline-block;
+
   margin-top:7px;
+
   padding:5px 8px;
+
   border-radius:20px;
+
   background:rgba(85,242,139,.1);
+
   color:var(--success);
+
   font-size:9px;
+
   font-weight:900;
 }
 
 .checkin-box{
   min-height:160px;
+
   display:flex;
   flex-direction:column;
   justify-content:center;
+
   text-align:center;
 }
 
 .checkin-amount{
   margin:4px 0;
+
   color:var(--lime);
+
   font-size:30px;
+
   font-weight:900;
 }
 
 .checkin-text{
   margin-bottom:12px;
+
   color:var(--muted);
+
   font-size:10px;
+
   line-height:1.5;
 }
 
 .mini-btn{
   border:0;
+
   padding:10px 14px;
+
   border-radius:10px;
+
   background:var(--lime);
+
   color:#071000;
+
   font-size:10px;
   font-weight:900;
 }
 
+
+/* =========================================================
+   PACKAGES
+========================================================= */
+
 .package-grid{
   display:grid;
-  grid-template-columns:repeat(3,1fr);
+
+  grid-template-columns:
+    repeat(3,1fr);
+
   gap:8px;
 }
 
 .package-card{
   padding:13px;
+
   border-radius:17px;
+
   border:1px solid var(--border);
+
   background:rgba(3,9,5,.76);
+
   backdrop-filter:blur(16px);
 }
 
 .package-card img{
   width:100%;
   height:120px;
+
   object-fit:cover;
+
   border-radius:12px;
+
   margin-bottom:9px;
 }
 
@@ -533,32 +710,52 @@ button{
 
 .package-price{
   margin-top:4px;
+
   color:var(--lime);
+
   font-size:17px;
   font-weight:900;
 }
 
 .package-info{
   margin:6px 0 11px;
+
   color:var(--muted);
+
   font-size:9px;
+
   line-height:1.55;
 }
 
 .package-card button{
   width:100%;
+
   padding:10px;
+
   border:0;
+
   border-radius:10px;
+
   background:var(--lime);
+
   color:#071000;
+
   font-size:10px;
+
   font-weight:900;
 }
 
+
+/* =========================================================
+   HISTORY
+========================================================= */
+
 .history-grid{
   display:grid;
-  grid-template-columns:1fr 1fr;
+
+  grid-template-columns:
+    1fr 1fr;
+
   gap:8px;
 }
 
@@ -569,10 +766,14 @@ button{
 
 .history-item{
   display:flex;
+
   align-items:center;
   justify-content:space-between;
+
   gap:10px;
+
   padding:10px 0;
+
   border-bottom:1px solid rgba(255,255,255,.05);
 }
 
@@ -583,7 +784,9 @@ button{
 
 .history-sub{
   margin-top:3px;
+
   color:var(--muted);
+
   font-size:8px;
 }
 
@@ -594,10 +797,18 @@ button{
 
 .empty{
   padding:30px 10px;
+
   color:var(--muted);
+
   text-align:center;
+
   font-size:10px;
 }
+
+
+/* =========================================================
+   ADMIN
+========================================================= */
 
 .admin-list{
   display:grid;
@@ -606,8 +817,11 @@ button{
 
 .admin-request{
   padding:11px;
+
   border-radius:12px;
+
   background:rgba(255,255,255,.025);
+
   border:1px solid rgba(255,255,255,.06);
 }
 
@@ -628,21 +842,28 @@ button{
 
 .admin-details{
   margin-top:5px;
+
   color:var(--muted);
+
   font-size:9px;
+
   line-height:1.55;
 }
 
 .admin-actions{
   display:flex;
   gap:5px;
+
   margin-top:8px;
 }
 
 .admin-actions button{
   padding:8px 11px;
+
   border:0;
+
   border-radius:8px;
+
   font-size:9px;
   font-weight:900;
 }
@@ -657,15 +878,26 @@ button{
   color:#ff7777;
 }
 
+
+/* =========================================================
+   MODALS
+========================================================= */
+
 .modal{
   position:fixed;
   inset:0;
+
   z-index:50;
+
   display:none;
+
   align-items:center;
   justify-content:center;
+
   padding:15px;
+
   background:rgba(0,0,0,.75);
+
   backdrop-filter:blur(8px);
 }
 
@@ -675,18 +907,26 @@ button{
 
 .modal-card{
   width:min(430px,100%);
+
   max-height:90vh;
+
   overflow-y:auto;
+
   padding:18px;
+
   border-radius:20px;
+
   border:1px solid var(--border);
+
   background:#071009;
 }
 
 .modal-head{
   display:flex;
+
   justify-content:space-between;
   align-items:center;
+
   margin-bottom:15px;
 }
 
@@ -696,18 +936,27 @@ button{
 
 .close-btn{
   border:0;
+
   background:transparent;
+
   color:#aaa;
+
   font-size:22px;
 }
 
 .payment-info{
   padding:11px;
+
   margin-bottom:13px;
+
   border-radius:12px;
+
   border:1px solid rgba(184,255,53,.13);
+
   background:rgba(184,255,53,.045);
+
   font-size:10px;
+
   line-height:1.7;
 }
 
@@ -715,28 +964,52 @@ button{
   color:var(--lime);
 }
 
+
+/* =========================================================
+   TOAST
+========================================================= */
+
 #toast{
   position:fixed;
+
   z-index:100;
+
   left:50%;
   bottom:18px;
+
   width:min(380px,calc(100% - 30px));
-  transform:translateX(-50%) translateY(100px);
+
+  transform:
+    translateX(-50%)
+    translateY(100px);
+
   padding:12px 14px;
+
   border-radius:13px;
+
   border:1px solid var(--border);
+
   background:#101810;
+
   color:white;
+
   text-align:center;
+
   font-size:10px;
+
   opacity:0;
+
   transition:.25s ease;
+
   pointer-events:none;
 }
 
 #toast.show{
   opacity:1;
-  transform:translateX(-50%) translateY(0);
+
+  transform:
+    translateX(-50%)
+    translateY(0);
 }
 
 #toast.success{
@@ -746,6 +1019,24 @@ button{
 #toast.error{
   color:#ff9696;
 }
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+/* REFERRAL */
+.referral-card{margin-top:18px;background:linear-gradient(145deg,rgba(183,255,0,.06),rgba(255,255,255,.015));border:1px solid var(--border);border-radius:16px;padding:18px}
+.referral-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:14px;align-items:stretch}
+.referral-code-box{background:#080808;border:1px solid rgba(183,255,0,.18);border-radius:12px;padding:14px}
+.referral-label{color:#888;font-size:11px;text-transform:uppercase;font-weight:800;margin-bottom:6px}
+.referral-code{color:var(--lime);font-size:22px;font-weight:900;letter-spacing:1px}
+.referral-link{color:#777;font-size:11px;word-break:break-all;margin-top:6px}
+.referral-actions{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.referral-stat{background:#080808;border:1px solid var(--border);border-radius:12px;padding:14px}
+.referral-stat strong{display:block;color:var(--lime);font-size:21px;margin-top:3px}
+.referral-note{color:#777;font-size:11px;margin-top:10px}
+@media(max-width:700px){.referral-grid{grid-template-columns:1fr}}
 
 @media(max-width:800px){
 
@@ -765,6 +1056,7 @@ button{
   .iphone-screen{
     width:150%;
     left:-25%;
+
     background-position:center;
   }
 
@@ -830,6 +1122,7 @@ button{
   <div class="background-glass"></div>
 </div>
 
+
 <section id="authScreen">
 
   <div class="auth-card">
@@ -844,11 +1137,18 @@ button{
 
     <div class="auth-switch">
 
-      <button id="signupTab" class="active" type="button">
+      <button
+        id="signupTab"
+        class="active"
+        type="button"
+      >
         Create Account
       </button>
 
-      <button id="loginTab" type="button">
+      <button
+        id="loginTab"
+        type="button"
+      >
         Sign In
       </button>
 
@@ -858,25 +1158,55 @@ button{
 
       <div class="field">
         <label>Full Name</label>
-        <input id="signupName" type="text" placeholder="Enter your full name" required>
+        <input
+          id="signupName"
+          type="text"
+          placeholder="Enter your full name"
+          required
+        >
       </div>
 
       <div class="field">
         <label>Phone Number</label>
-        <input id="signupPhone" type="tel" placeholder="07XXXXXXXX" required>
+        <input
+          id="signupPhone"
+          type="tel"
+          placeholder="07XXXXXXXX"
+          required
+        >
       </div>
 
       <div class="field">
         <label>Email Address</label>
-        <input id="signupEmail" type="email" placeholder="you@example.com" required>
+        <input
+          id="signupEmail"
+          type="email"
+          placeholder="you@example.com"
+          required
+        >
       </div>
 
       <div class="field">
         <label>Password</label>
-        <input id="signupPassword" type="password" minlength="6" placeholder="Create a password" required>
+        <input
+          id="signupPassword"
+          type="password"
+          minlength="6"
+          placeholder="Create a password"
+          required
+        >
       </div>
 
-      <button id="signupButton" class="main-btn" type="submit">
+      <div class="field">
+        <label>Referral Code <span style="color:#777;font-weight:400;">(optional)</span></label>
+        <input id="signupReferralCode" type="text" placeholder="Example: IV-XXXXXXXX" autocomplete="off">
+      </div>
+
+      <button
+        id="signupButton"
+        class="main-btn"
+        type="submit"
+      >
         Create Account
       </button>
 
@@ -886,19 +1216,39 @@ button{
 
     </form>
 
-    <form id="loginForm" class="hidden">
+
+    <form
+      id="loginForm"
+      class="hidden"
+    >
 
       <div class="field">
         <label>Email Address</label>
-        <input id="loginEmail" type="email" placeholder="you@example.com" required>
+
+        <input
+          id="loginEmail"
+          type="email"
+          placeholder="you@example.com"
+          required
+        >
       </div>
 
       <div class="field">
         <label>Password</label>
-        <input id="loginPassword" type="password" placeholder="Your password" required>
+
+        <input
+          id="loginPassword"
+          type="password"
+          placeholder="Your password"
+          required
+        >
       </div>
 
-      <button id="loginButton" class="main-btn" type="submit">
+      <button
+        id="loginButton"
+        class="main-btn"
+        type="submit"
+      >
         Sign In
       </button>
 
@@ -908,7 +1258,11 @@ button{
 
 </section>
 
-<main id="app" class="hidden">
+
+<main
+  id="app"
+  class="hidden"
+>
 
   <div class="app-content">
 
@@ -920,17 +1274,25 @@ button{
 
       <div class="user-area">
 
-        <div id="userChip" class="user-chip">
+        <div
+          id="userChip"
+          class="user-chip"
+        >
           User
         </div>
 
-        <button id="logoutBtn" class="logout-btn" type="button">
+        <button
+          id="logoutBtn"
+          class="logout-btn"
+          type="button"
+        >
           Logout
         </button>
 
       </div>
 
     </header>
+
 
     <section class="summary-grid">
 
@@ -940,15 +1302,22 @@ button{
           Available Balance
         </div>
 
-        <div id="balanceValue" class="summary-value">
+        <div
+          id="balanceValue"
+          class="summary-value"
+        >
           UGX 0
         </div>
 
-        <div id="balanceNote" class="summary-small">
+        <div
+          id="balanceNote"
+          class="summary-small"
+        >
           Welcome bonus
         </div>
 
       </div>
+
 
       <div class="summary-card">
 
@@ -956,7 +1325,10 @@ button{
           Total Invested
         </div>
 
-        <div id="investedValue" class="summary-value">
+        <div
+          id="investedValue"
+          class="summary-value"
+        >
           UGX 0
         </div>
 
@@ -965,6 +1337,7 @@ button{
         </div>
 
       </div>
+
 
       <div class="summary-card">
 
@@ -976,11 +1349,15 @@ button{
           UGX 300
         </div>
 
-        <div id="checkinStatus" class="summary-small">
+        <div
+          id="checkinStatus"
+          class="summary-small"
+        >
           Available today
         </div>
 
       </div>
+
 
       <div class="summary-card">
 
@@ -988,7 +1365,11 @@ button{
           Withdrawal
         </div>
 
-        <div id="withdrawStatus" class="summary-value" style="font-size:15px">
+        <div
+          id="withdrawStatus"
+          class="summary-value"
+          style="font-size:15px"
+        >
           24h
         </div>
 
@@ -1000,43 +1381,78 @@ button{
 
     </section>
 
+
     <section class="quick-actions">
 
-      <button id="rechargeBtn" class="action-btn primary" type="button">
+      <button
+        id="rechargeBtn"
+        class="action-btn primary"
+        type="button"
+      >
         + Recharge
       </button>
 
-      <button id="withdrawBtn" class="action-btn" type="button">
+      <button
+        id="withdrawBtn"
+        class="action-btn"
+        type="button"
+      >
         Withdraw
       </button>
 
-      <button id="checkinBtn" class="action-btn" type="button">
+      <button
+        id="checkinBtn"
+        class="action-btn"
+        type="button"
+      >
         Daily Check-in
       </button>
 
     </section>
 
+
     <nav class="tabs">
 
-      <button class="tab-btn active" data-tab="dashboardPanel" type="button">
+      <button
+        class="tab-btn active"
+        data-tab="dashboardPanel"
+        type="button"
+      >
         Dashboard
       </button>
 
-      <button class="tab-btn" data-tab="packagesPanel" type="button">
+      <button
+        class="tab-btn"
+        data-tab="packagesPanel"
+        type="button"
+      >
         Packages
       </button>
 
-      <button class="tab-btn" data-tab="historyPanel" type="button">
+      <button
+        class="tab-btn"
+        data-tab="historyPanel"
+        type="button"
+      >
         History
       </button>
 
-      <button id="adminTab" class="tab-btn hidden" data-tab="adminPanel" type="button">
+      <button
+        id="adminTab"
+        class="tab-btn hidden"
+        data-tab="adminPanel"
+        type="button"
+      >
         Admin
       </button>
 
     </nav>
 
-    <section id="dashboardPanel" class="panel active">
+
+    <section
+      id="dashboardPanel"
+      class="panel active"
+    >
 
       <div class="dashboard-grid">
 
@@ -1046,7 +1462,10 @@ button{
             Active Package
           </div>
 
-          <div id="activePackage" class="active-package">
+          <div
+            id="activePackage"
+            class="active-package"
+          >
 
             <div class="empty">
               No active package yet.
@@ -1055,6 +1474,7 @@ button{
           </div>
 
         </div>
+
 
         <div class="card checkin-box">
 
@@ -1070,7 +1490,11 @@ button{
             Check in once each day to receive your daily check-in amount.
           </div>
 
-          <button id="dashboardCheckinBtn" class="mini-btn" type="button">
+          <button
+            id="dashboardCheckinBtn"
+            class="mini-btn"
+            type="button"
+          >
             Check In
           </button>
 
@@ -1078,15 +1502,48 @@ button{
 
       </div>
 
+      <div class="referral-card">
+        <div class="card-title">My Referral Program</div>
+        <div class="referral-grid">
+          <div class="referral-code-box">
+            <div class="referral-label">Your Referral Code</div>
+            <div id="myReferralCode" class="referral-code">Loading...</div>
+            <div id="myReferralLink" class="referral-link"></div>
+            <div class="referral-actions">
+              <button id="copyReferralBtn" class="mini-btn" type="button">Copy Link</button>
+              <button id="shareReferralBtn" class="mini-btn" type="button">Share</button>
+            </div>
+          </div>
+          <div class="referral-stat">
+            <div class="referral-label">Referred Users</div>
+            <strong id="referralCount">0</strong>
+            <div class="referral-label" style="margin-top:12px;">Commission Earned</div>
+            <strong id="referralCommission">UGX 0</strong>
+          </div>
+        </div>
+        <div class="referral-note">Share your referral link. When an eligible referred user activates a package, the existing 5% referral commission system credits your wallet.</div>
+      </div>
+
     </section>
 
-    <section id="packagesPanel" class="panel">
 
-      <div id="packageGrid" class="package-grid"></div>
+    <section
+      id="packagesPanel"
+      class="panel"
+    >
+
+      <div
+        id="packageGrid"
+        class="package-grid"
+      ></div>
 
     </section>
 
-    <section id="historyPanel" class="panel">
+
+    <section
+      id="historyPanel"
+      class="panel"
+    >
 
       <div class="history-grid">
 
@@ -1096,9 +1553,13 @@ button{
             Withdrawal History
           </div>
 
-          <div id="withdrawalHistory" class="history-list"></div>
+          <div
+            id="withdrawalHistory"
+            class="history-list"
+          ></div>
 
         </div>
+
 
         <div class="card">
 
@@ -1106,7 +1567,10 @@ button{
             Investment History
           </div>
 
-          <div id="investmentHistory" class="history-list"></div>
+          <div
+            id="investmentHistory"
+            class="history-list"
+          ></div>
 
         </div>
 
@@ -1114,7 +1578,11 @@ button{
 
     </section>
 
-    <section id="adminPanel" class="panel">
+
+    <section
+      id="adminPanel"
+      class="panel"
+    >
 
       <div class="card">
 
@@ -1122,21 +1590,10 @@ button{
           Payment Requests
         </div>
 
-        <div id="adminRequests" class="admin-list">
-          Loading...
-        </div>
-
-      </div>
-
-      <div style="height:8px"></div>
-
-      <div class="card">
-
-        <div class="card-title">
-          Withdrawal Requests
-        </div>
-
-        <div id="adminWithdrawals" class="admin-list">
+        <div
+          id="adminRequests"
+          class="admin-list"
+        >
           Loading...
         </div>
 
@@ -1148,7 +1605,11 @@ button{
 
 </main>
 
-<div id="paymentModal" class="modal">
+
+<div
+  id="paymentModal"
+  class="modal"
+>
 
   <div class="modal-card">
 
@@ -1156,11 +1617,16 @@ button{
 
       <h2>Recharge Account</h2>
 
-      <button class="close-btn" data-close="paymentModal" type="button">
+      <button
+        class="close-btn"
+        data-close="paymentModal"
+        type="button"
+      >
         ×
       </button>
 
     </div>
+
 
     <div class="payment-info">
 
@@ -1169,12 +1635,12 @@ button{
       <br><br>
 
       <strong>MTN</strong><br>
-      Kacep Abdu — 0768634808
+      ELLY — +256 746 673 971
 
       <br><br>
 
       <strong>Airtel</strong><br>
-      Chomia Umar — 0758235281
+      BRIAN — +256 788 271 972
 
       <br><br>
 
@@ -1182,21 +1648,29 @@ button{
 
     </div>
 
+
     <form id="paymentForm">
 
       <div class="field">
 
         <label>Package</label>
 
-        <select id="paymentPackage" required></select>
+        <select
+          id="paymentPackage"
+          required
+        ></select>
 
       </div>
+
 
       <div class="field">
 
         <label>Payment Provider</label>
 
-        <select id="paymentProvider" required>
+        <select
+          id="paymentProvider"
+          required
+        >
 
           <option value="mtn">
             MTN Mobile Money
@@ -1210,23 +1684,39 @@ button{
 
       </div>
 
+
       <div class="field">
 
         <label>Your Sender Phone</label>
 
-        <input id="senderPhone" type="tel" placeholder="07XXXXXXXX" required>
+        <input
+          id="senderPhone"
+          type="tel"
+          placeholder="07XXXXXXXX"
+          required
+        >
 
       </div>
+
 
       <div class="field">
 
         <label>Transaction Reference</label>
 
-        <input id="transactionReference" type="text" placeholder="Transaction ID" required>
+        <input
+          id="transactionReference"
+          type="text"
+          placeholder="Transaction ID"
+          required
+        >
 
       </div>
 
-      <button class="main-btn" type="submit">
+
+      <button
+        class="main-btn"
+        type="submit"
+      >
         Submit Payment
       </button>
 
@@ -1236,7 +1726,11 @@ button{
 
 </div>
 
-<div id="withdrawModal" class="modal">
+
+<div
+  id="withdrawModal"
+  class="modal"
+>
 
   <div class="modal-card">
 
@@ -1244,11 +1738,16 @@ button{
 
       <h2>Withdraw</h2>
 
-      <button class="close-btn" data-close="withdrawModal" type="button">
+      <button
+        class="close-btn"
+        data-close="withdrawModal"
+        type="button"
+      >
         ×
       </button>
 
     </div>
+
 
     <div class="payment-info">
 
@@ -1262,6 +1761,7 @@ button{
       from package activation.
 
     </div>
+
 
     <form id="withdrawForm">
 
@@ -1280,11 +1780,15 @@ button{
 
       </div>
 
+
       <div class="field">
 
         <label>Provider</label>
 
-        <select id="withdrawProvider" required>
+        <select
+          id="withdrawProvider"
+          required
+        >
 
           <option value="mtn">
             MTN Mobile Money
@@ -1297,6 +1801,7 @@ button{
         </select>
 
       </div>
+
 
       <div class="field">
 
@@ -1311,7 +1816,11 @@ button{
 
       </div>
 
-      <button class="main-btn" type="submit">
+
+      <button
+        class="main-btn"
+        type="submit"
+      >
         Request Withdrawal
       </button>
 
@@ -1321,9 +1830,15 @@ button{
 
 </div>
 
+
 <div id="toast"></div>
 
+
 <script>
+
+/* =========================================================
+   SUPABASE
+========================================================= */
 
 const SUPABASE_URL =
 "https://lapwvklbgdjzysszzcaz.supabase.co";
@@ -1336,6 +1851,11 @@ window.supabase.createClient(
   SUPABASE_URL,
   SUPABASE_KEY
 );
+
+
+/* =========================================================
+   SETTINGS
+========================================================= */
 
 const ADMIN_EMAIL =
 "worldbridan3@gmail.com";
@@ -1352,16 +1872,10 @@ const MIN_WITHDRAWAL =
 const IPHONE_IMAGE =
 "https://images.apple.com/v/iphone-18-pro/b/images/overview/product-viewer/3d_viewer__hgotqf9hvvee_large.jpg";
 
-function isAdmin(){
 
-  return !!(
-    currentUser &&
-    currentUser.email &&
-    currentUser.email.trim().toLowerCase() ===
-    ADMIN_EMAIL.trim().toLowerCase()
-  );
-
-}
+/* =========================================================
+   STATE
+========================================================= */
 
 let currentUser = null;
 let currentProfile = null;
@@ -1370,6 +1884,12 @@ let currentWallet = null;
 let packages = [];
 let investments = [];
 let withdrawals = [];
+let referralData = {code:"",link:"",referredCount:0,commissionTotal:0};
+
+
+/* =========================================================
+   HELPERS
+========================================================= */
 
 function money(value){
 
@@ -1378,6 +1898,7 @@ function money(value){
     .toLocaleString("en-UG");
 
 }
+
 
 function escapeHTML(value){
 
@@ -1389,6 +1910,7 @@ function escapeHTML(value){
     .replace(/'/g,"&#039;");
 
 }
+
 
 function normalizePhone(phone){
 
@@ -1406,8 +1928,8 @@ function normalizePhone(phone){
   }
 
   return p;
-
 }
+
 
 function showToast(message,type=""){
 
@@ -1432,6 +1954,7 @@ function showToast(message,type=""){
 
 }
 
+
 function openModal(id){
 
   document
@@ -1440,6 +1963,7 @@ function openModal(id){
 
 }
 
+
 function closeModal(id){
 
   document
@@ -1447,6 +1971,7 @@ function closeModal(id){
   .classList.remove("show");
 
 }
+
 
 function getWalletBalance(wallet){
 
@@ -1479,6 +2004,7 @@ function getWalletBalance(wallet){
 
 }
 
+
 function todayKey(){
 
   const d=new Date();
@@ -1490,6 +2016,11 @@ function todayKey(){
     String(d.getDate()).padStart(2,"0");
 
 }
+
+
+/* =========================================================
+   AUTH TABS
+========================================================= */
 
 function showSignup(){
 
@@ -1511,6 +2042,7 @@ function showSignup(){
 
 }
 
+
 function showLogin(){
 
   document
@@ -1531,6 +2063,7 @@ function showLogin(){
 
 }
 
+
 document
 .getElementById("signupTab")
 .addEventListener("click",showSignup);
@@ -1538,6 +2071,12 @@ document
 document
 .getElementById("loginTab")
 .addEventListener("click",showLogin);
+
+
+/* =========================================================
+   SECURE WELCOME BONUS
+   Uses Supabase claim_welcome_bonus()
+========================================================= */
 
 async function ensureWelcomeBonus(){
 
@@ -1594,6 +2133,22 @@ async function ensureWelcomeBonus(){
 
 }
 
+
+/* =========================================================
+   REFERRALS
+========================================================= */
+function getReferralCodeFromUrl(){try{return (new URLSearchParams(window.location.search).get("ref")||"").trim();}catch(e){return "";}}
+function rememberReferralCode(code){const v=String(code||"").trim();if(v)localStorage.setItem("iphonevest_pending_referral",v);}
+function getPendingReferralCode(){const input=document.getElementById("signupReferralCode");const urlCode=getReferralCodeFromUrl();if(urlCode){if(input&&!input.value.trim())input.value=urlCode;return urlCode;}return (localStorage.getItem("iphonevest_pending_referral")||(input?input.value.trim():"")).trim();}
+async function applyPendingReferralCode(){if(!currentUser)return {success:false,skipped:true};const code=getPendingReferralCode();if(!code)return {success:false,skipped:true};try{const {data,error}=await supabaseClient.rpc("apply_referral_code",{p_code:code});if(error)throw error;localStorage.removeItem("iphonevest_pending_referral");return {success:true,data};}catch(error){const message=String(error.message||"");if(message.includes("already been assigned")||message.includes("cannot use your own")||message.includes("Invalid or inactive"))localStorage.removeItem("iphonevest_pending_referral");console.warn("Referral code:",message);return {success:false,message};}}
+async function loadReferralData(){if(!currentUser)return;let code="";try{const {data,error}=await supabaseClient.rpc("create_my_referral_code");if(!error)code=String(data||"").trim();}catch(e){console.warn("Referral code generation:",e.message);}let referredCount=0,commissionTotal=0;try{const {count}=await supabaseClient.from("referrals").select("id",{count:"exact",head:true}).eq("referrer_id",currentUser.id);referredCount=Number(count||0);}catch(e){}try{const {data}=await supabaseClient.from("referral_commissions").select("commission_amount").eq("referrer_id",currentUser.id).eq("status","credited");commissionTotal=(data||[]).reduce((sum,row)=>sum+Number(row.commission_amount||0),0);}catch(e){}const link=code?window.location.origin+window.location.pathname+"?ref="+encodeURIComponent(code):"";referralData={code,link,referredCount,commissionTotal};const codeBox=document.getElementById("myReferralCode"),linkBox=document.getElementById("myReferralLink"),countBox=document.getElementById("referralCount"),commissionBox=document.getElementById("referralCommission");if(codeBox)codeBox.textContent=code||"Unavailable";if(linkBox)linkBox.textContent=link;if(countBox)countBox.textContent=referredCount;if(commissionBox)commissionBox.textContent=money(commissionTotal);}
+async function copyReferralLink(){if(!referralData.link){showToast("Your referral link is not ready yet.","error");return;}try{await navigator.clipboard.writeText(referralData.link);showToast("Referral link copied.","success");}catch(e){showToast("Unable to copy the referral link.","error");}}
+async function shareReferralLink(){if(!referralData.link){showToast("Your referral link is not ready yet.","error");return;}try{if(navigator.share)await navigator.share({title:"iPhoneVest Referral",text:"Join me on iPhoneVest using my referral link:",url:referralData.link});else await copyReferralLink();}catch(e){}}
+
+/* =========================================================
+   SIGN UP
+========================================================= */
+
 document
 .getElementById("signupForm")
 .addEventListener(
@@ -1611,6 +2166,7 @@ async function(e){
 
   button.textContent=
     "Creating Account...";
+
 
   const fullName =
     document
@@ -1635,6 +2191,10 @@ async function(e){
     .getElementById("signupPassword")
     .value;
 
+  const referralCode = getPendingReferralCode();
+  if(referralCode) rememberReferralCode(referralCode);
+
+
   try{
 
     const {
@@ -1653,9 +2213,11 @@ async function(e){
       }
     });
 
+
     if(error){
       throw error;
     }
+
 
     if(!data.user){
 
@@ -1665,8 +2227,15 @@ async function(e){
 
     }
 
+
     currentUser =
       data.user;
+
+    const referralResult = await applyPendingReferralCode();
+    if(referralCode && !referralResult.success && !referralResult.skipped){
+      showToast("Account created, but the referral code was not applied: " + (referralResult.message || "Invalid referral code."),"error");
+    }
+
 
     const profileResult =
       await supabaseClient
@@ -1677,6 +2246,7 @@ async function(e){
         phone:normalizePhone(phone)
       });
 
+
     if(profileResult.error){
 
       console.warn(
@@ -1686,6 +2256,7 @@ async function(e){
 
     }
 
+
     if(data.session){
 
       await loadProfile();
@@ -1694,6 +2265,7 @@ async function(e){
         await ensureWelcomeBonus();
 
       await enterApplication();
+
 
       if(bonusResult.success){
 
@@ -1712,6 +2284,7 @@ async function(e){
 
       }
 
+
     }else{
 
       showToast(
@@ -1722,6 +2295,7 @@ async function(e){
       showLogin();
 
     }
+
 
   }catch(error){
 
@@ -1744,6 +2318,11 @@ async function(e){
 
 });
 
+
+/* =========================================================
+   LOGIN
+========================================================= */
+
 document
 .getElementById("loginForm")
 .addEventListener(
@@ -1762,6 +2341,7 @@ async function(e){
   button.textContent=
     "Signing In...";
 
+
   const email =
     document
     .getElementById("loginEmail")
@@ -1772,6 +2352,7 @@ async function(e){
     document
     .getElementById("loginPassword")
     .value;
+
 
   try{
 
@@ -1786,14 +2367,19 @@ async function(e){
       password
     });
 
+
     if(error){
       throw error;
     }
 
+
     currentUser =
       data.user;
 
+    await applyPendingReferralCode();
+
     await enterApplication();
+
 
   }catch(error){
 
@@ -1814,6 +2400,11 @@ async function(e){
 
 });
 
+
+/* =========================================================
+   ENTER APPLICATION
+========================================================= */
+
 async function enterApplication(){
 
   if(!currentUser){
@@ -1828,6 +2419,7 @@ async function enterApplication(){
   .getElementById("app")
   .classList.remove("hidden");
 
+
   await loadAll();
 
   renderAll();
@@ -1836,41 +2428,43 @@ async function enterApplication(){
 
 }
 
+
+/* =========================================================
+   LOAD DATA
+========================================================= */
+
 async function loadAll(){
 
   if(!currentUser){
     return;
   }
 
-  const adminTab =
-    document.getElementById("adminTab");
-
-  const adminPanel =
-    document.getElementById("adminPanel");
-
-  adminTab.classList.add("hidden");
-  adminPanel.classList.remove("active");
-
   await Promise.all([
     loadProfile(),
     loadWallet(),
     loadPackages(),
     loadInvestments(),
-    loadWithdrawals()
+    loadWithdrawals(),
+    loadReferralData()
   ]);
 
-  if(isAdmin()){
 
-    adminTab.classList.remove("hidden");
+  if(
+    currentUser.email &&
+    currentUser.email.toLowerCase() ===
+    ADMIN_EMAIL.toLowerCase()
+  ){
 
-    await Promise.all([
-      loadAdminRequests(),
-      loadAdminWithdrawals()
-    ]);
+    document
+    .getElementById("adminTab")
+    .classList.remove("hidden");
+
+    await loadAdminRequests();
 
   }
 
 }
+
 
 async function loadProfile(){
 
@@ -1889,6 +2483,7 @@ async function loadProfile(){
   }
 
 }
+
 
 async function loadWallet(){
 
@@ -1919,6 +2514,7 @@ async function loadWallet(){
 
 }
 
+
 async function loadPackages(){
 
   const {
@@ -1939,6 +2535,7 @@ async function loadPackages(){
   }
 
 }
+
 
 async function loadInvestments(){
 
@@ -1961,6 +2558,7 @@ async function loadInvestments(){
 
 }
 
+
 async function loadWithdrawals(){
 
   const {
@@ -1982,6 +2580,11 @@ async function loadWithdrawals(){
 
 }
 
+
+/* =========================================================
+   RENDER
+========================================================= */
+
 function renderAll(){
 
   const balance =
@@ -1989,10 +2592,12 @@ function renderAll(){
       currentWallet
     );
 
+
   document
   .getElementById("balanceValue")
   .textContent=
     money(balance);
+
 
   document
   .getElementById("userChip")
@@ -2000,10 +2605,12 @@ function renderAll(){
     currentProfile?.full_name ||
     currentUser.email;
 
+
   const balanceNote =
     document.getElementById(
       "balanceNote"
     );
+
 
   if(balance >= WELCOME_BONUS){
 
@@ -2017,6 +2624,7 @@ function renderAll(){
 
   }
 
+
   const invested =
     investments.reduce(
       (sum,item)=>
@@ -2027,10 +2635,12 @@ function renderAll(){
       0
     );
 
+
   document
   .getElementById("investedValue")
   .textContent=
     money(invested);
+
 
   renderActivePackage();
 
@@ -2044,6 +2654,11 @@ function renderAll(){
 
 }
 
+
+/* =========================================================
+   ACTIVE PACKAGE
+========================================================= */
+
 function renderActivePackage(){
 
   const box =
@@ -2051,12 +2666,14 @@ function renderActivePackage(){
       "activePackage"
     );
 
+
   const active =
     investments.find(
       i=>
         String(i.status||"")
         .toLowerCase()==="active"
     );
+
 
   if(!active){
 
@@ -2070,12 +2687,14 @@ function renderActivePackage(){
     return;
   }
 
+
   const pkg =
     packages.find(
       p=>
         String(p.id) ===
         String(active.package_id)
     );
+
 
   box.innerHTML=`
 
@@ -2135,12 +2754,18 @@ function renderActivePackage(){
 
 }
 
+
+/* =========================================================
+   PACKAGES
+========================================================= */
+
 function renderPackages(){
 
   const box =
     document.getElementById(
       "packageGrid"
     );
+
 
   if(!packages.length){
 
@@ -2154,6 +2779,7 @@ function renderPackages(){
 
     return;
   }
+
 
   box.innerHTML =
   packages.map(pkg=>`
@@ -2200,9 +2826,11 @@ function renderPackages(){
 
   `).join("");
 
+
   populatePaymentPackages();
 
 }
+
 
 function populatePaymentPackages(){
 
@@ -2210,6 +2838,7 @@ function populatePaymentPackages(){
     document.getElementById(
       "paymentPackage"
     );
+
 
   select.innerHTML =
   packages.map(pkg=>`
@@ -2227,6 +2856,7 @@ function populatePaymentPackages(){
 
 }
 
+
 function openPaymentForPackage(id){
 
   document
@@ -2236,6 +2866,11 @@ function openPaymentForPackage(id){
   openModal("paymentModal");
 
 }
+
+
+/* =========================================================
+   HISTORY
+========================================================= */
 
 function renderHistory(){
 
@@ -2248,6 +2883,7 @@ function renderHistory(){
     document.getElementById(
       "investmentHistory"
     );
+
 
   if(!withdrawals.length){
 
@@ -2286,6 +2922,7 @@ function renderHistory(){
     `).join("");
 
   }
+
 
   if(!investments.length){
 
@@ -2330,6 +2967,11 @@ function renderHistory(){
 
 }
 
+
+/* =========================================================
+   CHECK-IN
+========================================================= */
+
 function updateCheckin(){
 
   const key =
@@ -2340,6 +2982,7 @@ function updateCheckin(){
     localStorage.getItem(key) ===
     todayKey();
 
+
   document
   .getElementById("checkinBtn")
   .disabled=claimed;
@@ -2347,6 +2990,7 @@ function updateCheckin(){
   document
   .getElementById("dashboardCheckinBtn")
   .disabled=claimed;
+
 
   document
   .getElementById("checkinBtn")
@@ -2355,12 +2999,14 @@ function updateCheckin(){
     ? "Checked In"
     : "Daily Check-in";
 
+
   document
   .getElementById("dashboardCheckinBtn")
   .textContent=
     claimed
     ? "Checked In"
     : "Check In";
+
 
   document
   .getElementById("checkinStatus")
@@ -2370,6 +3016,7 @@ function updateCheckin(){
     : "Available today";
 
 }
+
 
 async function performCheckin(){
 
@@ -2399,20 +3046,29 @@ async function performCheckin(){
       throw error;
     }
 
+
+    /*
+      localStorage is only used for the UI.
+      The Supabase RPC controls the actual credit.
+    */
+
     localStorage.setItem(
       "iphonevest_checkin_" +
       currentUser.id,
       todayKey()
     );
 
+
     await loadWallet();
 
     renderAll();
+
 
     showToast(
       "UGX 300 credited.",
       "success"
     );
+
 
   }catch(error){
 
@@ -2431,6 +3087,11 @@ async function performCheckin(){
 
 }
 
+
+/* =========================================================
+   WITHDRAWAL
+========================================================= */
+
 function firstInvestmentStart(){
 
   const valid =
@@ -2447,6 +3108,7 @@ function firstInvestmentStart(){
     : null;
 
 }
+
 
 function withdrawalUnlocked(){
 
@@ -2465,12 +3127,14 @@ function withdrawalUnlocked(){
 
 }
 
+
 function updateWithdrawal(){
 
   const box =
     document.getElementById(
       "withdrawStatus"
     );
+
 
   if(!investments.length){
 
@@ -2480,6 +3144,7 @@ function updateWithdrawal(){
     return;
   }
 
+
   if(!withdrawalUnlocked()){
 
     box.textContent=
@@ -2488,10 +3153,12 @@ function updateWithdrawal(){
     return;
   }
 
+
   box.textContent=
     "Eligible";
 
 }
+
 
 document
 .getElementById("withdrawBtn")
@@ -2509,6 +3176,7 @@ function(){
     return;
   }
 
+
   if(!withdrawalUnlocked()){
 
     showToast(
@@ -2519,14 +3187,17 @@ function(){
     return;
   }
 
+
   document
   .getElementById("withdrawPhone")
   .value=
     currentProfile?.phone || "";
 
+
   openModal("withdrawModal");
 
 });
+
 
 document
 .getElementById("withdrawForm")
@@ -2536,6 +3207,7 @@ async function(e){
 
   e.preventDefault();
 
+
   const amount =
     Number(
       document
@@ -2543,10 +3215,12 @@ async function(e){
       .value
     );
 
+
   const provider =
     document
     .getElementById("withdrawProvider")
     .value;
+
 
   const phone =
     normalizePhone(
@@ -2555,10 +3229,12 @@ async function(e){
       .value
     );
 
+
   const balance =
     getWalletBalance(
       currentWallet
     );
+
 
   if(amount < MIN_WITHDRAWAL){
 
@@ -2570,6 +3246,7 @@ async function(e){
     return;
   }
 
+
   if(amount > balance){
 
     showToast(
@@ -2579,6 +3256,7 @@ async function(e){
 
     return;
   }
+
 
   if(!withdrawalUnlocked()){
 
@@ -2590,11 +3268,13 @@ async function(e){
     return;
   }
 
+
   try{
 
     const reference =
       "IPV-WD-" +
       Date.now();
+
 
     const {
       error
@@ -2632,22 +3312,27 @@ async function(e){
 
     });
 
+
     if(error){
       throw error;
     }
+
 
     closeModal(
       "withdrawModal"
     );
 
+
     await loadWithdrawals();
 
     renderHistory();
+
 
     showToast(
       "Withdrawal request submitted.",
       "success"
     );
+
 
   }catch(error){
 
@@ -2661,6 +3346,11 @@ async function(e){
 
 });
 
+
+/* =========================================================
+   PAYMENT
+========================================================= */
+
 document
 .getElementById("rechargeBtn")
 .addEventListener(
@@ -2673,6 +3363,7 @@ function(){
 
 });
 
+
 document
 .getElementById("paymentForm")
 .addEventListener(
@@ -2681,15 +3372,18 @@ async function(e){
 
   e.preventDefault();
 
+
   const packageId =
     document
     .getElementById("paymentPackage")
     .value;
 
+
   const provider =
     document
     .getElementById("paymentProvider")
     .value;
+
 
   const phone =
     normalizePhone(
@@ -2698,6 +3392,7 @@ async function(e){
       .value
     );
 
+
   const reference =
     document
     .getElementById(
@@ -2705,6 +3400,7 @@ async function(e){
     )
     .value
     .trim();
+
 
   try{
 
@@ -2729,22 +3425,27 @@ async function(e){
       }
     );
 
+
     if(error){
       throw error;
     }
+
 
     closeModal(
       "paymentModal"
     );
 
+
     document
     .getElementById("paymentForm")
     .reset();
+
 
     showToast(
       "Payment submitted for admin review.",
       "success"
     );
+
 
   }catch(error){
 
@@ -2758,11 +3459,12 @@ async function(e){
 
 });
 
-async function loadAdminRequests(){
 
-  if(!isAdmin()){
-    return;
-  }
+/* =========================================================
+   ADMIN
+========================================================= */
+
+async function loadAdminRequests(){
 
   const box =
     document.getElementById(
@@ -2773,10 +3475,11 @@ async function loadAdminRequests(){
     return;
   }
 
-  box.innerHTML =
-    `<div class="empty">
+  box.innerHTML = `
+    <div class="empty">
       Loading payment requests...
-    </div>`;
+    </div>
+  `;
 
   try{
 
@@ -2796,91 +3499,28 @@ async function loadAdminRequests(){
       throw error;
     }
 
-    if(!data || !data.length){
+    if(!data || data.length === 0){
 
-      box.innerHTML =
-        `<div class="empty">
+      box.innerHTML = `
+        <div class="empty">
           No payment requests.
-        </div>`;
+        </div>
+      `;
 
       return;
     }
 
-    const userIds =
-      [
-        ...new Set(
-          data
-          .map(r=>r.user_id)
-          .filter(Boolean)
-        )
-      ];
-
-    let profiles=[];
-
-    if(userIds.length){
-
-      const profileResult =
-        await supabaseClient
-        .from("profiles")
-        .select(
-          "id,full_name,phone"
-        )
-        .in(
-          "id",
-          userIds
-        );
-
-      if(profileResult.error){
-
-        console.warn(
-          "Profile lookup:",
-          profileResult.error.message
-        );
-
-      }
-
-      profiles =
-        profileResult.data || [];
-
-    }
-
-    const profileMap =
-      Object.fromEntries(
-        profiles.map(
-          p=>[p.id,p]
-        )
-      );
-
     box.innerHTML =
-    data.map(request=>{
+    data.map(request => {
 
       const status =
-        String(
-          request.status ||
-          "pending"
-        )
+        String(request.status || "")
         .trim()
         .toLowerCase();
 
       const canReview =
         status !== "approved" &&
         status !== "rejected";
-
-      const profile =
-        profileMap[
-          request.user_id
-        ] || {};
-
-      const name =
-        profile.full_name ||
-        request.user_name ||
-        request.full_name ||
-        "Unknown user";
-
-      const phone =
-        request.sender_phone ||
-        profile.phone ||
-        "-";
 
       return `
 
@@ -2896,19 +3536,14 @@ async function loadAdminRequests(){
             </div>
 
             <div class="admin-status">
-              ${escapeHTML(status)}
+              ${escapeHTML(
+                status || "pending"
+              )}
             </div>
 
           </div>
 
           <div class="admin-details">
-
-            <strong>
-              User:
-              ${escapeHTML(name)}
-            </strong>
-
-            <br>
 
             Amount:
             ${money(request.amount)}
@@ -2917,13 +3552,15 @@ async function loadAdminRequests(){
 
             Provider:
             ${escapeHTML(
-              request.provider || "-"
+              request.provider || ""
             )}
 
             <br>
 
-            Phone:
-            ${escapeHTML(phone)}
+            Sender:
+            ${escapeHTML(
+              request.sender_phone || ""
+            )}
 
             <br>
 
@@ -2940,15 +3577,16 @@ async function loadAdminRequests(){
 
           ${
             canReview
-
             ? `
-
               <div class="admin-actions">
 
                 <button
                   class="approve"
                   type="button"
-                  onclick="reviewPayment('${request.id}','approve')"
+                  onclick="reviewPayment(
+                    '${request.id}',
+                    'approve'
+                  )"
                 >
                   ✓ Approve
                 </button>
@@ -2956,22 +3594,21 @@ async function loadAdminRequests(){
                 <button
                   class="reject"
                   type="button"
-                  onclick="reviewPayment('${request.id}','reject')"
+                  onclick="reviewPayment(
+                    '${request.id}',
+                    'reject'
+                  )"
                 >
                   ✕ Reject
                 </button>
 
               </div>
-
             `
-
             : `
-
               <div class="admin-details">
                 This payment has already been
                 ${escapeHTML(status)}.
               </div>
-
             `
           }
 
@@ -2988,253 +3625,14 @@ async function loadAdminRequests(){
       error
     );
 
-    box.innerHTML =
-      `<div class="empty">
+    box.innerHTML = `
+      <div class="empty">
         ${escapeHTML(
           error.message ||
           "Failed to load payment requests."
         )}
-      </div>`;
-
-  }
-
-}
-
-async function loadAdminWithdrawals(){
-
-  if(!isAdmin()){
-    return;
-  }
-
-  const box =
-    document.getElementById(
-      "adminWithdrawals"
-    );
-
-  if(!box){
-    return;
-  }
-
-  box.innerHTML =
-    `<div class="empty">
-      Loading withdrawal requests...
-    </div>`;
-
-  try{
-
-    const {
-      data,
-      error
-    } =
-    await supabaseClient
-    .from("withdrawals")
-    .select("*")
-    .order(
-      "requested_at",
-      {ascending:false}
-    );
-
-    if(error){
-      throw error;
-    }
-
-    if(!data || !data.length){
-
-      box.innerHTML =
-        `<div class="empty">
-          No withdrawal requests.
-        </div>`;
-
-      return;
-    }
-
-    const userIds =
-      [
-        ...new Set(
-          data
-          .map(w=>w.user_id)
-          .filter(Boolean)
-        )
-      ];
-
-    let profiles=[];
-
-    if(userIds.length){
-
-      const profileResult =
-        await supabaseClient
-        .from("profiles")
-        .select(
-          "id,full_name,phone"
-        )
-        .in(
-          "id",
-          userIds
-        );
-
-      if(profileResult.error){
-
-        console.warn(
-          "Withdrawal profile lookup:",
-          profileResult.error.message
-        );
-
-      }
-
-      profiles =
-        profileResult.data || [];
-
-    }
-
-    const profileMap =
-      Object.fromEntries(
-        profiles.map(
-          p=>[p.id,p]
-        )
-      );
-
-    box.innerHTML =
-    data.map(withdrawal=>{
-
-      const status =
-        String(
-          withdrawal.status ||
-          "pending"
-        )
-        .trim()
-        .toLowerCase();
-
-      const profile =
-        profileMap[
-          withdrawal.user_id
-        ] || {};
-
-      const name =
-        profile.full_name ||
-        "Unknown user";
-
-      const phone =
-        withdrawal.phone_number ||
-        profile.phone ||
-        "-";
-
-      const canApprove =
-        status === "pending";
-
-      return `
-
-        <div class="admin-request">
-
-          <div class="admin-top">
-
-            <div class="admin-ref">
-              ${escapeHTML(
-                withdrawal.reference ||
-                withdrawal.id
-              )}
-            </div>
-
-            <div class="admin-status">
-              ${escapeHTML(status)}
-            </div>
-
-          </div>
-
-          <div class="admin-details">
-
-            <strong>
-              User:
-              ${escapeHTML(name)}
-            </strong>
-
-            <br>
-
-            Amount:
-            ${money(withdrawal.amount)}
-
-            <br>
-
-            Provider:
-            ${escapeHTML(
-              withdrawal.provider ||
-              "-"
-            )}
-
-            <br>
-
-            Phone:
-            ${escapeHTML(phone)}
-
-            <br>
-
-            Net amount:
-            ${money(
-              withdrawal.net_amount ??
-              withdrawal.amount
-            )}
-
-            <br>
-
-            Requested:
-            ${
-              withdrawal.requested_at
-              ? new Date(
-                  withdrawal.requested_at
-                ).toLocaleString()
-              : "-"
-            }
-
-          </div>
-
-          ${
-            canApprove
-
-            ? `
-
-              <div class="admin-actions">
-
-                <button
-                  class="approve"
-                  type="button"
-                  onclick="approveWithdrawal('${withdrawal.id}')"
-                >
-                  ✓ Approve & Deduct
-                </button>
-
-              </div>
-
-            `
-
-            : `
-
-              <div class="admin-details">
-                This withdrawal has already been
-                ${escapeHTML(status)}.
-              </div>
-
-            `
-          }
-
-        </div>
-
-      `;
-
-    }).join("");
-
-  }catch(error){
-
-    console.error(
-      "Admin withdrawals error:",
-      error
-    );
-
-    box.innerHTML =
-      `<div class="empty">
-        ${escapeHTML(
-          error.message ||
-          "Failed to load withdrawal requests."
-        )}
-      </div>`;
+      </div>
+    `;
 
   }
 
@@ -3244,17 +3642,6 @@ async function reviewPayment(
   requestId,
   action
 ){
-
-  if(!isAdmin()){
-
-    showToast(
-      "Admin access is restricted.",
-      "error"
-    );
-
-    return;
-
-  }
 
   try{
 
@@ -3273,9 +3660,11 @@ async function reviewPayment(
       }
     );
 
+
     if(error){
       throw error;
     }
+
 
     showToast(
       action==="approve"
@@ -3284,7 +3673,9 @@ async function reviewPayment(
       "success"
     );
 
+
     await loadAdminRequests();
+
 
   }catch(error){
 
@@ -3298,87 +3689,10 @@ async function reviewPayment(
 
 }
 
-async function approveWithdrawal(
-  withdrawalId
-){
 
-  if(!isAdmin()){
-
-    showToast(
-      "Admin access is restricted.",
-      "error"
-    );
-
-    return;
-
-  }
-
-  const confirmed =
-    window.confirm(
-      "Approve this withdrawal? The withdrawal amount will be deducted from the user's available balance."
-    );
-
-  if(!confirmed){
-    return;
-  }
-
-  try{
-
-    const {
-      data,
-      error
-    } =
-    await supabaseClient
-    .rpc(
-      "admin_approve_withdrawal",
-      {
-        p_withdrawal_id:
-          withdrawalId
-      }
-    );
-
-    if(error){
-      throw error;
-    }
-
-    if(
-      !data ||
-      data.success !== true
-    ){
-
-      throw new Error(
-        "Withdrawal approval was not completed."
-      );
-
-    }
-
-    showToast(
-      "Withdrawal approved and balance deducted.",
-      "success"
-    );
-
-    await loadAdminWithdrawals();
-    await loadWallet();
-    await loadWithdrawals();
-
-    renderAll();
-
-  }catch(error){
-
-    console.error(
-      "Withdrawal approval error:",
-      error
-    );
-
-    showToast(
-      error.message ||
-      "Withdrawal approval failed.",
-      "error"
-    );
-
-  }
-
-}
+/* =========================================================
+   TABS
+========================================================= */
 
 document
 .querySelectorAll(".tab-btn")
@@ -3391,13 +3705,16 @@ document
       const target =
         this.dataset.tab;
 
+
       document
       .querySelectorAll(".tab-btn")
       .forEach(btn=>
         btn.classList.remove("active")
       );
 
+
       this.classList.add("active");
+
 
       document
       .querySelectorAll(".panel")
@@ -3405,29 +3722,15 @@ document
         panel.classList.remove("active")
       );
 
+
       document
       .getElementById(target)
       .classList.add("active");
 
+
       if(target==="adminPanel"){
 
-        if(!isAdmin()){
-
-          showToast(
-            "Admin access is restricted.",
-            "error"
-          );
-
-          showDashboard();
-
-          return;
-
-        }
-
-        await Promise.all([
-          loadAdminRequests(),
-          loadAdminWithdrawals()
-        ]);
+        await loadAdminRequests();
 
       }
 
@@ -3435,6 +3738,7 @@ document
   );
 
 });
+
 
 function showDashboard(){
 
@@ -3444,11 +3748,13 @@ function showDashboard(){
     btn.classList.remove("active")
   );
 
+
   document
   .querySelector(
     '[data-tab="dashboardPanel"]'
   )
   .classList.add("active");
+
 
   document
   .querySelectorAll(".panel")
@@ -3456,11 +3762,17 @@ function showDashboard(){
     panel.classList.remove("active")
   );
 
+
   document
   .getElementById("dashboardPanel")
   .classList.add("active");
 
 }
+
+
+/* =========================================================
+   CHECK-IN BUTTONS
+========================================================= */
 
 document
 .getElementById("checkinBtn")
@@ -3475,6 +3787,11 @@ document
 "click",
 performCheckin
 );
+
+
+/* =========================================================
+   MODAL CLOSE
+========================================================= */
 
 document
 .querySelectorAll("[data-close]")
@@ -3492,6 +3809,7 @@ document
   );
 
 });
+
 
 document
 .querySelectorAll(".modal")
@@ -3512,6 +3830,15 @@ document
 
 });
 
+
+document.getElementById("copyReferralBtn").addEventListener("click",copyReferralLink);
+document.getElementById("shareReferralBtn").addEventListener("click",shareReferralLink);
+
+
+/* =========================================================
+   LOGOUT
+========================================================= */
+
 document
 .getElementById("logoutBtn")
 .addEventListener(
@@ -3526,18 +3853,6 @@ async function(){
   currentProfile=null;
   currentWallet=null;
 
-  packages=[];
-  investments=[];
-  withdrawals=[];
-
-  document
-  .getElementById("adminTab")
-  .classList.add("hidden");
-
-  document
-  .getElementById("adminPanel")
-  .classList.remove("active");
-
   document
   .getElementById("app")
   .classList.add("hidden");
@@ -3549,6 +3864,11 @@ async function(){
   showSignup();
 
 });
+
+
+/* =========================================================
+   AUTH STATE
+========================================================= */
 
 supabaseClient
 .auth
@@ -3569,9 +3889,17 @@ async function(event,session){
 
 });
 
+
+/* =========================================================
+   INITIALIZE
+========================================================= */
+
+(function(){const code=getReferralCodeFromUrl();const input=document.getElementById("signupReferralCode");if(code){rememberReferralCode(code);if(input)input.value=code;}})();
+
 (async function(){
 
   showSignup();
+
 
   const {
     data
@@ -3579,6 +3907,7 @@ async function(event,session){
   await supabaseClient
   .auth
   .getSession();
+
 
   if(
     data?.session?.user
