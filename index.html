@@ -3400,192 +3400,208 @@ async function(e){
 
 /* =========================================================
    ADMIN
-========================================================= */
+================================================
 
 async function loadAdminRequests(){
 
   const box =
-    document.getElementById(
-      "adminRequests"
-    );
+    document.getElementById("adminRequests");
 
-
-  const {
-    data,
-    error
-  } =
-  await supabaseClient
-  .from("manual_payment_requests")
-  .select("*")
-  .order(
-    "created_at",
-    {ascending:false}
-  );
-
-
-  if(error){
-
-    box.innerHTML=
-      `<div class="empty">
-        ${escapeHTML(error.message)}
-      </div>`;
-
+  if(!box){
     return;
   }
 
-
-  if(!data?.length){
-
-    box.innerHTML=
-      `<div class="empty">
-        No payment requests.
-      </div>`;
-
-    return;
-  }
-
-
-  box.innerHTML =
-  data.map(request=>{
-
-    const pending =
-      request.status === "pending" ||
-      request.status === "pending_review";
-
-
-    return `
-
-      <div class="admin-request">
-
-        <div class="admin-top">
-
-          <div class="admin-ref">
-            ${escapeHTML(
-              request.transaction_reference ||
-              request.id
-            )}
-          </div>
-
-          <div class="admin-status">
-            ${escapeHTML(
-              request.status||""
-            )}
-          </div>
-
-        </div>
-
-
-        <div class="admin-details">
-
-          Amount:
-          ${money(request.amount)}
-
-          <br>
-
-          Provider:
-          ${escapeHTML(
-            request.provider||""
-          )}
-
-          <br>
-
-          Sender:
-          ${escapeHTML(
-            request.sender_phone||""
-          )}
-
-        </div>
-
-
-        ${
-          pending
-          ?`
-
-            <div class="admin-actions">
-
-              <button
-                class="approve"
-                type="button"
-                onclick="reviewPayment('${request.id}','approve')"
-              >
-                Approve
-              </button>
-
-              <button
-                class="reject"
-                type="button"
-                onclick="reviewPayment('${request.id}','reject')"
-              >
-                Reject
-              </button>
-
-            </div>
-
-          `
-          :""
-        }
-
-      </div>
-
-    `;
-
-  }).join("");
-
-}
-
-
-async function reviewPayment(
-  requestId,
-  action
-){
+  box.innerHTML = `
+    <div class="empty">
+      Loading payment requests...
+    </div>
+  `;
 
   try{
 
     const {
+      data,
       error
     } =
     await supabaseClient
-    .rpc(
-      "admin_review_manual_payment",
-      {
-        p_request_id:
-          requestId,
-
-        p_action:
-          action
-      }
+    .from("manual_payment_requests")
+    .select("*")
+    .order(
+      "created_at",
+      {ascending:false}
     );
-
 
     if(error){
       throw error;
     }
 
+    if(!data || data.length === 0){
 
-    showToast(
-      action==="approve"
-      ? "Payment approved."
-      : "Payment rejected.",
-      "success"
-    );
+      box.innerHTML = `
+        <div class="empty">
+          No payment requests.
+        </div>
+      `;
+
+      return;
+    }
+
+    box.innerHTML =
+    data.map(request => {
+
+      /*
+        Normalize the database status.
+        This handles:
+        pending
+        Pending
+        PENDING
+        pending_review
+        pending + spaces
+      */
+
+      const status =
+        String(request.status || "")
+        .trim()
+        .toLowerCase();
+
+      /*
+        Only hide the buttons after the
+        request is actually approved or rejected.
+      */
+
+      const canReview =
+        status !== "approved" &&
+        status !== "rejected";
+
+      return `
+
+        <div class="admin-request">
+
+          <div class="admin-top">
+
+            <div class="admin-ref">
+
+              ${escapeHTML(
+                request.transaction_reference ||
+                request.id
+              )}
+
+            </div>
+
+            <div class="admin-status">
+
+              ${escapeHTML(
+                status || "pending"
+              )}
+
+            </div>
+
+          </div>
 
 
-    await loadAdminRequests();
+          <div class="admin-details">
 
+            Amount:
+            ${money(request.amount)}
+
+            <br>
+
+            Provider:
+            ${escapeHTML(
+              request.provider || ""
+            )}
+
+            <br>
+
+            Sender:
+            ${escapeHTML(
+              request.sender_phone || ""
+            )}
+
+            <br>
+
+            Submitted:
+            ${
+              request.created_at
+              ? new Date(
+                  request.created_at
+                ).toLocaleString()
+              : "-"
+            }
+
+          </div>
+
+
+          ${
+            canReview
+
+            ? `
+
+              <div class="admin-actions">
+
+                <button
+                  class="approve"
+                  type="button"
+                  onclick="reviewPayment(
+                    '${request.id}',
+                    'approve'
+                  )"
+                >
+                  ✓ Approve
+                </button>
+
+                <button
+                  class="reject"
+                  type="button"
+                  onclick="reviewPayment(
+                    '${request.id}',
+                    'reject'
+                  )"
+                >
+                  ✕ Reject
+                </button>
+
+              </div>
+
+            `
+
+            : `
+
+              <div class="admin-details">
+
+                This payment has already been
+                ${escapeHTML(status)}.
+
+              </div>
+
+            `
+          }
+
+        </div>
+
+      `;
+
+    }).join("");
 
   }catch(error){
 
-    showToast(
-      error.message ||
-      "Review failed.",
-      "error"
+    console.error(
+      "Admin requests error:",
+      error
     );
+
+    box.innerHTML = `
+      <div class="empty">
+        ${escapeHTML(
+          error.message ||
+          "Failed to load payment requests."
+        )}
+      </div>
+    `;
 
   }
 
 }
-
-
 /* =========================================================
    TABS
 ========================================================= */
