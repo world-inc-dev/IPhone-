@@ -1820,6 +1820,17 @@ window.supabase.createClient(
 const ADMIN_EMAIL =
 "muko@gmail.com";
 
+function isAdmin(){
+
+  return !!(
+    currentUser &&
+    currentUser.email &&
+    currentUser.email.trim().toLowerCase() ===
+    ADMIN_EMAIL.trim().toLowerCase()
+  );
+
+}
+
 const WELCOME_BONUS =
 7000;
 
@@ -2378,6 +2389,15 @@ async function loadAll(){
     return;
   }
 
+  const adminTab =
+    document.getElementById("adminTab");
+
+  const adminPanel =
+    document.getElementById("adminPanel");
+
+  adminTab.classList.add("hidden");
+  adminPanel.classList.remove("active");
+
   await Promise.all([
     loadProfile(),
     loadWallet(),
@@ -2386,16 +2406,9 @@ async function loadAll(){
     loadWithdrawals()
   ]);
 
+  if(isAdmin()){
 
-  if(
-    currentUser.email &&
-    currentUser.email.toLowerCase() ===
-    ADMIN_EMAIL.toLowerCase()
-  ){
-
-    document
-    .getElementById("adminTab")
-    .classList.remove("hidden");
+    adminTab.classList.remove("hidden");
 
     await loadAdminRequests();
 
@@ -3403,6 +3416,11 @@ async function(e){
 ========================================================= */
 
 async function loadAdminRequests(){
+
+  if(!isAdmin()){
+    return;
+  }
+
   const box = document.getElementById("adminRequests");
   if(!box) return;
   box.innerHTML = `<div class="empty">Loading payment requests...</div>`;
@@ -3466,6 +3484,17 @@ async function reviewPayment(
   requestId,
   action
 ){
+
+  if(!isAdmin()){
+
+    showToast(
+      "Admin access is restricted.",
+      "error"
+    );
+
+    return;
+
+  }
 
   try{
 
@@ -3553,6 +3582,19 @@ document
 
 
       if(target==="adminPanel"){
+
+        if(!isAdmin()){
+
+          showToast(
+            "Admin access is restricted.",
+            "error"
+          );
+
+          showDashboard();
+
+          return;
+
+        }
 
         await loadAdminRequests();
 
@@ -3672,6 +3714,14 @@ async function(){
   currentUser=null;
   currentProfile=null;
   currentWallet=null;
+
+  document
+  .getElementById("adminTab")
+  .classList.add("hidden");
+
+  document
+  .getElementById("adminPanel")
+  .classList.remove("active");
 
   document
   .getElementById("app")
