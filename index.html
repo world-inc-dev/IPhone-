@@ -1114,10 +1114,6 @@ button{
 
     </section>
 
-    <!-- =====================================================
-         ADMIN PANEL
-    ====================================================== -->
-
     <section id="adminPanel" class="panel">
 
       <div class="card">
@@ -1173,12 +1169,12 @@ button{
       <br><br>
 
       <strong>MTN</strong><br>
-      ELLY — +256 746 673 971
+      Kacep Abdu — 0768634808
 
       <br><br>
 
       <strong>Airtel</strong><br>
-      BRIAN — +256 788 271 972
+      Chomia Umar — 0758235281
 
       <br><br>
 
@@ -1329,10 +1325,6 @@ button{
 
 <script>
 
-/* =========================================================
-   SUPABASE
-========================================================= */
-
 const SUPABASE_URL =
 "https://lapwvklbgdjzysszzcaz.supabase.co";
 
@@ -1344,11 +1336,6 @@ window.supabase.createClient(
   SUPABASE_URL,
   SUPABASE_KEY
 );
-
-
-/* =========================================================
-   SETTINGS
-========================================================= */
 
 const ADMIN_EMAIL =
 "worldbridan3@gmail.com";
@@ -1365,7 +1352,6 @@ const MIN_WITHDRAWAL =
 const IPHONE_IMAGE =
 "https://images.apple.com/v/iphone-18-pro/b/images/overview/product-viewer/3d_viewer__hgotqf9hvvee_large.jpg";
 
-
 function isAdmin(){
 
   return !!(
@@ -1377,11 +1363,6 @@ function isAdmin(){
 
 }
 
-
-/* =========================================================
-   STATE
-========================================================= */
-
 let currentUser = null;
 let currentProfile = null;
 let currentWallet = null;
@@ -1390,11 +1371,6 @@ let packages = [];
 let investments = [];
 let withdrawals = [];
 
-
-/* =========================================================
-   HELPERS
-========================================================= */
-
 function money(value){
 
   return "UGX " +
@@ -1402,7 +1378,6 @@ function money(value){
     .toLocaleString("en-UG");
 
 }
-
 
 function escapeHTML(value){
 
@@ -1414,7 +1389,6 @@ function escapeHTML(value){
     .replace(/'/g,"&#039;");
 
 }
-
 
 function normalizePhone(phone){
 
@@ -1434,7 +1408,6 @@ function normalizePhone(phone){
   return p;
 
 }
-
 
 function showToast(message,type=""){
 
@@ -1459,7 +1432,6 @@ function showToast(message,type=""){
 
 }
 
-
 function openModal(id){
 
   document
@@ -1468,7 +1440,6 @@ function openModal(id){
 
 }
 
-
 function closeModal(id){
 
   document
@@ -1476,7 +1447,6 @@ function closeModal(id){
   .classList.remove("show");
 
 }
-
 
 function getWalletBalance(wallet){
 
@@ -1509,7 +1479,6 @@ function getWalletBalance(wallet){
 
 }
 
-
 function todayKey(){
 
   const d=new Date();
@@ -1521,11 +1490,6 @@ function todayKey(){
     String(d.getDate()).padStart(2,"0");
 
 }
-
-
-/* =========================================================
-   AUTH TABS
-========================================================= */
 
 function showSignup(){
 
@@ -1547,7 +1511,6 @@ function showSignup(){
 
 }
 
-
 function showLogin(){
 
   document
@@ -1568,7 +1531,6 @@ function showLogin(){
 
 }
 
-
 document
 .getElementById("signupTab")
 .addEventListener("click",showSignup);
@@ -1576,11 +1538,6 @@ document
 document
 .getElementById("loginTab")
 .addEventListener("click",showLogin);
-
-
-/* =========================================================
-   SECURE WELCOME BONUS
-========================================================= */
 
 async function ensureWelcomeBonus(){
 
@@ -1636,11 +1593,6 @@ async function ensureWelcomeBonus(){
   }
 
 }
-
-
-/* =========================================================
-   SIGN UP
-========================================================= */
 
 document
 .getElementById("signupForm")
@@ -1792,11 +1744,6 @@ async function(e){
 
 });
 
-
-/* =========================================================
-   LOGIN
-========================================================= */
-
 document
 .getElementById("loginForm")
 .addEventListener(
@@ -1867,11 +1814,6 @@ async function(e){
 
 });
 
-
-/* =========================================================
-   ENTER APPLICATION
-========================================================= */
-
 async function enterApplication(){
 
   if(!currentUser){
@@ -1893,11 +1835,6 @@ async function enterApplication(){
   showDashboard();
 
 }
-
-
-/* =========================================================
-   LOAD DATA
-========================================================= */
 
 async function loadAll(){
 
@@ -1935,7 +1872,6 @@ async function loadAll(){
 
 }
 
-
 async function loadProfile(){
 
   const {
@@ -1953,7 +1889,6 @@ async function loadProfile(){
   }
 
 }
-
 
 async function loadWallet(){
 
@@ -1984,7 +1919,6 @@ async function loadWallet(){
 
 }
 
-
 async function loadPackages(){
 
   const {
@@ -2005,7 +1939,6 @@ async function loadPackages(){
   }
 
 }
-
 
 async function loadInvestments(){
 
@@ -2028,7 +1961,6 @@ async function loadInvestments(){
 
 }
 
-
 async function loadWithdrawals(){
 
   const {
@@ -2049,11 +1981,6 @@ async function loadWithdrawals(){
   }
 
 }
-
-
-/* =========================================================
-   RENDER
-========================================================= */
 
 function renderAll(){
 
@@ -2116,11 +2043,6 @@ function renderAll(){
   updateWithdrawal();
 
 }
-
-
-/* =========================================================
-   ACTIVE PACKAGE
-========================================================= */
 
 function renderActivePackage(){
 
@@ -2213,11 +2135,6 @@ function renderActivePackage(){
 
 }
 
-
-/* =========================================================
-   PACKAGES
-========================================================= */
-
 function renderPackages(){
 
   const box =
@@ -2287,7 +2204,6 @@ function renderPackages(){
 
 }
 
-
 function populatePaymentPackages(){
 
   const select =
@@ -2311,7 +2227,6 @@ function populatePaymentPackages(){
 
 }
 
-
 function openPaymentForPackage(id){
 
   document
@@ -2321,11 +2236,6 @@ function openPaymentForPackage(id){
   openModal("paymentModal");
 
 }
-
-
-/* =========================================================
-   HISTORY
-========================================================= */
 
 function renderHistory(){
 
@@ -2420,11 +2330,6 @@ function renderHistory(){
 
 }
 
-
-/* =========================================================
-   CHECK-IN
-========================================================= */
-
 function updateCheckin(){
 
   const key =
@@ -2465,7 +2370,6 @@ function updateCheckin(){
     : "Available today";
 
 }
-
 
 async function performCheckin(){
 
@@ -2527,11 +2431,6 @@ async function performCheckin(){
 
 }
 
-
-/* =========================================================
-   WITHDRAWAL
-========================================================= */
-
 function firstInvestmentStart(){
 
   const valid =
@@ -2549,7 +2448,6 @@ function firstInvestmentStart(){
 
 }
 
-
 function withdrawalUnlocked(){
 
   const start =
@@ -2566,7 +2464,6 @@ function withdrawalUnlocked(){
   24*60*60*1000;
 
 }
-
 
 function updateWithdrawal(){
 
@@ -2595,7 +2492,6 @@ function updateWithdrawal(){
     "Eligible";
 
 }
-
 
 document
 .getElementById("withdrawBtn")
@@ -2631,7 +2527,6 @@ function(){
   openModal("withdrawModal");
 
 });
-
 
 document
 .getElementById("withdrawForm")
@@ -2766,11 +2661,6 @@ async function(e){
 
 });
 
-
-/* =========================================================
-   PAYMENT
-========================================================= */
-
 document
 .getElementById("rechargeBtn")
 .addEventListener(
@@ -2782,7 +2672,6 @@ function(){
   openModal("paymentModal");
 
 });
-
 
 document
 .getElementById("paymentForm")
@@ -2868,11 +2757,6 @@ async function(e){
   }
 
 });
-
-
-/* =========================================================
-   ADMIN — PAYMENT REQUESTS
-========================================================= */
 
 async function loadAdminRequests(){
 
@@ -3116,11 +3000,6 @@ async function loadAdminRequests(){
 
 }
 
-
-/* =========================================================
-   ADMIN — WITHDRAWAL REQUESTS
-========================================================= */
-
 async function loadAdminWithdrawals(){
 
   if(!isAdmin()){
@@ -3361,11 +3240,6 @@ async function loadAdminWithdrawals(){
 
 }
 
-
-/* =========================================================
-   ADMIN — PAYMENT REVIEW
-========================================================= */
-
 async function reviewPayment(
   requestId,
   action
@@ -3423,11 +3297,6 @@ async function reviewPayment(
   }
 
 }
-
-
-/* =========================================================
-   ADMIN — WITHDRAWAL APPROVAL
-========================================================= */
 
 async function approveWithdrawal(
   withdrawalId
@@ -3488,15 +3357,7 @@ async function approveWithdrawal(
       "success"
     );
 
-    /*
-      Refresh admin withdrawals.
-    */
     await loadAdminWithdrawals();
-
-    /*
-      Refresh the admin's own wallet display
-      and user-side withdrawal data if applicable.
-    */
     await loadWallet();
     await loadWithdrawals();
 
@@ -3518,11 +3379,6 @@ async function approveWithdrawal(
   }
 
 }
-
-
-/* =========================================================
-   TABS
-========================================================= */
 
 document
 .querySelectorAll(".tab-btn")
@@ -3580,7 +3436,6 @@ document
 
 });
 
-
 function showDashboard(){
 
   document
@@ -3607,11 +3462,6 @@ function showDashboard(){
 
 }
 
-
-/* =========================================================
-   CHECK-IN BUTTONS
-========================================================= */
-
 document
 .getElementById("checkinBtn")
 .addEventListener(
@@ -3625,11 +3475,6 @@ document
 "click",
 performCheckin
 );
-
-
-/* =========================================================
-   MODAL CLOSE
-========================================================= */
 
 document
 .querySelectorAll("[data-close]")
@@ -3647,7 +3492,6 @@ document
   );
 
 });
-
 
 document
 .querySelectorAll(".modal")
@@ -3667,11 +3511,6 @@ document
   );
 
 });
-
-
-/* =========================================================
-   LOGOUT
-========================================================= */
 
 document
 .getElementById("logoutBtn")
@@ -3711,11 +3550,6 @@ async function(){
 
 });
 
-
-/* =========================================================
-   AUTH STATE
-========================================================= */
-
 supabaseClient
 .auth
 .onAuthStateChange(
@@ -3734,11 +3568,6 @@ async function(event,session){
   }
 
 });
-
-
-/* =========================================================
-   INITIALIZE
-========================================================= */
 
 (async function(){
 
