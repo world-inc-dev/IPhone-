@@ -1818,7 +1818,7 @@ window.supabase.createClient(
 ========================================================= */
 
 const ADMIN_EMAIL =
-"worldbridan3@gmail.com";
+"muko@gmail.com";
 
 const WELCOME_BONUS =
 7000;
@@ -3400,208 +3400,120 @@ async function(e){
 
 /* =========================================================
    ADMIN
-================================================
+========================================================= */
 
 async function loadAdminRequests(){
-
-  const box =
-    document.getElementById("adminRequests");
-
-  if(!box){
-    return;
+  const box = document.getElementById("adminRequests");
+  if(!box) return;
+  box.innerHTML = `<div class="empty">Loading payment requests...</div>`;
+  try{
+    const {data,error} = await supabaseClient
+      .from("manual_payment_requests")
+      .select("*")
+      .order("created_at",{ascending:false});
+    if(error) throw error;
+    if(!data || !data.length){
+      box.innerHTML = `<div class="empty">No payment requests.</div>`;
+      return;
+    }
+    const userIds = [...new Set(data.map(r=>r.user_id).filter(Boolean))];
+    let profiles = [];
+    if(userIds.length){
+      const profileResult = await supabaseClient
+        .from("profiles")
+        .select("id,full_name,phone")
+        .in("id",userIds);
+      if(profileResult.error) console.warn("Profile lookup:",profileResult.error.message);
+      profiles = profileResult.data || [];
+    }
+    const profileMap = Object.fromEntries(profiles.map(p=>[p.id,p]));
+    box.innerHTML = data.map(request=>{
+      const status = String(request.status || "pending").trim().toLowerCase();
+      const canReview = status !== "approved" && status !== "rejected";
+      const profile = profileMap[request.user_id] || {};
+      const name = profile.full_name || request.user_name || request.full_name || "Unknown user";
+      const phone = request.sender_phone || profile.phone || "-";
+      return `
+        <div class="admin-request">
+          <div class="admin-top">
+            <div class="admin-ref">${escapeHTML(request.transaction_reference || request.id)}</div>
+            <div class="admin-status">${escapeHTML(status)}</div>
+          </div>
+          <div class="admin-details">
+            <strong>User: ${escapeHTML(name)}</strong><br>
+            Amount: ${money(request.amount)}<br>
+            Provider: ${escapeHTML(request.provider || "-")}<br>
+            Phone: ${escapeHTML(phone)}<br>
+            Submitted: ${request.created_at ? new Date(request.created_at).toLocaleString() : "-"}
+          </div>
+          ${canReview ? `
+            <div class="admin-actions">
+              <button class="approve" type="button" onclick="reviewPayment('${request.id}','approve')">✓ Approve</button>
+              <button class="reject" type="button" onclick="reviewPayment('${request.id}','reject')">✕ Reject</button>
+            </div>
+          ` : `
+            <div class="admin-details">This payment has already been ${escapeHTML(status)}.</div>
+          `}
+        </div>`;
+    }).join("");
+  }catch(error){
+    console.error("Admin requests error:",error);
+    box.innerHTML = `<div class="empty">${escapeHTML(error.message || "Failed to load payment requests.")}</div>`;
   }
+}
 
-  box.innerHTML = `
-    <div class="empty">
-      Loading payment requests...
-    </div>
-  `;
+async function reviewPayment(
+  requestId,
+  action
+){
 
   try{
 
     const {
-      data,
       error
     } =
     await supabaseClient
-    .from("manual_payment_requests")
-    .select("*")
-    .order(
-      "created_at",
-      {ascending:false}
+    .rpc(
+      "admin_review_manual_payment",
+      {
+        p_request_id:
+          requestId,
+
+        p_action:
+          action
+      }
     );
+
 
     if(error){
       throw error;
     }
 
-    if(!data || data.length === 0){
 
-      box.innerHTML = `
-        <div class="empty">
-          No payment requests.
-        </div>
-      `;
-
-      return;
-    }
-
-    box.innerHTML =
-    data.map(request => {
-
-      /*
-        Normalize the database status.
-        This handles:
-        pending
-        Pending
-        PENDING
-        pending_review
-        pending + spaces
-      */
-
-      const status =
-        String(request.status || "")
-        .trim()
-        .toLowerCase();
-
-      /*
-        Only hide the buttons after the
-        request is actually approved or rejected.
-      */
-
-      const canReview =
-        status !== "approved" &&
-        status !== "rejected";
-
-      return `
-
-        <div class="admin-request">
-
-          <div class="admin-top">
-
-            <div class="admin-ref">
-
-              ${escapeHTML(
-                request.transaction_reference ||
-                request.id
-              )}
-
-            </div>
-
-            <div class="admin-status">
-
-              ${escapeHTML(
-                status || "pending"
-              )}
-
-            </div>
-
-          </div>
+    showToast(
+      action==="approve"
+      ? "Payment approved."
+      : "Payment rejected.",
+      "success"
+    );
 
 
-          <div class="admin-details">
+    await loadAdminRequests();
 
-            Amount:
-            ${money(request.amount)}
-
-            <br>
-
-            Provider:
-            ${escapeHTML(
-              request.provider || ""
-            )}
-
-            <br>
-
-            Sender:
-            ${escapeHTML(
-              request.sender_phone || ""
-            )}
-
-            <br>
-
-            Submitted:
-            ${
-              request.created_at
-              ? new Date(
-                  request.created_at
-                ).toLocaleString()
-              : "-"
-            }
-
-          </div>
-
-
-          ${
-            canReview
-
-            ? `
-
-              <div class="admin-actions">
-
-                <button
-                  class="approve"
-                  type="button"
-                  onclick="reviewPayment(
-                    '${request.id}',
-                    'approve'
-                  )"
-                >
-                  ✓ Approve
-                </button>
-
-                <button
-                  class="reject"
-                  type="button"
-                  onclick="reviewPayment(
-                    '${request.id}',
-                    'reject'
-                  )"
-                >
-                  ✕ Reject
-                </button>
-
-              </div>
-
-            `
-
-            : `
-
-              <div class="admin-details">
-
-                This payment has already been
-                ${escapeHTML(status)}.
-
-              </div>
-
-            `
-          }
-
-        </div>
-
-      `;
-
-    }).join("");
 
   }catch(error){
 
-    console.error(
-      "Admin requests error:",
-      error
+    showToast(
+      error.message ||
+      "Review failed.",
+      "error"
     );
-
-    box.innerHTML = `
-      <div class="empty">
-        ${escapeHTML(
-          error.message ||
-          "Failed to load payment requests."
-        )}
-      </div>
-    `;
 
   }
 
 }
+
+
 /* =========================================================
    TABS
 ========================================================= */
