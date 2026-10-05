@@ -9,6 +9,75 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
+  .whatsapp-card{
+  margin-top:18px;
+  display:flex;
+  align-items:center;
+  gap:14px;
+  background:linear-gradient(
+    145deg,
+    rgba(184,255,53,.07),
+    rgba(255,255,255,.015)
+  );
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:16px;
+}
+
+.whatsapp-icon{
+  width:52px;
+  height:52px;
+  flex-shrink:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:14px;
+  background:rgba(184,255,53,.12);
+  border:1px solid rgba(184,255,53,.2);
+  font-size:27px;
+}
+
+.whatsapp-content{
+  flex:1;
+}
+
+.whatsapp-title{
+  font-size:13px;
+  font-weight:900;
+  margin-bottom:5px;
+}
+
+.whatsapp-text{
+  color:var(--muted);
+  font-size:10px;
+  line-height:1.5;
+}
+
+.whatsapp-btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  margin-top:9px;
+  padding:9px 12px;
+  border-radius:9px;
+  background:var(--lime);
+  color:#071000;
+  text-decoration:none;
+  font-size:10px;
+  font-weight:900;
+}
+
+@media(max-width:520px){
+  .whatsapp-card{
+    align-items:flex-start;
+  }
+
+  .whatsapp-icon{
+    width:46px;
+    height:46px;
+    font-size:23px;
+  }
+}
 :root{
   --bg:#020403;
   --panel:rgba(5,10,7,.78);
@@ -547,6 +616,35 @@ button{
    DASHBOARD
 ========================================================= */
 
+  <div class="whatsapp-card">
+
+  <div class="whatsapp-icon">
+    💬
+  </div>
+
+  <div class="whatsapp-content">
+
+    <div class="whatsapp-title">
+      Join the iPhoneVest Community
+    </div>
+
+    <div class="whatsapp-text">
+      Connect with other members, get updates, ask questions,
+      and stay informed about iPhoneVest.
+    </div>
+
+    <a
+      class="whatsapp-btn"
+      href="https://chat.whatsapp.com/L02QR7wj5f39i841yCT4ID"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      💬 Join Our WhatsApp Group
+    </a>
+
+  </div>
+
+</div>
 .dashboard-grid{
   display:grid;
 
