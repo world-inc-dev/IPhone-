@@ -1497,14 +1497,7 @@ button{
             Check In
           </button>
           
-<button
-  id="testInvestmentEarningsBtn"
-  class="mini-btn"
-  type="button"
-  style="margin-top:8px;background:#63ff00;"
->
-  Test Package Earnings
-</button>
+
         </div>
 
       </div>
@@ -2606,7 +2599,7 @@ async function enterApplication(){
 
 
   await loadAll();
-
+await processDailyInvestmentEarnings();
   renderAll();
 
   showDashboard();
@@ -4117,99 +4110,81 @@ function showDashboard(){
 
 
   document
-  .getElementById("dashboardPanel")
-  .classList.add("active");
+  .getElementById("dashboardPanel").classList.add("active");
 
+  
 }
-/* =========================================================
-   TEST PACKAGE DAILY EARNINGS
-   TEMPORARY TEST BUTTON
+  /* =========================================================
+   AUTOMATIC DAILY PACKAGE EARNINGS
 ========================================================= */
 
-async function testInvestmentEarnings(){
+async function processDailyInvestmentEarnings(){
 
   if(!currentUser){
-
-    showToast(
-      "Please sign in first.",
-      "error"
-    );
-
     return;
   }
-
-  const button =
-    document.getElementById(
-      "testInvestmentEarningsBtn"
-    );
-
-  button.disabled = true;
-  button.textContent = "Processing...";
 
   try{
 
     const {
       data,
       error
-    } =
-    await supabaseClient
-    .rpc(
-      "claim_daily_investment_earnings"
-    );
+    } = await supabaseClient
+      .rpc("claim_daily_investment_earnings");
 
     if(error){
-      throw error;
+
+      console.error(
+        "Daily package earnings error:",
+        error
+      );
+
+      return;
     }
 
     console.log(
-      "Investment earnings result:",
+      "Daily package earnings result:",
       data
     );
+
+    /*
+      Refresh wallet and investments
+      after successful processing.
+    */
 
     await loadWallet();
     await loadInvestments();
 
     renderAll();
 
-    showToast(
-      "Package earnings processed: " +
-      money(data?.amount_credited || 0),
-      "success"
-    );
+    /*
+      Only show a message when money
+      was actually credited.
+    */
+
+    if(
+      data &&
+      Number(data.amount_credited || 0) > 0
+    ){
+
+      showToast(
+        "Daily package earnings credited: " +
+        money(data.amount_credited),
+        "success"
+      );
+
+    }
 
   }catch(error){
 
     console.error(
-      "Investment earnings error:",
+      "Automatic package earnings failed:",
       error
     );
-
-    showToast(
-      error.message ||
-      "Package earnings failed.",
-      "error"
-    );
-
-  }finally{
-
-    button.disabled = false;
-    button.textContent =
-      "Test Package Earnings";
 
   }
 
 }
-
-
-document
-.getElementById(
-  "testInvestmentEarningsBtn"
-)
-.addEventListener(
-  "click",
-  testInvestmentEarnings
-);
-  
 
 /* =========================================================
    CHECK-IN BUTTONS
